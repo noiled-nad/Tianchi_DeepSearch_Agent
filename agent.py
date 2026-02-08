@@ -13,8 +13,13 @@ from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.store.base import BaseStore
 from langgraph.store.memory import InMemoryStore
-from dotenv import load_dotenv
-load_dotenv()
+
+os.environ["DASHSCOPE_API_KEY"] = "sk-6e70679f0be94c27b5bcd5e15999164d"
+
+# Set environment variables for trace
+os.environ["LANGSMITH_OTEL_ENABLED"] = "true"
+os.environ["LANGSMITH_TRACING"] = "true"
+os.environ["LANGSMITH_OTEL_ONLY"] = "true"
 
 short_term_memory: BaseCheckpointSaver = None
 long_term_memory: BaseStore = None
@@ -52,9 +57,9 @@ async def initialize(self):
 
     tools = [get_weather]
     llm = ChatOpenAI(
-        model=os.getenv("model"),
-        api_key=os.getenv("API_KEY"),
-        base_url=os.getenv("base_url"),
+        model="qwen-plus",
+        api_key=os.environ.get("DASHSCOPE_API_KEY"),
+        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
     )
     prompt = """You are a proactive research assistant. """
     self.agent = create_agent(
@@ -130,3 +135,6 @@ async def get_long_term_memory(user_id: str):
 
     serialized = [serialize_search_item(item) for item in long_term_mem]
     return serialized
+
+if __name__ == "__main__":
+    agent_app.run()
