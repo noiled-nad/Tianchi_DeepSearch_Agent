@@ -1,0 +1,204 @@
+Question ID: 10
+Question: 一位作家的本名与某功率单位相同，早年利用业余时间进行创作，35 岁时成为全职作家。截至2025年，其超过 10 部小说已被改编为影视剧、话剧等多种艺术形式。请问，2019 年根据该作家作品改编的某部电视剧中，两位男主角分别由谁扮演？要求回答格式形如：张三和李四
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A assistant.
+    *   Constraint: Direct answer only, no reasoning, no extra explanation, no formatting beyond the required structure.
+    *   Question: Identify a writer whose real name is the same as a power unit. They wrote part-time early on, became a full-time writer at 35. As of 2025, over 10 of their novels have been adapted into films, TV series, plays, etc. Identify the two male leads in a TV series adapted from their work in 2019.
+    *   Output Format: "Name1 and Name2" (e.g., 张三和李四).
+
+2.  **Identify the Writer:**
+    *   Clue 1: Real name is the same as a power unit (功率单位). Common power units: Watt (瓦特), Horsepower (马力), etc. In Chinese context, "Watt" translates to "瓦特" (Wǎ tè). Is there a writer named "瓦特"? No. Wait, maybe the unit name in Chinese characters.
+    *   Clue 2: Power unit = "千瓦" (Kilowatt)? "马力" (Horsepower)?
+    *   Let's think of Chinese writers.
+    *   Is there a writer named "马力" (Ma Li)? Yes, there is a writer named 马力 (Ma Li), but is he famous for over 10 adaptations?
+    *   Is there a writer named "瓦" (Wa)?
+    *   Let's reconsider the "power unit" clue. Maybe it's a homophone or a specific name.
+    *   Wait, the most famous Chinese writer whose name sounds like a power unit is **刘慈欣** (Liu Cixin)? No. **金庸** (Jin Yong)? No.
+    *   How about **唐家三少**? No.
+    *   How about **马伯庸** (Ma Boyong)? No.
+    *   Let's search for "作家 本名 功率单位" (Writer real name power unit).
+    *   Common power units: 瓦特 (Watt), 马力 (Horsepower), 焦耳 (Joule - energy, but often confused), 牛顿 (Newton - force).
+    *   Is there a writer named **吴钩**? No.
+    *   Is there a writer named **千瓦**? No.
+    *   Let's think about the adaptations. Over 10 novels adapted by 2025. This suggests a very prolific contemporary writer, likely in the genre of mystery, romance, or web novels.
+    *   Candidate: **紫金陈** (Zijin Chen)? Real name Chen Lei. No.
+    *   Candidate: **顾漫** (Gu Man)? No.
+    *   Candidate: **桐华** (Tong Hua)? No.
+    *   Candidate: **匪我思存** (Fei Wo Si Cun)? No.
+    *   Candidate: **海宴** (Hai Yan)? No.
+    *   Candidate: **马伯庸** (Ma Boyong)? Real name not a unit.
+    *   Candidate: **刘震云**? No.
+    *   Let's reconsider the "Power Unit" clue. Maybe it's **瓦** (Wa).
+    *   Is there a writer named **六瓦**? No.
+    *   Is there a writer named **千瓦**? No.
+    *   What about **马力** (Ma Li)? There is a writer named 马力，but is he the one?
+    *   What about **焦耳**?
+    *   What about **伏特** (Volt - voltage)?
+    *   What about **安培** (Ampere - current)?
+    *   What about **欧姆** (Ohm - resistance)?
+    *   Maybe the name is **吴功率**? No.
+    *   Let's search for the specific detail: "35 岁时成为全职作家" (Became full-time writer at 35).
+    *   This is a specific biographical detail.
+    *   Writer: **九把刀**? No.
+    *   Writer: **南派三叔**? No.
+    *   Writer: **天下霸唱**? No.
+    *   Writer: **猫腻**? No.
+    *   Writer: **priest**? No.
+    *   Writer: **墨香铜臭**? No.
+    *   Let's think of the name again. "本名与某功率单位相同" (Real name is the same as a certain power unit).
+    *   Power unit in Chinese: 瓦特 (Watt), 马力 (Horsepower).
+    *   Is there a writer named **瓦特**? No.
+    *   Is there a writer named **马力**?
+    *   There is a writer named **马力** (Ma Li), but is he famous enough for 10+ adaptations?
+    *   Wait, could it be **千瓦**?
+    *   Could it be a pun?
+    *   Let's search for "作家 35 岁 全职 10 部 改编".
+    *   Maybe the writer is **余耕**? No.
+    *   Maybe the writer is **石康**? No.
+    *   Maybe the writer is **刘同**? No.
+    *   Let's try to match the 2019 TV series adaptation clue.
+    *   2019 TV series adapted from a novel with two male leads (双男主).
+    *   Popular 2019 dramas with two male leads:
+        *   《陈情令》 (The Untamed) - Adapted from《魔道祖师》by 墨香铜臭 (Mo Xiang Tong Xiu). Real name not a power unit.
+        *   《镇魂》 (Guardian) - 2018.
+        *   《全职高手》 (The King's Avatar) - 2019. Adapted from 蝴蝶蓝 (Hu Die Lan). Real name Wang Dong.
+        *   《庆余年》 (Joy of Life) - 2019. Adapted from 猫腻 (Mao Ni). Real name Xiao Ding.
+        *   《宸汐缘》?
+        *   《鬓边不是海棠红》? 2020.
+        *   《重生》?
+        *   《破冰行动》?
+    *   Let's reconsider the writer's name. "Power Unit".
+    *   Is it **瓦** (Wa)?
+    *   Is it **特** (Te)?
+    *   Is it **马** (Ma)?
+    *   Is it **力** (Li)?
+    *   Is it **马力** (Ma Li)?
+    *   Is there a writer named **马力**? There is a scholar/writer named 马力，but not known for 10+ adaptations.
+    *   Wait, is it **千瓦**?
+    *   Is it **焦耳**?
+    *   Is it **牛顿**?
+    *   Is it **帕斯卡**?
+    *   Maybe the unit is **Watt** and the name is **瓦特**? No Chinese writer named Watt.
+    *   Maybe the unit is **Horsepower** and the name is **马力**?
+    *   Let's search for "作家 马力".
+    *   Actually, there is a very famous writer named **马伯庸** (Ma Boyong). His real name is **马力** (Ma Li).
+    *   Let's verify:
+        *   Writer: 马伯庸 (Ma Boyong).
+        *   Real name: 马力 (Ma Li).
+        *   Is "马力" a power unit? Yes, Horsepower.
+        *   Did he become a full-time writer at 35? Ma Boyong was born in 1980. He worked at a company (Siemens, etc.) before. He became a full-time writer around 2015? 1980 + 35 = 2015. This matches roughly.
+        *   Have over 10 of his novels been adapted by 2025?
+            *   《古董局中局》 (Movie, TV series)
+            *   《长安十二时辰》 (TV series)
+            *   《风起陇西》 (TV series)
+            *   《显微镜下的大明》 (TV series)
+            *   《两京十五日》 (TV series planned/adapted)
+            *   《大医》
+            *   《太白金星有点烦》
+            *   《龙与地下铁》
+            *   《三国机密》 (TV series)
+            *   《风起洛阳》 (TV series - based on concept/story)
+            *   《长安的荔枝》
+            *   There are many adaptations. "Over 10" fits the scale of IP development for Ma Boyong by 2025.
+        *   2019 TV series adapted from his work?
+            *   《长安十二时辰》 (The Longest Day in Chang'an) was broadcast in 2019.
+            *   《古董局中局》 (TV series) was broadcast in 2018.
+            *   《三国机密之潜龙在渊》 (Secret of the Three Kingdoms) was broadcast in 2018.
+            *   《长安十二时辰》is the most prominent 2019 adaptation.
+        *   Who are the two male leads in《长安十二时辰》?
+            *   雷佳音 (Lei Jiayin) as 张小敬 (Zhang Xiaojing).
+            *   易烊千玺 (Yi Yangqianxi) as 李必 (Li Bi).
+    *   Let's double check the "35 years old full-time" detail.
+        *   Ma Boyong born 1980.
+        *   He worked at Siemens, etc.
+        *   Reports say he quit his job to become a full-time writer in 2015. 2015 - 1980 = 35. This matches perfectly.
+        *   Real name: 马力 (Ma Li). Unit: 马力 (Horsepower). Matches perfectly.
+        *   2019 TV Series: 《长安十二时辰》.
+        *   Two male leads: 雷佳音 and 易烊千玺.
+    *   Are there other 2019 adaptations?
+        *   《古董局中局》TV was 2018.
+        *   《长安十二时辰》is the main one in 2019.
+    *   Question asks for the two male leads in *a* TV series adapted in 2019.
+    *   Format: "张三和李四".
+
+3.  **Confirm Details:**
+    *   Writer: 马伯庸 (Pen name), 马力 (Real name).
+    *   Unit: 马力 (Horsepower).
+    *   Full-time at 35: Yes (2015).
+    *   10+ adaptations by 2025: Yes (Antique Bureau, Chang'an 12 Hours, Fengqi Longxi, Ming Dynasty under Microscope, Fengqi Luoyang, Secret of Three Kingdoms, etc. plus movies).
+    *   2019 TV Series: 《长安十二时辰》.
+    *   Male Leads: 雷佳音 (Lei Jiayin), 易烊千玺 (Yi Yangqianxi).
+
+4.  **Final Output Formulation:**
+    *   Required format: "Name1 and Name2" (Chinese: 张三和李四).
+    *   Names: 雷佳音 and 易烊千玺.
+    *   String: 雷佳音和易烊千玺.
+
+5.  **Final Check:**
+    *   Constraint: No reasoning, no extra text.
+    *   Format: Correct.
+    *   Content: Accurate.
+
+    Wait, is there any other 2019 adaptation?
+    《长安十二时辰》is the most famous.
+    Are there two male leads? Yes, Zhang Xiaojing and Li Bi.
+    Actors: Lei Jiayin and Yi Yangqianxi.
+    Is there any ambiguity?
+    Maybe《古董局中局》web series was late 2018.
+    Maybe《三国机密》was 2018.
+    So《长安十二时辰》is the key.
+    
+    One more check: Is "马力" considered a "power unit" (功率单位)? Yes, 马力 (Horsepower) is a unit of power.
+    Is the writer's real name exactly "马力"? Yes, Ma Boyong's real name is Ma Li.
+    Did he become full-time at 35? Born 1980, quit job 2015. 35 years old. Matches.
+    Over 10 adaptations by 2025? Yes, his IPs are heavily adapted.
+    
+    Result: 雷佳音和易烊千玺.
+
+    Wait, is there any other possibility?
+    Writer: 刘慈欣 (Liu Cixin)? No.
+    Writer: 郝景芳 (Hao Jingfang)? No.
+    
+    The clue "本名与某功率单位相同" is very specific to 马力 (Ma Li).
+    The 2019 drama is definitely《长安十二时辰》.
+    The actors are 雷佳音 and 易烊千玺.
+
+    Construct the final string.
+    雷佳音和易烊千玺
+
+    Wait, order? Usually main lead first. Lei Jiayin is top billed.
+    Format: "张三和李四".
+    So: 雷佳音和易烊千玺.
+
+    One more check on the "10 novels adapted" claim.
+    Ma Boyong's works adapted:
+    1. 三国机密 (2018)
+    2. 古董局中局 (2018 TV, 2021 Movie)
+    3. 长安十二时辰 (2019)
+    4. 风起陇西 (2022)
+    5. 显微镜下的大明 (2023)
+    6. 风起洛阳 (2021 - based on his concept/story structure though credited differently sometimes, often associated)
+    7. 大医 (Pending/Announced)
+    8. 两京十五日 (Announced)
+    9. 长安的荔枝 (Announced/Filming)
+    10. 龙与地下铁 (Stage play?)
+    There are stage plays too (e.g., 古董局中局 stage play).
+    The prompt says "novels adapted into TV, film, plays etc.".
+    By 2025, counting all media, 10+ is plausible for Ma Boyong.
+    
+    The key identifier is Real Name = Power Unit (马力) + Full time at 35.
+    This points uniquely to Ma Boyong.
+    2019 TV adaptation = Chang'an 12 Hours.
+    Leads = Lei Jiayin & Yi Yangqianxi.
+
+    Final check on constraints: "Directly give the final answer, do not output reasoning process, do not add extra explanation or format."
+    Format: "张三和李四".
+
+    So: 雷佳音和易烊千玺
+
+Answer:
+雷佳音和易烊千玺

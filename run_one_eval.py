@@ -14,7 +14,7 @@ from deepresearch.tools.fetch_tool import SimpleFetcher
 
 
 TEST = {"id": 1, 
-        "question": "Who is the author of the article that introduces the methodology of prosopography and demographic analysis of colonial social structures, analyzes the structural evolution of encomienda and hacienda systems, critiques historiographical gaps in prior political-centric approaches to colonial Spanish America, and was first published in the 1972 journal issue that analyzes the economic impacts of import substitution industrialization policies in Latin America and critiques political-centric historiographical approaches to colonial development?"
+        "question": "某艺术家A，25岁毕业于某学校B，该学校B以某中国近代作家C命名，该作家C出生于中国南方城市。该艺术家作品在2012年和2021年分别拍出了超过500万和超过2000万的高价，请问该艺术家A是谁？"
         }
 
 async def main():

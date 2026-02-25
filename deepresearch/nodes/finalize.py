@@ -40,9 +40,11 @@ def _format_sources(docs: List[Document], max_chars_each: int = 1800) -> str:
 
 def make_finalize_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
     async def finalize(state: DeepResearchState) -> DeepResearchState:
+        print("\n============ finalize 阶段 ============")
         question: str = state.get("question", "")
         claims: List[Claim] = state.get("claims", [])
         docs: List[Document] = state.get("documents", [])
+        print(f"[finalize] question_len={len(question)}, claims={len(claims)}, documents={len(docs)}")
 
         claims_text = "\n".join([f"- {c.id}: {c.description}" for c in claims]) if claims else "（无）"
         sources_text = _format_sources(docs)
@@ -58,9 +60,14 @@ def make_finalize_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
             f"约束（供对齐）：\n{claims_text}\n\n"
             f"证据包：\n{sources_text}\n"
         )
+        print("[finalize] --- prompt begin ---")
+        print(prompt)
+        print("[finalize] --- prompt end ---")
 
         resp = await llm.ainvoke(prompt)
         answer_text = str(resp.content).strip()
+        print(f"[finalize] answer_len={len(answer_text)}")
+        print(f"[finalize] answer_text={answer_text}")
         return {
             "final_answer": answer_text,
             "messages": [AIMessage(content=answer_text)],

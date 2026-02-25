@@ -1,0 +1,64 @@
+Question ID: 89
+Question: Consider a four-mora Japanese noun whose isolated pitch sequence is low-high-high-high and whose pitch drops immediately after a following particle. Among the standard pitch accent categories (Heiban, Atamadaka, Nakadaka, Odaka), which accent type does this pattern exemplify?
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Task: Identify the Japanese pitch accent category (Heiban, Atamadaka, Nakadaka, Odaka) based on a specific description.
+    *   Input Description:
+        *   Word length: Four-mora Japanese noun.
+        *   Isolated pitch sequence: Low-High-High-High (L-H-H-H).
+        *   Behavior with following particle: Pitch drops immediately after the noun (i.e., the particle is Low).
+    *   Constraint: Direct answer only, no reasoning, no extra text.
+
+2.  **Analyze the Pitch Accent Patterns:**
+    *   **Heiban (Flat/Plateau):**
+        *   Isolated: L-H-H-H... (starts Low, goes High, stays High).
+        *   With particle: L-H-H-H-**H** (Particle remains High).
+    *   **Atamadaka (Head-High):**
+        *   Isolated: H-L-L-L... (starts High, drops immediately).
+        *   With particle: H-L-L-L-**L** (Particle is Low).
+    *   **Nakadaka (Middle-High):**
+        *   Isolated: L-H...H-L (starts Low, goes High, drops somewhere in the middle/end).
+        *   With particle: L-H...H-**L** (Particle is Low).
+        *   Specifics: The drop occurs *within* the word or at the last mora of the word, but crucially, the particle is Low. However, Nakadaka implies the drop happens *before* the end of the word or *at* the end but distinguished from Odaka by the internal pattern? Actually, standard definition:
+            *   Nakadaka: Accent nucleus is on a mora that is not the last. Pattern: L-H...H(**L**)...
+            *   Odaka: Accent nucleus is on the last mora. Pattern: L-H...H(**L**).
+    *   **Odaka (Tail-High):**
+        *   Isolated: L-H-H-H (starts Low, goes High, stays High until the end).
+        *   With particle: L-H-H-H-**L** (Particle drops to Low).
+
+3.  **Evaluate the Input against Patterns:**
+    *   Input Isolated: L-H-H-H (4 morae).
+    *   Input With Particle: Pitch drops immediately *after* the noun. This means the particle is Low.
+    *   Comparison:
+        *   Heiban: Particle would be High. (Mismatch)
+        *   Atamadaka: First mora would be High. (Mismatch)
+        *   Nakadaka: Accent nucleus is not on the last mora. If it were Nakadaka on a 4-mora word (e.g., accent on 2nd or 3rd), the isolated form would show a drop *within* the word (e.g., L-H-L-L or L-H-H-L). The input says isolated is L-H-H-H. This implies the drop happens *after* the last mora.
+        *   Odaka: Accent nucleus is on the last mora. Isolated form looks like Heiban (L-H-H-H). With particle, the pitch drops (Particle is Low). This matches the description perfectly.
+
+4.  **Conclusion:** The pattern is Odaka.
+
+5.  **Format Output:** Direct answer only. "Odaka".
+
+6.  **Final Check:**
+    *   4-mora noun.
+    *   Isolated: L-H-H-H.
+    *   With particle: Drop after noun (Particle = L).
+    *   This is the definition of Odaka (accent kernel on the final mora).
+    *   Output: Odaka.
+
+    Wait, let me double-check the definition of Nakadaka vs Odaka regarding the isolated form.
+    *   Odaka (e.g., 花が hanaga): Isolated "hana" -> L-H. With "ga" -> L-H-L.
+    *   Nakadaka (e.g., 山が yamaga): Isolated "yama" -> L-H. With "ga" -> L-H-L. Wait, 2-mora Nakadaka doesn't exist usually.
+    *   Let's take 4-mora.
+    *   Odaka (accent on 4): L-H-H-H. Particle: L.
+    *   Nakadaka (accent on 3): L-H-H-L. Particle: L.
+    *   The prompt says isolated pitch sequence is Low-High-High-High. This means no drop within the word. The drop happens *after* the following particle.
+    *   This confirms Odaka.
+
+    Final Answer: Odaka.cw
+
+Answer:
+Odaka

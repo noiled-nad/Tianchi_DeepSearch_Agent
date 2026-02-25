@@ -1,0 +1,275 @@
+Question ID: 49
+Question: 一位学者的本科专业是历史学，但后来成为理论物理学领域的杰出人物。他在20世纪的最后一个十年里，获得了一项通常授予数学家的国际知名奖项。在他获奖的同一年，一部合拍的科幻恐怖电影因其特效获得了一个欧洲国家的国家级电影奖。另外，一个旨在开发能够制造自身部分组件的开源制造设备的项目，由一位在摩擦学领域获得博士学位的英国学者发起。该制造项目成立的年份，恰好也是前述那位物理学家被一本知名杂志列入全球最具影响力人物名单的年份。请问是哪一年？直接回答数字。
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A assistant.
+    *   Constraint: Direct answer only (final number), no reasoning, no extra text, no formatting.
+    *   Task: Identify a specific year based on a series of clues.
+
+2.  **Deconstruct the Clues:**
+    *   **Clue 1:** A scholar with an undergraduate degree in History became a distinguished figure in Theoretical Physics.
+    *   **Clue 2:** In the last decade of the 20th century (1990-1999), he received an internationally renowned award usually given to mathematicians.
+    *   **Clue 3:** In the same year he won the award, a co-produced sci-fi horror movie won a national film award for special effects from a European country.
+    *   **Clue 4:** An open-source manufacturing project aimed at developing devices capable of manufacturing some of their own components was initiated by a British scholar with a PhD in Tribology.
+    *   **Clue 5:** The year this manufacturing project was founded is the same year the physicist was listed in a famous magazine's list of the world's most influential people.
+    *   **Question:** What is that year? (Answer with a number).
+
+3.  **Step-by-Step Deduction:**
+
+    *   **Identify the Physicist:**
+        *   Undergraduate in History, became a Theoretical Physicist.
+        *   Won a math award in the 1990s.
+        *   Candidate: Roger Penrose? (Math/Physics, but undergrad math). Stephen Hawking? (Undergrad Physics).
+        *   Let's search for "Physicist undergraduate History degree".
+        *   Famous candidate: **Roger Penrose**? No, he studied math.
+        *   Famous candidate: **Edward Witten**? (History undergrad at Brandeis University, then Physics). He won the Fields Medal (math award) in 1990.
+        *   Let's verify Edward Witten.
+            *   Undergraduate: History (Brandies, 1971).
+            *   Field: Theoretical Physics (String Theory).
+            *   Award: Fields Medal (1990). This is usually given to mathematicians. He is the first physicist to win it.
+            *   Timeframe: 1990 is in the last decade of the 20th century.
+        *   So the Physicist is likely Edward Witten.
+        *   The Award Year is **1990**.
+
+    *   **Verify Clue 3 (Movie):**
+        *   Year: 1990.
+        *   Movie: Co-produced sci-fi horror movie.
+        *   Award: National film award for special effects from a European country.
+        *   In 1990, what sci-fi horror movie fits?
+        *   Maybe "The Fly II"? No.
+        *   Maybe "Flatliners"? No.
+        *   Let's consider the award. European country national award. Maybe Cesar Awards (France), BAFTA (UK), Goya (Spain), etc.
+        *   If the year is 1990 (award ceremony) or movie released in 1989/1990.
+        *   Wait, the clue says "In the same year he won the award... a movie... won an award". Witten won Fields Medal in 1990 (awarded at ICM 1990).
+        *   Let's look for a sci-fi horror movie around 1990 winning a European special effects award.
+        *   Maybe the movie is "The Abyss"? (Sci-fi, 1989).
+        *   Maybe "Total Recall"? (1990).
+        *   Maybe "Jacob's Ladder"? (1990).
+        *   Let's pause on this and check the other clues to confirm the year. The physicist clue is very strong (History -> Physics -> Fields Medal). Edward Witten is the unique fit for "History undergrad -> Theoretical Physics -> Math Award (Fields Medal)".
+
+    *   **Identify the Manufacturing Project:**
+        *   Description: Open-source manufacturing device capable of manufacturing some of its own components (RepRap project).
+        *   Initiator: British scholar with a PhD in Tribology.
+        *   Person: **Adrian Bowyer**. He is a British academic. He has a PhD in Tribology (from Cambridge, 1989).
+        *   Project: **RepRap** (Replicating Rapid Prototyper).
+        *   Launch Year: The RepRap project was launched in **2005**. (Some sources say started 2004, publicly launched 2005).
+        *   Let's check the connection to the Physicist (Edward Witten).
+        *   Clue 5: The project founding year = The year the physicist was listed in a famous magazine's list of the world's most influential people.
+        *   Magazine: Likely **Time 100** (Time Magazine's Most Influential People).
+        *   Did Edward Witten appear in Time 100?
+        *   Search query mental check: "Edward Witten Time 100".
+        *   Edward Witten was named in Time Magazine's "Time 100: The People Who Shape Our World" in **2005**.
+        *   This matches the RepRap launch year (2005).
+
+    *   **Re-evaluating the "Same Year" constraint in the prompt:**
+        *   The prompt asks: "请问是哪一年？" (Which year is it?)
+        *   The structure of the question:
+            1.  Physicist (History -> Physics) won Math award in 1990s (1990).
+            2.  Movie won award in *that same year* (1990).
+            3.  Manufacturing project founded in year X.
+            4.  Physicist listed in influential people list in year X.
+            5.  Project founding year (X) = Physicist list year (X).
+            6.  The question asks for "That year" (请问是哪一年？).
+        *   Which year is "That year"?
+        *   Context: "该制造项目成立的年份，恰好也是前述那位物理学家被一本知名杂志列入全球最具影响力人物名单的年份。请问是哪一年？"
+        *   The sentence structure implies the question asks for the year mentioned in the immediately preceding clause (the project founding year / physicist list year), NOT the earlier year (1990).
+        *   Let's parse carefully: "该制造项目成立的年份 (Year X), 恰好也是前述那位物理学家被一本知名杂志列入全球最具影响力人物名单的年份 (Year X). 请问是哪一年？ (Which year is it?)"
+        *   It asks for Year X.
+        *   Year X = RepRap Founding Year = Edward Witten Time 100 Year.
+        *   RepRap started: 2005 (Adrian Bowyer).
+        *   Edward Witten Time 100: 2005.
+        *   So the answer should be 2005.
+
+    *   **Double Check Clue 3 (Movie) just to be sure about the Physicist:**
+        *   Physicist: Edward Witten (History BA, Fields Medal 1990).
+        *   Year: 1990.
+        *   Movie: Co-produced sci-fi horror. Won European national film award for special effects in 1990.
+        *   In 1990, the movie "The Abyss" (1989) might have won awards in 1990.
+        *   Or "Hardware" (1990)?
+        *   Or "Darkman"?
+        *   Let's look for "1990 sci-fi horror movie special effects award European".
+        *   Maybe the Cesar Awards (France)? 1990 Cesar for Best Special Effects?
+        *   1990 Cesar Awards (15th Cesar): Best Special Effects went to "Baptême" (No), "La Vie et rien d'autre" (No).
+        *   Maybe BAFTA 1990? Best Special Visual Effects.
+        *   1990 BAFTA (43rd): "Indiana Jones and the Last Crusade", "Batman", "The Abyss". "The Abyss" won. Is it sci-fi horror? Sci-fi yes, horror maybe not primarily.
+        *   Maybe the movie is "The Fly II" (1989)?
+        *   Actually, let's look at the phrasing: "在他获奖的同一年 (In the same year he won the award)". Witten won Fields Medal in 1990.
+        *   Movie: "合拍的科幻恐怖电影" (Co-produced Sci-Fi Horror).
+        *   Award: "欧洲国家的国家级电影奖" (National Film Award of a European Country).
+        *   Maybe the movie is "Nightbreed"? (1990).
+        *   Maybe the movie is "Tremors"? (1990).
+        *   Actually, there is a specific connection often cited in trivia.
+        *   Is there a movie that won a German Film Award (Lola)? Or Spanish Goya?
+        *   Let's consider the movie "The Lair of the White Worm"? No.
+        *   Wait, is the Physicist definitely Edward Witten?
+        *   Undergraduate History: Yes (Brandeis).
+        *   Theoretical Physics: Yes (String Theory).
+        *   Math Award: Fields Medal (1990).
+        *   This is a very specific and well-known fact about Witten (first physicist to win Fields Medal).
+        *   So the year 1990 is solid for the first part.
+        *   The second part asks for the year of the Manufacturing Project / Time List.
+        *   Project: RepRap (Open-source self-replicating manufacturing).
+        *   Founder: Adrian Bowyer (British, PhD in Tribology).
+        *   RepRap Start Year: 2005. (Project announced March 2005).
+        *   Edward Witten Time 100: 2005. (Time 100 2005 list).
+        *   The question asks for "Which year?" referring to the last sentence's subject ("该制造项目成立的年份... 请问是哪一年？").
+        *   So the answer is 2005.
+
+    *   **Verification of Details:**
+        *   **Physicist:** Edward Witten. BA in History (1971), PhD Physics (1976). Fields Medal 1990.
+        *   **Movie:** In 1990, did a sci-fi horror win a European special effects award?
+            *   Movie: "The Abyss" won BAFTA (UK) for Special Visual Effects in 1990 (for 1989 films). UK is European. Is it Horror? Usually Sci-Fi/Adventure.
+            *   Maybe "Hardware" (1990)? UK co-prod?
+            *   Maybe the clue refers to "The Fly II"?
+            *   Actually, there is a movie called "Dark Angels"? No.
+            *   Let's search for "1990 sci-fi horror movie special effects award European country".
+            *   Could it be the movie "Valmont"? No.
+            *   Could it be "Cyrano de Bergerac"? (1990, French). Won Cesar. Not sci-fi horror.
+            *   Maybe the movie is "Tetsuo: The Iron Man"? (1989/1990). Japanese.
+            *   Maybe the clue is slightly loose on "Horror" or refers to a specific award like the Saturn Awards (US)? No, says European country national award.
+            *   Maybe the movie is "The Unborn" (1991)?
+            *   Let's assume the Witten/RepRap connection is the stronger signal because "History undergrad -> Physics -> Fields Medal" is unique to Witten. "RepRap -> Adrian Bowyer -> Tribology PhD" is also unique.
+            *   Adrian Bowyer: Senior Lecturer at University of Bath. PhD in Tribology (1989). Started RepRap in 2005.
+            *   Edward Witten: Time 100 in 2005.
+            *   The convergence on 2005 is very strong.
+            *   The movie clue might be there to confirm the 1990 date for Witten, ensuring we have the right physicist before jumping to 2005.
+            *   Movie check: 1990. European National Award. Sci-Fi Horror.
+            *   Maybe "The Church" (1989)?
+            *   Maybe "Lord of the Flies"?
+            *   Actually, in 1990, the film "The Abyss" won the BAFTA for Special Visual Effects. BAFTA is UK (European). Is it Horror? Not really.
+            *   What about "Flatliners"? (1990).
+            *   What about "Arachnophobia"? (1990). Horror/Comedy. Won Saturn awards.
+            *   Maybe the movie is "Hardware" (1990). British Sci-Fi Horror. Did it win an award?
+            *   Maybe the movie is "Nightbreed" (1990).
+            *   Let's consider the French Cesar Awards 1991 (for 1990 films)? Or 1990 (for 1989 films)?
+            *   1990 Cesar (15th): Best Special Effects: "Baptême" (Not sci-fi).
+            *   1991 Cesar (16th): Best Special Effects: "Cyrano de Bergerac".
+            *   Maybe the Spanish Goya Awards?
+            *   Maybe the Italian David di Donatello?
+            *   Regardless, the Witten and Bowyer clues are extremely specific and match 2005 perfectly for the final question. The movie clue serves to validate the 1990 Fields Medal year for Witten.
+            *   Wait, is there any other physicist?
+            *   Freeman Dyson? No.
+            *   The "History Undergraduate" is the key fingerprint for Edward Witten.
+            *   The "Tribology PhD" is the key fingerprint for Adrian Bowyer.
+            *   RepRap project start: 2005.
+            *   Witten Time 100: 2005.
+            *   The question asks for the year of the project/list (the latter part of the text).
+            *   "该制造项目成立的年份... 请问是哪一年？" (The year the project was founded... Which year is it?)
+            *   Answer: 2005.
+
+4.  **Final Confirmation:**
+    *   Scholar: Edward Witten.
+    *   Undergrad: History (Brandeis).
+    *   Field: Theoretical Physics.
+    *   Award: Fields Medal (1990).
+    *   Project: RepRap.
+    *   Founder: Adrian Bowyer (PhD Tribology).
+    *   Project Year: 2005.
+    *   Witten List: Time 100 (2005).
+    *   Target Question: The year of the project/list.
+    *   Target Answer: 2005.
+
+5.  **Formatting:**
+    *   Direct answer only.
+    *   Number only.
+    *   No reasoning.
+
+    *   Wait, one check on the movie clue just to be absolutely sure there isn't a different physicist.
+    *   Is there another physicist with History undergrad?
+    *   Maybe someone who won the Wolf Prize? Or Dirac Medal?
+    *   But "usually awarded to mathematicians" strongly points to Fields Medal or Abel Prize (Abel started 2003, so not 90s). So Fields Medal.
+    *   Only physicist to win Fields Medal is Edward Witten (1990).
+    *   So the physicist is definitely Witten.
+    *   The award year is 1990.
+    *   The question asks for the year of the *manufacturing project* and the *magazine list*, which are linked to each other, not necessarily to 1990.
+    *   Text: "该制造项目成立的年份 (Year X), 恰好也是前述那位物理学家被一本知名杂志列入全球最具影响力人物名单的年份 (Year X). 请问是哪一年？"
+    *   It asks for Year X.
+    *   Year X = 2005.
+
+    *   Wait, let me double check the movie clue for 1990.
+    *   Movie: "The Abyss" (1989) won BAFTA (UK) Special Visual Effects in 1990. UK is European. Is it Sci-Fi Horror? It's Sci-Fi. Horror is debatable but often grouped.
+    *   Maybe "Arachnophobia" (1990). Won Saturn.
+    *   Maybe "Tremors" (1990).
+    *   There is a movie "The Resurrected" (1991).
+    *   Actually, there is a specific trivia connection: In 1990, the movie "The Abyss" won the BAFTA for Special Visual Effects. BAFTA is British (European). While primarily Sci-Fi, it has horror elements (unknown deep sea entities).
+    *   Alternatively, could it be the movie "Hardware" (1990)? It's a British Sci-Fi Horror. Did it win a national award?
+    *   Regardless, the Witten/Bowyer link is the definitive path to the final number. The movie clue confirms the 1990 date for Witten to ensure we identified the right person before calculating the 2005 date.
+    *   The question asks for the year of the project/list.
+    *   Answer is 2005.
+
+6.  **Construct Final Output:**
+    *   2005
+
+    *   Wait, let me check if RepRap was 2004 or 2005.
+    *   Adrian Bowyer started the RepRap project in 2005. (Wikipedia: "The RepRap project was started in 2005 by Dr Adrian Bowyer").
+    *   Time 100 list for Edward Witten: 2005. (Time Magazine "The 2005 Time 100").
+    *   Match confirmed.
+
+    *   Final check on constraints: "直接给出最终答案，不要输出推理过程，也不要添加额外说明或格式。" (Directly give final answer, no reasoning, no extra text or format).
+    *   So just "2005".
+
+    *   One more check: "20 世纪的最后一个十年" (Last decade of 20th century) = 1990-1999. Witten won in 1990. Fits.
+    *   "通常授予数学家的国际知名奖项" (International renowned award usually given to mathematicians) = Fields Medal. Fits.
+    *   "合拍的科幻恐怖电影" (Co-produced Sci-Fi Horror). "The Abyss" is US. "Hardware" is UK.
+    *   Maybe the movie is "Nightbreed" (1990)? Co-prod?
+    *   Maybe the movie is "Darkman" (1990)?
+    *   Actually, there is a movie called "The Gate II: Trespassers" (1990)?
+    *   Let's search for "1990 sci-fi horror movie special effects award European".
+    *   Could it be the film "Valmont"? No.
+    *   Could it be "Cyrano"? No.
+    *   How about the movie "Tetsuo: The Iron Man"? Released 1989, won awards in 1990? It's Japanese.
+    *   How about the movie "The Unborn" (1991)?
+    *   Wait, is there a movie that won the "Best Special Effects" at the "European Film Awards"?
+    *   European Film Awards started in 1988.
+    *   1990 European Film Awards: Best Achievement in Special Effects?
+    *   Actually, the clue might refer to the movie "The Abyss" winning the BAFTA (British Academy Film Awards) in 1990. UK is a European country. BAFTA is a national award (UK). "The Abyss" is Sci-Fi. Horror elements (aliens). Co-produced? (20th Century Fox, Waterworld).
+    *   Or maybe "Who Framed Roger Rabbit" (1988) won in 1989?
+    *   Given the specificity of Witten (History->Physics->Fields) and Bowyer (Tribology->RepRap), the movie clue is likely secondary confirmation for 1990. The core question asks for the later year (2005).
+    *   I am confident in 2005.
+
+    *   Wait, is there any ambiguity about "Which year"?
+    *   "请问是哪一年？" follows the sentence about the project founding year and the magazine list year.
+    *   So it asks for that specific year (2005), not the 1990 year.
+    *   Okay.
+
+    *   Final check:
+    *   Physicist: Edward Witten.
+    *   Award Year: 1990.
+    *   Project: RepRap.
+    *   Project Year: 2005.
+    *   Magazine List Year: 2005.
+    *   Question asks for Project/List Year.
+    *   Answer: 2005.
+
+    *   Wait, could the magazine be "Nature" or "Science"? "Global most influential people" usually refers to Time 100.
+    *   Witten was in Time 100 in 2005.
+    *   RepRap started 2005.
+    *   Matches perfectly.
+
+    *   One nuance: "20 世纪的最后一个十年" (1990-1999). Witten won in 1990.
+    *   "在他获奖的同一年" (In the same year he won). 1990.
+    *   "该制造项目成立的年份... 请问是哪一年？" (The year the project was founded... Which year is it?).
+    *   The question asks for the project year.
+    *   Okay.
+
+    *   Wait, is it possible the question asks for the 1990 year?
+    *   "请问是哪一年？" is at the very end. The immediate antecedent is "该制造项目成立的年份... 年份".
+    *   Grammatically, it asks for the year just described (Project/List year).
+    *   If it wanted 1990, it would ask "前者获奖是哪一年" or similar.
+    *   So 2005 is the correct target.
+
+    *   Final check on "Tribology PhD". Adrian Bowyer's PhD is in Tribology (Cambridge 1989). Correct.
+    *   Final check on "History Undergrad". Edward Witten BA History (Brandeis 1971). Correct.
+    *   Final check on "Fields Medal". 1990. Correct.
+    *   Final check on "Time 100". 2005. Correct.
+    *   Final check on "RepRap". 2005. Correct.
+
+    *   Ready.
+
+2005
+
+Answer:
+2005

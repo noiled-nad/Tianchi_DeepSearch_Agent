@@ -1,0 +1,79 @@
+Question ID: 80
+Question: 有一位中国歌手，其演唱会风格独特，以数字作为自己的艺名，常喜欢听观众合唱自己的歌而自己却充当指挥，其演唱代表作之一时有一个双指遮住双眼的招牌动作。请问该歌手的本名是？
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A assistant.
+    *   Constraint: Directly give the final answer. No reasoning process, no extra explanations, no formatting.
+    *   Question: Identify a Chinese singer based on specific clues.
+    *   Clues:
+        1.  Chinese singer.
+        2.  Unique concert style.
+        3.  Uses a number as their stage name.
+        4.  Likes to let the audience sing along while acting as a conductor.
+        5.  Has a signature move of covering eyes with two fingers during one of their representative songs.
+    *   Target: The singer's real name (本名).
+
+2.  **Evaluate Clues:**
+    *   "Number as stage name": This is a very strong clue. The most famous Chinese singer with a number as a stage name is "Wu Bai" (伍佰), but "Wu Bai" means 500, which is a number, but usually written as characters. Another possibility is "98 Degrees" (not Chinese solo), "F4" (group). Wait, there is a singer named "Wu Bai" (伍佰). His stage name literally means "500".
+    *   "Concert style/Conductor": Wu Bai is famous for his concerts where he starts the song and then lets the audience sing the majority of it while he conducts or plays guitar. This is a well-known meme/phenomenon ("伍佰唱歌，观众买单/合唱").
+    *   "Signature move (two fingers covering eyes)": During the song "Last Dance" (last dance Last Dance), Wu Bai has a signature move where he covers his eyes with his hand/fingers. This became very popular again due to the TV series "Someday or One Day" (想见你).
+    *   "Real name": Wu Bai's real name is Wu Junlin (吴俊霖).
+
+3.  **Verify:**
+    *   Singer: Wu Bai (伍佰).
+    *   Stage name: 伍佰 (500).
+    *   Concert style: Audience sings loudly, he conducts/listens.
+    *   Signature move: Covering eyes with hand (often described as two fingers or hand) during "Last Dance".
+    *   Real name: 吴俊霖 (Wu Junlin).
+
+4.  **Formulate Output:**
+    *   The user wants *only* the final answer.
+    *   The question asks for the "本名" (real name).
+    *   Answer: 吴俊霖.
+
+5.  **Final Check:**
+    *   Does it meet the "no reasoning" constraint? Yes.
+    *   Does it meet the "no extra format" constraint? Yes.
+    *   Is it accurate? Yes.
+
+6.  **Construct Final String:** 吴俊霖.
+
+    *Self-Correction on "Two fingers":* The move is often described as covering the eyes with a hand, sometimes specifically noted as fingers. The clue fits Wu Bai well enough given the other strong identifiers (Number name, Audience singing/Conductor). The stage name "伍佰" is numerically 500.
+
+    *Real Name:* 吴俊霖.
+
+    *Output:* 吴俊霖.
+
+    *Wait, one more check:* Is there any other singer?
+    *   Number name: 伍佰 (500).
+    *   Concert: Famous for "buying a ticket to sing for him".
+    *   Move: "Last Dance" eye cover.
+    *   Matches perfectly.
+
+    *Final Answer:* 吴俊霖.
+
+    *Constraint Check:* "直接给出最终答案，不要输出推理过程，也不要添加额外说明或格式" (Directly give the final answer, do not output reasoning process, do not add extra explanations or formatting).
+
+    So just the name.
+
+    *Wait, should I include the stage name?* The question asks for "本名" (real name). So just "吴俊霖".
+
+    *Final Decision:* 吴俊霖.
+
+    *Wait, let's double check the "two fingers" detail.* In "Last Dance", he covers his eyes with his hand. Sometimes it's described as covering with fingers. The clue says "双指遮住双眼" (two fingers covering both eyes). This is a specific description often associated with Wu Bai's "Last Dance" move in trivia contexts.
+
+    Okay, ready to output.
+
+    *Wait, one more thing:* The prompt says "no extra format". Does that mean no bolding, no quotes? Yes. Just plain text.
+
+    Answer: 吴俊霖.
+
+    Wait, I should check if there is any ambiguity. Some sources might say "Wu Bai" is the name people know, but the question explicitly asks for "本名" (birth name). So "吴俊霖" is the correct answer.
+
+    Let's produce the output.cw
+
+Answer:
+吴俊霖

@@ -1,0 +1,323 @@
+Question ID: 72
+Question: 20世纪80年代中期，一本广受欢迎的科学刊物上的一篇文章，讨论了一种针对当时某个流行个人计算机系列的磁盘传播程序。该计算机系列中，有一款以紧凑为卖点的机型，其设计上采用了独特的灰白色调，并可通过一个开关在两种不同的键盘布局间切换。就在前述文章发表的同一年，这款紧凑机型也发布了一次固件升级，旨在支持一种新型的外部存储驱动器。请问这款紧凑机型的官方英文名称是什么？
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A assistant.
+    *   Constraint: Directly give the final answer. No reasoning process, no extra explanations, no formatting.
+    *   Question Content:
+        *   Time: Mid-1980s (20 世纪 80 年代中期).
+        *   Context: A popular science journal article discussed a disk-spreading program (virus/worm) targeting a popular personal computer series of that time.
+        *   Computer Series: A popular PC series at the time.
+        *   Specific Model: A compact model within that series.
+        *   Design Features: Unique grey-white color scheme, switchable between two different keyboard layouts via a switch.
+        *   Event: In the same year the article was published, this compact model received a firmware update to support a new type of external storage drive.
+        *   Target: The official English name of this compact model.
+
+2.  **Deconstruct the Clues:**
+    *   **Mid-1980s + Popular Science Journal + Disk-spreading program:** This likely refers to the "Brain" virus (1986) or perhaps the "Elk Cloner" (1982, too early) or "Morris Worm" (1988, network). The "Brain" virus is often cited as the first PC virus, spreading via floppy disks. It targeted IBM PC compatibles. However, the description mentions a specific computer series with a compact model.
+    *   **Computer Series:** Popular in the mid-80s. IBM PC? Apple II? Commodore 64?
+    *   **Compact Model Features:**
+        *   Compact form factor.
+        *   Unique grey-white color scheme (beige/grey).
+        *   **Switchable keyboard layout via a switch:** This is a very specific hardware feature.
+    *   **Firmware Update + External Storage Drive:** Same year as the article. Support for a new external drive (likely a floppy drive variant, e.g., 3.5-inch vs 5.25-inch, or a hard drive).
+
+3.  **Identify the Computer:**
+    *   "Switchable keyboard layout via a switch" is a strong clue.
+    *   Apple IIc? It was compact, off-white/beige. Did it have a keyboard switch? The Apple IIc had a keyboard layout switch (US/International or Uppercase/Lowercase? Actually, the IIc had a switch for keyboard layout between US and European/International characters on some versions, or specifically the **Apple IIc** had a switch for keyboard lock/repeat? No.)
+    *   Let's look at the **Apple IIc**. Released 1984. Compact. Off-white ("Snow White" design language).
+    *   Keyboard switch: The Apple IIc had a switch on the side? No.
+    *   Let's consider the **IBM PC Convertible**? (1986). Laptop.
+    *   Let's consider the **Commodore 64**? No switchable layout.
+    *   Let's consider the **Apple IIc** again. It had a "keyboard lock" switch? No.
+    *   Wait, the **Apple IIc** had a switch to change between **80-column** and **40-column**? No, that was software/card.
+    *   What about the **IBM PCjr**? (1984). Chiclet keyboard.
+    *   What about the **Tandy TRS-80 Model 100**? Portable.
+    *   Let's focus on "Switchable keyboard layout via a switch" (可通过一个开关在两种不同的键盘布局间切换).
+    *   This sounds like the **Apple IIc**'s feature regarding keyboard layout (US vs International) or perhaps the **Macintosh Portable**? No.
+    *   Actually, there is a specific machine known for this: The **Apple IIc**. Some sources mention a keyboard switch. But let's verify.
+    *   Wait, the **Apple IIc** had a switch for the keyboard? The **Apple IIc** (original) had a switch on the back for voltage? No.
+    *   Let's search for "computer switchable keyboard layout switch 1980s".
+    *   Maybe it's the **IBM PC Convertible**?
+    *   Maybe it's the **Commodore 128**? It had a switch for C64 mode vs C128 mode? That's not keyboard layout.
+    *   Let's reconsider the "disk-spreading program" article.
+    *   1986, Scientific American? "Computer Viruses"?
+    *   In 1986, the "Brain" virus appeared.
+    *   Is there a specific article in a popular science journal (e.g., *Scientific American*, *Popular Science*, *Byte*)?
+    *   A famous article about computer viruses in the mid-80s is "The Computer Virus" by A.K. Dewdney in *Scientific American* (1985? 1986?). Actually, Dewdney's "Computer Recreations" column discussed viruses later.
+    *   Let's focus on the hardware clue: "Compact model", "Grey-white", "Switch for keyboard layout".
+    *   This strongly points to the **Apple IIc**.
+    *   Why? The Apple IIc is iconic for its "Snow White" design (off-white/greyish). It is compact.
+    *   Did it have a keyboard layout switch? The **Apple IIc** had a switch on the underside? No.
+    *   Wait, the **Apple IIc** had a **keyboard lock** switch on the side? No.
+    *   Is it the **Apple IIc Plus**? (1988).
+    *   Let's search for "Apple IIc keyboard layout switch".
+    *   Actually, the **Apple IIc** had a switch to toggle between **US** and **International** keyboard mapping? Some versions did.
+    *   But there is a more specific candidate: The **IBM PC Convertible** (1986). It was compact (laptop). Grey. Did it have a keyboard layout switch?
+    *   Let's think about the "firmware update to support a new type of external storage drive".
+    *   Apple IIc: Originally had 5.25 floppy. Later supported 3.5? The IIc Plus had 3.5 built-in.
+    *   What if it's the **Commodore 64** variant? C64C? (1986). Grey/white. But keyboard switch?
+    *   Let's go back to the "disk-spreading program" article.
+    *   In 1986, *Scientific American* published an article?
+    *   Actually, there is a very specific riddle-like quality here.
+    *   "Disk-spreading program" = Virus.
+    *   "Popular science journal" = *Scientific American*?
+    *   Article: "Computer Viruses" by A.K. Dewdney? Published in **1985** (June)? Or **1986**?
+    *   If the year is 1986.
+    *   Computer: **Apple IIc**.
+    *   Feature: "Switchable keyboard layout". The Apple IIc had a switch on the back for voltage (110/220). Did it have a keyboard switch?
+    *   Wait, the **Apple IIc** had a **keyboard tilt** switch? No.
+    *   Is it the **Macintosh 128K**? No.
+    *   Let's consider the **IBM PC Convertible** (Model 2521). Released 1986. Compact. Grey. Did it have a keyboard layout switch?
+    *   Let's consider the **Tandy 1000**?
+    *   Let's consider the **Amstrad CPC**?
+    *   Let's search for the specific phrase "switchable keyboard layout via a switch" (可通过一个开关在两种不同的键盘布局间切换).
+    *   This sounds like the **Apple IIc**'s feature where you could switch between **Apple II** and **Lisa** keyboard? No.
+    *   Wait, the **Apple IIc** had a switch to change the keyboard mapping for **international** users?
+    *   Actually, there is a specific machine: The **Apple IIc**.
+    *   Is there a firmware update in the same year?
+    *   In 1986, the Apple IIc received a ROM update?
+    *   Support for a new external storage drive? The **Apple IIc** originally supported 5.25" drives. In 1986, the **Apple 3.5 Drive** was introduced? The UniDisk 3.5 was 1984.
+    *   Let's reconsider the "disk-spreading program" article.
+    *   Maybe it refers to the **"Elk Cloner"** (1982)? Too early.
+    *   Maybe **"Brain"** (1986)?
+    *   Maybe the article is in **"Science"** or **"Scientific American"**.
+    *   There is a famous article: "The Computer Virus" by **A.K. Dewdney** in **Scientific American**, **June 1985**.
+    *   If the year is 1985.
+    *   Computer released/updated in 1985.
+    *   Compact model, grey-white, keyboard layout switch.
+    *   **Apple IIc** was released in **1984**.
+    *   Did it have a keyboard layout switch?
+    *   Actually, the **Apple IIc** has a switch on the side? No.
+    *   Wait, the **Apple IIc** has a **keyboard lock** key?
+    *   Let's search for "computer model switch keyboard layout 1980s".
+    *   Could it be the **IBM PC Convertible**? Released 1986.
+    *   Could it be the **Commodore 128**? Released 1985. C128 mode vs C64 mode (switch on power up? No, key combo).
+    *   Could it be the **Atari ST**?
+    *   Let's focus on the "Grey-white" (灰白色调). This is very characteristic of the **Apple IIc** (Snow White design). The original Apple II was beige. The IIc was a warmer off-white/light grey.
+    *   Keyboard layout switch: The **Apple IIc** had a switch on the bottom?
+    *   Wait, I recall a specific detail about the **Apple IIc**. It had a switch to toggle between **US** and **European** keyboard layouts?
+    *   Actually, the **Apple IIc** had a **keyboard tilt** leg.
+    *   Is there another machine?
+    *   **IBM PC Convertible** (1986). Grey. Compact.
+    *   **Tandy 1000 HX**?
+    *   Let's try to match the "Article" + "Firmware Update" + "Drive".
+    *   Article: 1985 Scientific American "Computer Viruses" (Dewdney).
+    *   Year: 1985.
+    *   Machine: **Apple IIc**.
+    *   Firmware update in 1985?
+    *   Support for new external storage drive? The **Apple IIc** supported the **UniDisk 3.5"** (released 1984).
+    *   Maybe the **Apple IIc** ROM update in 1985 supported something specific?
+    *   Wait, the clue says "In the same year the article was published, this compact model also released a firmware update".
+    *   If the article is 1985 (Dewdney).
+    *   Did the Apple IIc have a firmware update in 1985?
+    *   The Apple IIc had a ROM revision.
+    *   But what about the "keyboard layout switch"?
+    *   There is a specific detail: The **Apple IIc** had a switch on the side? No.
+    *   Wait, is it the **Macintosh Portable**? (1989).
+    *   Is it the **IBM PCjr**? (1984).
+    *   Let's search for the specific phrasing in Chinese context (since the prompt is Chinese). This might be a known trivia question in the Chinese tech community.
+    *   "20 世纪 80 年代中期" (Mid 80s).
+    *   "科学刊物" (Science Journal).
+    *   "磁盘传播程序" (Disk spreading program -> Virus).
+    *   "个人计算机系列" (PC Series).
+    *   "紧凑为卖点的机型" (Compact model).
+    *   "独特的灰白色调" (Unique grey-white color).
+    *   "可通过一个开关在两种不同的键盘布局间切换" (Switch to toggle between two keyboard layouts).
+    *   "固件升级" (Firmware update).
+    *   "新型的外部存储驱动器" (New external storage drive).
+    *   This sounds like the **Apple IIc**.
+    *   Why? The Apple IIc is famous for its design (Snow White).
+    *   Keyboard switch: The **Apple IIc** had a switch to change the keyboard layout between **US** and **International**?
+    *   Actually, I found a reference: The **Apple IIc** had a switch on the back? No.
+    *   Wait, the **Apple IIc** has a **keyboard lock** switch on the side?
+    *   Let's consider the **IBM PC Convertible**.
+    *   Let's consider the **Commodore 64C** (1986). Grey/white.
+    *   Let's consider the **Amstrad PCW**?
+    *   Let's go back to the "Keyboard Layout Switch".
+    *   Is it the **Apple IIc**'s feature to switch between **Apple II** and **IBM** layout? No.
+    *   Is it the **TRS-80 Model 100**?
+    *   Wait, there is a specific machine: The **Apple IIc**.
+    *   Is there a switch for **80/40 column**? No.
+    *   Is there a switch for **Keyboard Repeat**?
+    *   Okay, let's search for the article. "Scientific American computer virus 1985".
+    *   A.K. Dewdney, "Computer Viruses", Scientific American, June 1985.
+    *   So the year is **1985**.
+    *   Machine released/updated in 1985.
+    *   Compact, Grey-white, Keyboard Layout Switch.
+    *   The **Apple IIc** was released in **April 1984**.
+    *   Did it have a keyboard layout switch?
+    *   Some sources say the Apple IIc had a switch to select between **US** and **European** character sets?
+    *   Actually, the **Apple IIc** had a **switch** on the underside to change voltage.
+    *   Wait, I might be missing a specific model.
+    *   What about the **IBM PC Convertible**? Released 1986.
+    *   What about the **Apple IIc Plus**? 1988.
+    *   What about the **Macintosh 512K**? 1984.
+    *   Let's reconsider the "Keyboard Layout Switch".
+    *   Is it the **Commodore 128**? It had a switch? No.
+    *   Is it the **Atari 520ST**?
+    *   Is it the **Sharp PC-7000**?
+    *   Let's think about the "Grey-white" (灰白色). Apple IIc is often described as "off-white" or "beige" but the "Snow White" design is distinct.
+    *   Is there a model called **Apple IIc**?
+    *   Wait, I found a reference to a "keyboard layout switch" on the **Apple IIc**.
+    *   Actually, the **Apple IIc** had a **keyboard lock** switch on the side (on some versions?).
+    *   But "two different keyboard layouts"?
+    *   Maybe it refers to the **IBM PC Convertible** which had a switch for **Numeric Lock**? No.
+    *   Maybe it refers to the **Tandy 1000**?
+    *   Let's try to search for the specific question content in my internal knowledge.
+    *   This looks like a specific trivia question.
+    *   Key elements: 1985 Article (Scientific American, Dewdney, Viruses).
+    *   Computer: **Apple IIc**.
+    *   Why Apple IIc?
+    *   1. Popular PC series (Apple II).
+    *   2. Compact model (IIc).
+    *   3. Grey-white (Snow White design).
+    *   4. Keyboard switch? The Apple IIc had a switch to toggle between **US** and **International** keyboard mapping?
+    *   Actually, there is a specific detail: The **Apple IIc** had a switch on the side to change the keyboard layout?
+    *   Wait, I recall the **Apple IIc** had a switch to enable/disable the **keyboard repeat**?
+    *   Let's consider the **Firmware Update** + **External Drive**.
+    *   In 1985, Apple released a ROM update for the IIc?
+    *   To support a new external drive? The **UniDisk 3.5"** was 1984. The **Apple 3.5 Drive** (HD20) was 1985 (for Mac).
+    *   Did the IIc support the HD20?
+    *   Actually, the **Apple IIc** received a ROM update in **1985** (ROM version 3?) to support the **Apple 3.5 Drive** (UniDisk 3.5 support was built-in?).
+    *   Wait, the **Apple IIc** originally supported 5.25". The 3.5" drive support came later via ROM update?
+    *   Yes, the original IIc ROMs did not fully support the 3.5" drive booting without a update or card?
+    *   Actually, the **Apple IIc** (1984) had a built-in 5.25" drive.
+    *   In 1985, Apple released a ROM update to support the **UniDisk 3.5"** as an external drive?
+    *   This fits the "Firmware update" + "New external storage drive" clue.
+    *   Now, the "Keyboard Layout Switch".
+    *   Does the Apple IIc have this?
+    *   Some sources mention a switch on the **Apple IIc** to switch between **US** and **European** keyboard layouts.
+    *   Actually, I found a reference: The **Apple IIc** had a switch on the bottom?
+    *   Wait, there is a specific model: **Apple IIc**.
+    *   Is there any other candidate?
+    *   **IBM PC Convertible** (1986).
+    *   **Commodore 64C** (1986).
+    *   The article year is likely 1985 (Dewdney).
+    *   So the machine update is 1985.
+    *   Apple IIc fits 1985 update.
+    *   Does it have a keyboard layout switch?
+    *   There is a switch on the **Apple IIc** labeled "Keyboard"?
+    *   Actually, the **Apple IIc** had a **keyboard lock** switch on the side (on the right side).
+    *   But "two different keyboard layouts"?
+    *   Maybe it refers to the **Apple IIc**'s ability to switch between **Apple II** and **Lisa** keyboard? No.
+    *   Maybe the question refers to the **IBM PC Convertible** and the article is 1986?
+    *   If the article is 1986 (Brain virus).
+    *   IBM PC Convertible released 1986.
+    *   Compact. Grey.
+    *   Keyboard layout switch?
+    *   Firmware update for external drive?
+    *   The IBM PC Convertible had 3.5" drives built-in.
+    *   Let's bet on the **Apple IIc**. It's the most iconic "compact, grey-white" machine of the mid-80s Apple II series.
+    *   The "keyboard layout switch" might be a specific detail about the **Apple IIc** having a switch to change between **US** and **International** character sets (some versions).
+    *   Wait, I found a specific detail: The **Apple IIc** had a switch on the side to toggle the **keyboard repeat** feature?
+    *   No, the clue says "two different keyboard layouts" (两种不同的键盘布局).
+    *   Could it be the **Commodore 128**? It had a switch to toggle between C64 and C128 mode (which changes keyboard mapping)? But it's not a "switch" physically on the case for layout.
+    *   Could it be the **Apple IIc**'s switch for **80/40 column**? No.
+    *   Let's search for "Apple IIc keyboard layout switch".
+    *   Some sources say the **Apple IIc** had a switch to select between **US** and **European** keyboard layout.
+    *   Actually, the **Apple IIc** (International version) had a switch?
+    *   Wait, the **Apple IIc** is the answer. The English name is **Apple IIc**.
+    *   Let's verify the "firmware update" part.
+    *   In 1985, Apple released a ROM update for the IIc to support the **UniDisk 3.5"**?
+    *   Yes, the original IIc ROMs had bugs with 3.5" drives. A ROM swap was offered.
+    *   Article: Scientific American, June 1985, "Computer Viruses" by A.K. Dewdney. This is a very famous article.
+    *   So the year is 1985.
+    *   Machine: **Apple IIc**.
+    *   Features: Compact, Snow White (grey-white), Keyboard Switch (US/Int?), Firmware Update (1985) for 3.5" drive.
+    *   This fits well.
+    *   The official English name: **Apple IIc**.
+
+    *   Wait, is there any other possibility?
+    *   **IBM PC Convertible**? (1986).
+    *   If the article is 1986 (Brain virus).
+    *   But the Dewdney article is more "Popular Science Journal" (Scientific American) specific regarding "disk-spreading program" (virus concept). The Brain virus was news, but Dewdney's article was a seminal scientific discussion.
+    *   Also, the Apple IIc design (Snow White) is more "unique grey-white" than the standard IBM beige.
+    *   The keyboard switch on Apple IIc: There was a switch on the side?
+    *   Actually, I recall the **Apple IIc** had a **keyboard lock** switch.
+    *   But "two different keyboard layouts"?
+    *   Maybe it refers to the **Apple IIc**'s switch to toggle between **Upper/Lower case**? No.
+    *   Wait, I found a reference: The **Apple IIc** had a switch to change the keyboard mapping for **international** users (e.g. QWERTY vs QWERTZ?).
+    *   Regardless, "Apple IIc" is the most prominent compact Apple II model from that era fitting the description.
+    *   The question asks for the "Official English Name".
+    *   Answer: **Apple IIc**.
+
+    *   Double Check:
+    *   Time: Mid-80s (1985).
+    *   Journal: Scientific American (Dewdney).
+    *   Program: Computer Virus (Disk-spreading).
+    *   Series: Apple II.
+    *   Model: Compact (IIc).
+    *   Color: Grey-white (Snow White).
+    *   Switch: Keyboard layout (Some versions had a switch for US/International).
+    *   Firmware Update: 1985 (ROM update).
+    *   Drive: 3.5" external drive (UniDisk 3.5).
+    *   Everything aligns with **Apple IIc**.
+
+    *   Wait, one more check on the "Keyboard Layout Switch".
+    *   The **Apple IIc** had a switch on the side?
+    *   Actually, the **Apple IIc** had a **keyboard tilt** stand.
+    *   Did it have a switch for **Keyboard Layout**?
+    *   Some sources say the **Apple IIc** had a switch to toggle between **Apple II** and **IBM PC** keyboard layout? No.
+    *   Wait, could it be the **IBM PC Convertible**?
+    *   It had a switch for **Numeric Keypad**?
+    *   But the "Grey-white" is very Apple IIc (Snow White). IBM was beige.
+    *   The "Compact" is very Apple IIc (luggable/small desktop).
+    *   The "Firmware update for external drive" fits the IIc's 3.5" drive support update in 1985.
+    *   The "Keyboard Layout Switch" might be a specific detail I'm slightly fuzzy on, but the rest points strongly to IIc.
+    *   Actually, the **Apple IIc** had a switch on the back for **Voltage**.
+    *   Is there a switch for **Keyboard**?
+    *   Wait, the **Apple IIc** had a **keyboard lock** switch on the right side.
+    *   Maybe the question interprets "Keyboard Lock" as "Layout"? Unlikely.
+    *   However, there is a specific detail: The **Apple IIc** had a switch to change the **keyboard repeat** rate?
+    *   Let's assume the question refers to the **Apple IIc** due to the strong "Snow White" + "Compact" + "1985 Firmware/Drive" correlation.
+    *   The English name is **Apple IIc**.
+
+    *   Wait, is there a chance it's the **Macintosh 128K**?
+    *   No, not a series with a compact model variant in the same way.
+    *   Is it the **Commodore 64**?
+    *   No.
+    *   Final decision: **Apple IIc**.
+
+    *   Wait, I need to be sure about the "Keyboard Layout Switch".
+    *   Search query simulation: "Apple IIc keyboard layout switch".
+    *   Result: The Apple IIc had a switch on the side?
+    *   Actually, some sources mention a switch to toggle between **US** and **European** keyboard layout on the **Apple IIc**.
+    *   Also, the **Apple IIc** is often cited in the context of the 1985 Scientific American virus article because the Apple II was a primary target of early viruses (like Elk Cloner, though earlier, but the concept was discussed then).
+    *   The firmware update in 1985 for the IIc supported the **UniDisk 3.5"**.
+    *   This seems correct.
+
+    *   One more possibility: **IBM PC Convertible**.
+    *   Released 1986.
+    *   Article: 1986 (Brain Virus).
+    *   Compact: Yes (Laptop).
+    *   Color: Grey.
+    *   Switch: ?
+    *   Firmware: ?
+    *   But "Grey-white" (灰白色) is more specific to Apple's Snow White design (off-white/light grey) than IBM's dark grey/beige.
+    *   Also, the Apple IIc is more "iconic" for design.
+    *   I will go with **Apple IIc**.
+
+    *   Wait, the prompt asks for "Official English Name".
+    *   So "Apple IIc".
+
+    *   Re-evaluating the "Keyboard Layout Switch".
+    *   Is it possible the question refers to the **Apple IIc**'s switch that toggles between **Keyboard** and **Mouse**? No.
+    *   Is it possible the question refers to the **Apple IIc**'s switch that toggles between **80-column** and **40-column**? No.
+    *   Actually, there is a specific detail: The **Apple IIc** had a switch on the side to lock the keyboard.
+    *   Maybe the question implies the **Apple IIc** is the answer despite the keyboard switch detail being slightly obscure or referring to a specific regional version.
+    *   However, the combination of "Mid-80s", "Science Journal Article (Virus)", "Compact", "Grey-white", "Firmware Update for Drive" points heavily to **Apple IIc**.
+    *   The article is likely A.K. Dewdney's "Computer Viruses" in Scientific American, June 1985.
+    *   The machine is the **Apple IIc**.
+    *   The firmware update in 1985 allowed it to support the **UniDisk 3.5"** properly.
+    *   The "Keyboard Layout Switch" might refer to the switch on the **Apple IIc** that allowed switching between **US** and **International** character sets (available on some models/regions).
+    *   I'm confident enough.
+
+    *   Final check: "Official English Name".
+    *   **Apple IIc**.
+
+Answer:
+Apple IIc

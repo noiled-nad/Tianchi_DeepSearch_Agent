@@ -1,0 +1,149 @@
+Question ID: 16
+Question: 在一场持续了约十年的政治运动期间，一个东亚国家发生了一起以事发日期命名的突发事件，该事件被视为这场运动的转折点。事件发生的那一年，一款被某家未来软件巨头的创始人所使用的大型计算机在多所大学的实验室中得到应用。五年后，这场政治运动正式结束；同年，在另一个国家，一艘可重复使用的航天器因一部科幻作品而得名，其航天机构也为此首次划分出新的宇航员类别。请问这起以日期命名的突发事件是什么？
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A assistant.
+    *   Constraint: Directly give the final answer. No reasoning process, no extra explanation, no formatting.
+    *   Question: Identify a specific incident named after its date, which occurred during a decade-long political movement in an East Asian country, considered a turning point. In the same year, a mainframe computer used by the founder of a future software giant was applied in university labs. Five years later, the political movement ended. In that same year (5 years later), in another country, a reusable spacecraft named after a sci-fi work was launched, and its space agency created a new astronaut category.
+
+2.  **Deconstruct the Clues:**
+    *   **Clue 1:** East Asian country, decade-long political movement, incident named after date, turning point.
+        *   Candidate: Cultural Revolution (China, 1966-1976).
+        *   Incident named after date: May 16th Notice? July 20th Incident? September 13th Incident (Lin Biao)? April 5th Movement?
+        *   "Turning point" of the movement.
+    *   **Clue 2:** Same year as the incident, a mainframe computer used by the founder of a future software giant was applied in university labs.
+        *   Future software giant founder: Bill Gates (Microsoft), Paul Allen, Steve Jobs (Apple), etc.
+        *   Bill Gates used mainframes in high school/university? He accessed a TELEX computer terminal in 1968? Or PDP-10?
+        *   Let's look at the "Five years later" clue first, it might be more specific.
+    *   **Clue 3:** Five years after the incident, the political movement ended.
+        *   If the movement is the Cultural Revolution (1966-1976), it ended in 1976.
+        *   If it ended in 1976, then the incident happened in 1971 (1976 - 5 = 1971).
+        *   Does 1971 fit the "incident named after date" and "turning point" description?
+        *   Incident in 1971: September 13th Incident (Lin Biao incident). This is often considered a major turning point/objective failure of the Cultural Revolution.
+    *   **Clue 4:** In the year the movement ended (1976), in another country, a reusable spacecraft named after a sci-fi work was launched, and its space agency created a new astronaut category.
+        *   Year: 1976.
+        *   Reusable spacecraft: Space Shuttle? (First launch 1981). Wait.
+        *   Maybe the *Enterprise*? The Space Shuttle Enterprise was rolled out in 1976.
+        *   Named after a sci-fi work: Star Trek (USS Enterprise).
+        *   Space agency: NASA.
+        *   New astronaut category: Did NASA create a new category in 1976? Or maybe this refers to the Shuttle era astronauts?
+        *   Let's check the Space Shuttle Enterprise timeline. Unveiled September 17, 1976. Named after Star Trek's Enterprise due to a write-in campaign.
+        *   Does this fit "reusable spacecraft"? Yes, it was the first orbiter (though not space-worthy for orbit, it was part of the STS program).
+        *   "First time divided new astronaut category": NASA selected the first Space Shuttle astronauts (TFNG - Thirty-Five New Guys) in 1978, not 1976. However, maybe the clue refers to the *plan* or the *vehicle* definition.
+        *   Let's re-evaluate the "Five years later" logic.
+        *   If the movement ended in 1976 (Cultural Revolution), the incident was 1971.
+        *   Incident: September 13th Incident (九一三事件).
+        *   Computer clue: 1971. Bill Gates was in high school. He used a PDP-10 at the Computer Center Corporation (CCC) around 1968-1970. In 1971, he formed Traf-O-Data.
+        *   Is there a specific mainframe event in 1971?
+        *   Let's check the Space Shuttle clue again. 1976. Space Shuttle Enterprise. Named after Star Trek. NASA.
+        *   Is there a different movement?
+        *   Maybe the movement is not the Cultural Revolution.
+        *   What if the movement ended in 1989? (No decade long).
+        *   What if the movement is the Gwangju Uprising? (No).
+        *   Let's stick with Cultural Revolution (1966-1976).
+        *   Incident: 1971. Lin Biao incident (September 13).
+        *   Computer: In 1971, Intel 4004 released? No, "used by future software giant founder". Bill Gates. In 1971, Gates and Allen were working on Traf-O-Data using Intel 8008? Or using PDP-10 at University of Washington? Gates attended Lakeside School. They got access to a PDP-10 at the University of Washington in 1968.
+        *   Maybe the year is 1966? Movement starts 1966, ends 1976. Incident in 1966? No, 5 years later would be 1971, movement didn't end.
+        *   The clue says: "Five years later, this political movement officially ended". So Incident Year + 5 = End Year.
+        *   If End Year = 1976, Incident Year = 1971.
+        *   Incident: 九一三事件 (September 13th Incident).
+        *   Computer clue check: 1971. Bill Gates was 16. He and Paul Allen were hacking/using computers. The specific detail "mainframe computer... applied in university labs" might refer to the PDP-10 or similar time-sharing systems becoming more accessible.
+        *   Space Shuttle clue check: 1976. Space Shuttle Enterprise. Named after Star Trek. NASA. "First time divided new astronaut category". This part is tricky. NASA selected Shuttle astronauts in 1978. But the Enterprise rollout was 1976. Maybe the clue refers to the *definition* of the spacecraft requiring new categories (Mission Specialists vs Pilots)? That classification came later with the selection.
+        *   However, the Enterprise naming is very specific (Sci-fi work = Star Trek). Year 1976 fits the rollout/unveiling.
+        *   So the Incident Year is 1971.
+        *   Incident Name: September 13th Incident (九一三事件).
+        *   Is it considered a turning point? Yes, objectively marked the failure of Lin Biao's counter-revolutionary group and is often seen as a turning point where the madness of the CR began to wane or people started questioning.
+        *   Is it named after the date? Yes (9/13).
+        *   East Asian country: China.
+        *   Movement: Cultural Revolution (10 years).
+        *   End year: 1976 (Death of Mao, arrest of Gang of Four).
+        *   1971 + 5 = 1976. Matches.
+        *   Computer clue: 1971. Bill Gates. In 1971, Gates and Allen started Traf-O-Data. They used Intel processors. But the clue says "mainframe computer... in university labs". Lakeside School had a connection to University of Washington's PDP-10 earlier (1968). Maybe the clue refers to the specific year 1971 regarding computer usage expansion? Or maybe the founder is not Gates?
+        *   Let's consider the computer clue more carefully. "A mainframe computer used by the founder of a future software giant was applied in multiple university labs in that year."
+        *   Maybe it refers to the PDP-10? DEC PDP-10 was widely used in universities.
+        *   Maybe the founder is Larry Ellison? (Oracle). He started later.
+        *   Maybe the founder is Bill Gates. In 1971, the Computer Center Corporation went bankrupt. Gates and Allen formed Traf-O-Data.
+        *   Actually, there is a specific trivia point: In 1971, the Intel 4004 was released. But that's a microprocessor.
+        *   Let's focus on the Space Shuttle clue. It's very strong. 1976, Reusable spacecraft, Sci-fi name (Enterprise/Star Trek), NASA. This confirms the End Year is 1976.
+        *   Therefore, Incident Year = 1971.
+        *   Incident in China, 1971, named after date, turning point of Cultural Revolution.
+        *   Answer: 九一三事件 (September 13th Incident) / Lin Biao Incident.
+        *   The question asks "What is this incident named after the date?" (请问这起以日期命名的突发事件是什么？).
+        *   Expected answer format: Just the name.
+
+3.  **Refining the Answer:**
+    *   The incident is commonly known as "九一三事件" (September 13th Incident) in Chinese context.
+    *   Also known as the Lin Biao incident.
+    *   The prompt asks for the incident named after the date.
+    *   So "九一三事件" is the most accurate response.
+
+4.  **Final Verification:**
+    *   Movement: Cultural Revolution (1966-1976). ~10 years.
+    *   Incident: 1971. 9/13 Incident. Turning point (Lin Biao's death shattered the myth).
+    *   Computer: 1971. Bill Gates (Microsoft founder). In 1971, Gates and Allen were deeply involved with computers. The PDP-10 was prevalent in universities. (This clue is slightly vague but fits the timeline).
+    *   End Year: 1976 (1971 + 5). CR ended.
+    *   Spacecraft: 1976. Space Shuttle Enterprise. Named after Star Trek (Sci-fi). NASA (Another country vs China). New astronaut category (Shuttle era introduced Mission Specialists, though selected in 1978, the program/category definition started with the Shuttle development unveiled in 76).
+    *   The logic holds.
+
+5.  **Constructing the Output:**
+    *   Constraint: Direct answer, no reasoning.
+    *   Answer: 九一三事件 (or 林彪事件，but prompt asks for date-named).
+    *   Best fit: 九一三事件.
+
+6.  **Final Check on Constraints:**
+    *   "直接给出最终答案" (Directly give final answer).
+    *   "不要输出推理过程" (No reasoning process).
+    *   "不要添加额外说明或格式" (No extra explanation or formatting).
+
+    So just the text of the answer.
+
+    Wait, let me double check the "New astronaut category" clue.
+    In 1976, NASA didn't select astronauts. The first Shuttle astronauts were selected in 1978.
+    However, the Space Shuttle Enterprise was unveiled in 1976.
+    Is there another event?
+    Maybe the movement is not CR?
+    What if the movement is the "Ten Years of Turmoil" (CR).
+    What if the incident is April 5th Movement (1976)? Then 5 years later is 1981. CR ended in 1976. Doesn't fit "5 years later movement ended".
+    The clue says: "Five years later, this political movement officially ended".
+    So Incident + 5 = End.
+    If End = 1976, Incident = 1971.
+    This fits 9/13 Incident perfectly.
+    The Space Shuttle clue: 1976. Enterprise. Star Trek.
+    Regarding "new astronaut category": The Space Shuttle program necessitated the creation of "Mission Specialists" distinct from Pilots. While selected in 1978, the categorization was part of the program unveiled/defined around the time of the Orbiter rollout. Or perhaps the clue refers to the fact that the Enterprise was a *test* vehicle and the program structure changed.
+    Actually, there is a specific detail: In 1976, NASA announced the selection process for Shuttle astronauts which included non-pilots (scientists/engineers), a new category compared to the Mercury/Gemini/Apollo era (mostly test pilots). The announcement might have been in 1976 even if selection was 1978.
+    Regardless, 1976 Enterprise + Star Trek is a very strong anchor.
+    1971 9/13 Incident is a very strong anchor for China/Culture Revolution/Turning Point/Date Name.
+    The computer clue: 1971. Bill Gates. He used a PDP-10 at the University of Washington (via Computer Center Corp) around this time before CCC went bankrupt in 1971.
+    Everything aligns.
+
+    Answer: 九一三事件.
+
+    One more check: "一款被某家未来软件巨头的创始人所使用的大型计算机在多所大学的实验室中得到应用" (A mainframe computer used by the founder of a future software giant was applied in multiple university labs).
+    In 1971, the PDP-10 was widely installed in universities. Bill Gates used a PDP-10.
+    This seems consistent.
+
+    Final decision: 九一三事件.
+
+    Wait, should I include "林彪" (Lin Biao)? The question asks for the incident "named after the date" (以事发日期命名). So "九一三事件" is the strict answer. "林彪事件" is named after the person.
+    So "九一三事件" is the correct form.
+
+    Output only the answer.
+
+    Wait, I need to make sure I don't output any markdown like bolding if it counts as formatting. The instruction says "no extra explanation or formatting". Plain text is safest. But usually, just the text is fine. I will output just the Chinese characters.
+
+    Wait, is there any ambiguity about "East Asian country"? China fits.
+    "Political movement lasted about 10 years"? Cultural Revolution (1966-1976). Fits.
+    "Turning point"? 9/13 is widely cited as the turning point where the legitimacy of the CR was undermined.
+    "Incident named after date"? 九一三 (9/13).
+    "5 years later movement ended"? 1971 + 5 = 1976. CR ended Oct 1976.
+    "Same year (1976), another country (USA), reusable spacecraft (Enterprise), named after sci-fi (Star Trek), space agency (NASA), new astronaut category (Mission Specialist concept introduced)".
+    All clues point to 九一三事件.
+
+    Final Answer Generation.
+    九一三事件
+
+Answer:
+九一三事件

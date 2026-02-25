@@ -1,0 +1,261 @@
+Question ID: 82
+Question: 一个面向对象的编程语言，其编译器生成的符号可由一个命令行工具进行反解析。该语言诞生于一个历史悠久的美国商业研究实验室。后来，为该语言开发了一款流行编译器的软件巨头，成立了一个新的研究机构。该机构的一名研究员曾供职于前述那个历史悠久的实验室。在这个新研究机构于美国西海岸建立其首个分部的同一年，东南亚发生了一次剧烈的火山喷发，导致附近一个大型外国军事基地被废弃。请问这是哪一年？只回答数字
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A assistant.
+    *   Constraint: Direct final answer only, no reasoning, no extra text, no formatting.
+    *   Input: A riddle-like description involving a programming language, a compiler, a command-line tool, a research lab, a software giant, a new research institute, a researcher, a West Coast branch, a volcanic eruption, and an abandoned military base.
+    *   Output: A single year (number).
+
+2.  **Deconstruct the Clues:**
+    *   **Clue 1:** "An object-oriented programming language" (一个面向对象的编程语言).
+    *   **Clue 2:** "Its compiler-generated symbols can be de-parsed by a command-line tool" (其编译器生成的符号可由一个命令行工具进行反解析). This likely refers to `c++filt` for C++ or similar tools for Java (`javap`), but let's look further.
+    *   **Clue 3:** "The language was born in a historic American commercial research laboratory" (该语言诞生于一个历史悠久的美国商业研究实验室).
+        *   Candidates: C++ (AT&T Bell Labs), Java (Sun Microsystems), C# (Microsoft), Python (not OOP originally, not commercial lab), Smalltalk (Xerox PARC).
+        *   "Historic American commercial research laboratory" strongly points to **Bell Labs** (AT&T).
+        *   Language born at Bell Labs: **C++** (Bjarne Stroustrup, 1979/1983).
+    *   **Clue 4:** "Later, a software giant that developed a popular compiler for this language established a new research institute" (后来，为该语言开发了一款流行编译器的软件巨头，成立了一个新的研究机构).
+        *   Software giant with a popular C++ compiler: **Microsoft** (Visual C++), **Intel**, **GCC** (not a company), **Clang/LLVM** (Apple/UC).
+        *   Microsoft established a new research institute: **Microsoft Research (MSR)**. Founded in 1991.
+    *   **Clue 5:** "A researcher at this institute previously worked at the aforementioned historic laboratory" (该机构的一名研究员曾供职于前述那个历史悠久的实验室).
+        *   Many researchers moved from Bell Labs to Microsoft Research (e.g., Butler Lampson, Charles Simonyi, etc., though Simonyi is more associated with Word/Excel). Let's keep this as a confirmation point.
+    *   **Clue 6:** "In the same year that this new research institute established its first branch on the US West Coast" (在这个新研究机构于美国西海岸建立其首个分部的同一年).
+        *   Microsoft Research (MSR) was founded in Redmond (West Coast? No, Redmond is Washington State, which is West Coast/Pacific Northwest).
+        *   Wait, MSR headquarters is in Redmond, WA. When was the *first branch* (outside headquarters) established?
+        *   MSR Cambridge (UK) was 1997.
+        *   MSR Silicon Valley (West Coast, California) was established later (2001?).
+        *   Let's re-evaluate "West Coast". Redmond, WA is technically West Coast. But usually, "branch" implies outside the HQ.
+        *   Maybe the "Software Giant" is not Microsoft?
+        *   Let's reconsider the language. Java? Born at Sun Microsystems (not exactly a "historic commercial research lab" in the same vein as Bell Labs, though Sun Labs existed). Compiler tool: `javap`. Software giant: Maybe Oracle? Or IBM?
+        *   Let's reconsider C++ and Bell Labs.
+        *   Software giant: Microsoft. MSR founded 1991.
+        *   MSR West Coast branch? MSR Silicon Valley was opened in 2001.
+        *   Is there another candidate?
+        *   Maybe the language is **C++**. The tool is `c++filt`.
+        *   Maybe the "Software Giant" is **IBM**? IBM XL C++ compiler. IBM Research?
+        *   Maybe the "Software Giant" is **Google**? LLVM/Clang? Google Research?
+        *   Let's look at the volcanic eruption clue. It's usually the most specific anchor.
+    *   **Clue 7:** "In that same year, a violent volcanic eruption occurred in Southeast Asia, causing a nearby large foreign military base to be abandoned" (东南亚发生了一次剧烈的火山喷发，导致附近一个大型外国军事基地被废弃).
+        *   Southeast Asia volcanic eruption.
+        *   Abandoned foreign military base.
+        *   Famous eruption: **Mount Pinatubo** (Philippines, 1991).
+        *   Impact: Caused the abandonment of **Clark Air Base** (US Air Force) and damage to Subic Bay Naval Base.
+        *   Year: **1991**.
+    *   **Verify the rest with 1991:**
+        *   Year: 1991.
+        *   Event: Mount Pinatubo eruption -> Clark Air Base abandoned. Matches Clue 7.
+        *   Event: New research institute established its first branch on the US West Coast in 1991?
+        *   If the year is 1991, the institute must have been established or opened a West Coast branch in 1991.
+        *   If the institute is **Microsoft Research (MSR)**: Founded in **1991**. Headquarters is in Redmond, WA (West Coast). The clue says "established its first branch on the US West Coast" (于美国西海岸建立其首个分部). If HQ is Redmond, is that considered a "branch"? Or did they open a specific lab in California in 1991? No, MSR Silicon Valley was 2001.
+        *   However, if the "Institute" is considered to be established *in* 1991, and the location *is* the West Coast (Redmond, WA), then the phrasing "established its first branch on the US West Coast" might be a slightly tricky description of the founding of MSR itself in Redmond.
+        *   Let's check the researcher clue: "A researcher at this institute previously worked at the aforementioned historic laboratory (Bell Labs)".
+        *   Butler Lampson moved from DEC SRC to Microsoft Research (1995).
+        *   Charles Simonyi moved from Xerox PARC to Microsoft (1981).
+        *   Who moved from Bell Labs to Microsoft Research around 1991?
+        *   Actually, let's look at the language again.
+        *   Language: C++. Born at Bell Labs (AT&T).
+        *   Compiler tool: `c++filt` (part of binutils, but associated with C++ mangling).
+        *   Software Giant: Microsoft. Visual C++ is very popular.
+        *   New Research Institute: Microsoft Research (MSR).
+        *   Founded: 1991.
+        *   Location: Redmond, Washington (US West Coast).
+        *   Does "established its first branch on the US West Coast" mean the founding of MSR itself? Redmond is on the West Coast. If the "Institute" is conceptualized as a global entity, maybe the first *lab* was Redmond.
+        *   Volcano: Mount Pinatubo, 1991. Clark Air Base (US) abandoned.
+        *   This matches perfectly with the year 1991.
+
+    *   Let's double check if there's another candidate.
+    *   Volcano: Krakatoa (1883)? No military base context like this.
+    *   Volcano: Mount Merapi?
+    *   Volcano: Mount Pinatubo (1991) is the most famous case of a US military base (Clark) being abandoned due to eruption.
+    *   So the year is almost certainly 1991.
+    *   Does the rest fit 1991?
+    *   Language: C++ (Bell Labs).
+    *   Tool: `c++filt` (GNU binutils, but the concept of demangling symbols is key to C++). Or maybe the clue refers to something else? "Compiler generated symbols can be de-parsed by a command-line tool". C++ name mangling is famous for this.
+    *   Software Giant: Microsoft.
+    *   New Research Institute: Microsoft Research. Founded 1991.
+    *   Location: Redmond, WA (West Coast).
+    *   Researcher from Bell Labs: Many MSR fellows came from Bell Labs (e.g., Jim Gray joined later, but the connection exists). Actually, the clue says "A researcher... previously worked at...". This is plausible.
+    *   The phrasing "established its first branch on the US West Coast" (于美国西海岸建立其首个分部). If MSR was founded in Redmond in 1991, is Redmond considered a "branch" (分部)? Usually, HQ is not a branch. However, if the "Institute" was planned as a distributed entity, or if the riddle considers Redmond the first location on the West Coast.
+    *   Alternatively, could it be **Sun Microsystems**? Java (1995). Pinatubo was 1991. No match.
+    *   Could it be **IBM**? IBM Research was much earlier (1945).
+    *   Could it be **Google**? Google Research later.
+    *   Could the "Software Giant" be **Intel**? Intel Research?
+    *   Let's stick with the Volcano clue. It is the most objective fact.
+    *   Volcano: Mount Pinatubo.
+    *   Date: June 1991.
+    *   Consequence: Abandonment of Clark Air Base (US).
+    *   Year: 1991.
+    *   Does 1991 fit the MSR clue? Microsoft Research was founded in 1991. Redmond is in Washington State, US West Coast. While technically the HQ, in the context of a riddle, "Established ... on the US West Coast" fits the founding event. The "branch" wording might be slightly imprecise translation or riddle logic (first lab location).
+    *   Let's check if there was a specific MSR West Coast lab opened in 1991 other than Redmond. No, Redmond was the first.
+    *   Let's check if there is another volcano/base pair.
+    *   1991 Pinatubo -> Clark Air Base is the strongest link.
+    *   Is there any other year?
+    *   1883 Krakatoa? No US base.
+    *   1980 Mount St. Helens (US, not SE Asia).
+    *   1963 Mount Agung (Bali)? No major US base abandonment.
+    *   So 1991 is the anchor.
+
+    *   Refining the "Branch" clue: Microsoft Research (MSR) was established in 1991. Its headquarters is in Redmond, WA. Washington is on the West Coast. Perhaps the riddle considers the founding of MSR as establishing its first presence (branch/lab) on the West Coast.
+    *   Researcher from Bell Labs: **Butler Lampson** is a famous name associated with MSR and previously DEC SRC (which had Bell Labs connections), but **Leslie Lamport**? **Jim Gray**? Actually, **Andrew Birrell** came from DEC. **Charles Simonyi** came from Xerox.
+    *   Wait, is there a specific researcher? **Bjarne Stroustrup** worked at Bell Labs, then AT&T Labs, then Texas A&M, then Morgan Stanley. Not MSR.
+    *   **Ken Thompson**? Bell Labs -> Google.
+    *   **Rob Pike**? Bell Labs -> Google.
+    *   **Doug McIlroy**? Bell Labs.
+    *   Maybe the researcher is **Jim Gray**? He was at DEC, then MSR.
+    *   Maybe the researcher is **Butler Lampson**? DEC SRC -> MSR. DEC SRC had many ex-Bell Labs people.
+    *   Actually, there is a specific connection: **Microsoft Research Cambridge** was 1997. **Microsoft Research Silicon Valley** was 2001.
+    *   If the year must be 1991 (Pinatubo), then the "Institute" event must be 1991. MSR founding is 1991.
+    *   Is there any other interpretation?
+    *   Language: C++.
+    *   Tool: `c++filt`.
+    *   Lab: Bell Labs.
+    *   Giant: Microsoft.
+    *   Institute: Microsoft Research.
+    *   Year: 1991.
+    *   Volcano: Pinatubo.
+    *   Base: Clark Air Base.
+    *   Everything aligns with 1991.
+
+    *   Wait, let's check the "branch" wording again. "建立其首个分部" (established its first branch). If HQ is Redmond, is there a branch? Maybe the riddle implies MSR was the "Institute", and the Redmond lab was the first location. Or maybe the "Software Giant" is not Microsoft.
+    *   Could it be **IBM**? IBM Research founded 1945.
+    *   Could it be **HP**? HP Labs 1966.
+    *   Could it be **Xerox**? PARC 1970.
+    *   Could it be **Google**? Google Research 2000s.
+    *   Could it be **Apple**? Apple Research?
+    *   The Pinatubo/Clark Base clue is extremely specific to 1991. It's hard to ignore.
+    *   Clark Air Base was abandoned in 1991 due to Pinatubo.
+    *   So the answer must be 1991.
+    *   I will verify if MSR Redmond is considered a "branch" in some context or if the riddle implies the founding year matches the volcano year.
+    *   MSR founded 1991. Pinatubo 1991.
+    *   The description "established its first branch on the US West Coast" might refer to the founding of MSR itself in Redmond (West Coast), distinguishing it from East Coast labs (like IBM Watson, etc.) or just describing the location.
+    *   Another possibility: **DEC SRC**? Digital Equipment Corporation. Systems Research Center. Founded 1982?
+    *   Another possibility: **Compaq**?
+    *   Let's trust the Volcano/Base clue as the primary determinant because it's a historical fact pair (Pinatubo/Clark) that is unique to 1991. The software clues are likely constructed to point to this year via MSR's founding.
+    *   Microsoft Research was founded in 1991.
+    *   Redmond is on the West Coast.
+    *   Therefore, 1991.
+
+3.  **Final Check:**
+    *   Language: C++ (OOP, Bell Labs).
+    *   Tool: `c++filt` (demangles symbols).
+    *   Giant: Microsoft (Visual C++).
+    *   Institute: Microsoft Research (MSR).
+    *   Founded: 1991.
+    *   Location: Redmond, WA (West Coast).
+    *   Researcher: Many ex-Bell Labs researchers joined MSR (e.g. in the early days).
+    *   Volcano: Mount Pinatubo (1991).
+    *   Base: Clark Air Base (US, abandoned).
+    *   Year: 1991.
+
+4.  **Formatting:**
+    *   Only the number.
+    *   "1991".
+
+5.  **Output Generation:**
+    *   1991
+
+    (Self-Correction/Refinement): Is there any ambiguity about "branch"? MSR HQ is Redmond. If the company is Microsoft (HQ Redmond), then MSR is an institute within it. If the institute is MSR, its first lab was Redmond. Is Redmond a "branch"? Maybe the riddle considers the institute as a separate entity that opened its first location. Given the strength of the Pinatubo clue, 1991 is the only logical answer.
+
+    Wait, is there a case for **1995**? Java? Sun Labs? Volcano? No major SE Asia volcano/base abandonment in 1995.
+    **2001**? MSR Silicon Valley founded. Volcano? Mount Etna? No.
+    **1980**? Mount St. Helens (US).
+    **1991** is the only fit for Pinatubo/Clark.
+
+    Final Decision: 1991.
+
+    One more check: "该机构的一名研究员曾供职于前述那个历史悠久的实验室" (A researcher at this institute previously worked at the aforementioned historic laboratory).
+    Microsoft Research hired many people from Bell Labs. For example, **Butler Lampson** (DEC SRC, which absorbed some Bell Labs culture/people, but he was DEC). **Jim Gray** (DEC).
+    Actually, **Charles Simonyi** was Xerox PARC.
+    **Ken Shirriff**?
+    Maybe **Rob Pike**? He went to Google.
+    Maybe **Bjarne Stroustrup**? He went to AT&T Labs, then Texas A&M.
+    However, **Andrew Tanenbaum**? No.
+    There is a high probability of Bell Labs alumni at MSR. For example, **Lucent Technologies** spin-off happened in 1996. Before that, Bell Labs was AT&T.
+    Regardless of the specific name, the general flow fits. The Volcano clue is the hard constraint.
+
+    Answer: 1991.
+
+    Wait, one detail: "该机构于美国西海岸建立其首个分部" (This institute established its first branch on the US West Coast).
+    If MSR was founded in Redmond (West Coast) in 1991, is that a "branch"?
+    Maybe the institute is **IBM Research**? No.
+    Maybe the institute is **NEC Research Institute**? Founded 1988 (Princeton).
+    Maybe the institute is **Mitsubishi Electric Research Laboratories (MERL)**? Founded 1991 (Cambridge, MA - East Coast).
+    Maybe the institute is **Xerox PARC**? 1970.
+    Maybe the "Software Giant" is **Intel**? Intel Research founded later.
+    Let's reconsider the "Branch" wording. If the HQ is elsewhere, and the West Coast branch was opened in 1991.
+    Microsoft HQ is Redmond (West Coast). MSR HQ is Redmond.
+    If the "Institute" is **Microsoft Research**, and it was founded in 1991 in Redmond.
+    Perhaps the riddle considers the founding of MSR as the event.
+    Given the Pinatubo clue is so specific (SE Asia, Volcano, Foreign Military Base Abandoned), it overrides slight ambiguities in the corporate structure description. Clark Air Base abandonment is the key key key.
+    Year: 1991.
+
+    Final check on "Foreign Military Base". Clark Air Base was a US base in the Philippines (Southeast Asia). Abandoned due to Pinatubo (1991).
+    This is a perfect match.
+    The software clues are likely confirming the year 1991 via Microsoft Research's founding.
+    So, 1991.
+
+    One nuance: "编译器生成的符号可由一个命令行工具进行反解析" (Compiler generated symbols can be de-parsed by a command-line tool).
+    C++ name mangling -> `c++filt`.
+    Java -> `javap`.
+    If Java (1995), no volcano match.
+    If C++ (1983/1991 standard), volcano match 1991.
+    Microsoft Visual C++ was very popular.
+    Microsoft Research founded 1991.
+    Matches.
+
+    Final Answer: 1991.
+
+    Wait, is there any chance it's **1992**?
+    Pinatubo was June 1991.
+    MSR founded 1991.
+    So 1991.
+
+    Is there any chance it's **2010**? Eyjafjallajökull (Iceland).
+    Is there any chance it's **1883**? Krakatoa.
+    Pinatubo is the only one causing a US base abandonment in SE Asia.
+    So 1991.
+
+    Double Check: "该机构于美国西海岸建立其首个分部" (This institute established its first branch on the US West Coast).
+    If the institute is MSR, and HQ is Redmond.
+    Maybe the "Institute" is something else.
+    What if the "Software Giant" is **Sun**? Sun Microsystems.
+    Language: Java.
+    Lab: Sun Labs (not as historic as Bell Labs).
+    Compiler: `javac`. Tool: `javap`.
+    Institute: ?
+    Volcano: 1991 doesn't fit Java (1995).
+    What if the "Software Giant" is **IBM**?
+    Language: C++ (IBM compiler).
+    Institute: IBM Research? (1945).
+    What if the "Software Giant" is **Google**?
+    Language: Go? (2009). C++?
+    Institute: Google Research.
+    Volcano: ?
+    What if the "Software Giant" is **Apple**?
+    Language: Objective-C? (1980s).
+    Institute: ?
+    The Microsoft/MSR/1991/Pinatubo link is the strongest.
+    The phrasing "first branch on the US West Coast" might refer to the fact that MSR was the first major corporate research lab of Microsoft established on the West Coast (since Microsoft itself is there, maybe it means the research institute's first location). Or it might be a slight inaccuracy in the riddle's description of "branch" vs "headquarters", but the year 1991 is locked by the volcano.
+    Actually, maybe the "Institute" is **DEC SRC**? No.
+    Maybe the "Institute" is **Compaq CRL**? 1998.
+    Okay, I'll stick with 1991.
+
+    One more thought: **Mount Pinatubo** eruption date: June 15, 1991.
+    **Clark Air Base** evacuated/abandoned: 1991.
+    **Microsoft Research** founded: 1991.
+    **C++** standardized: 1991 (ISO C++ first standard committee work started, but language born earlier at Bell Labs). The clue says "Language born in...". C++ born at Bell Labs (1979-1983).
+    "Compiler generated symbols...": C++ mangling.
+    "Software Giant... popular compiler": Microsoft (VC++).
+    "New Research Institute": MSR.
+    "Researcher from Bell Labs": Plausible.
+    "West Coast...": Redmond.
+    "Same year": 1991.
+    Matches.
+
+    Final Answer seems to be 1991.
+
+Answer:
+1991

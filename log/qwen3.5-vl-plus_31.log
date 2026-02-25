@@ -1,0 +1,737 @@
+Question ID: 31
+Question: 在21世纪20年代的某一年，一个负责文化遗产保护的国家机构发布了一项人才项目管理办法。同年，一个由两国合作研制、用于捕捉宇宙短暂现象的空间探测器也取得了重要观测成果。将该探测器送入轨道的运载火箭型号，因其高可靠性而获得过荣誉，它也曾将另一颗开启了其所属国自然资源陆海统筹新时代的海洋观测卫星送入太空。请问，这颗海洋观测卫星的发射年份是哪一年？在同一年，前述的那个文化遗产保护机构在全国范围内部署了打击文物犯罪的专项行动。直接回答数字
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A assistant.
+    *   Constraint: Direct answer only, no reasoning, no extra explanation, no formatting.
+    *   Input: A riddle-like description involving events in the 2020s (21 世纪 20 年代).
+    *   Target: A specific year (number).
+
+2.  **Deconstruct the Clues:**
+    *   **Timeframe:** 2020s (2020-2029).
+    *   **Clue 1 (Cultural Heritage):** A national institution responsible for cultural heritage protection released a "Talent Project Management Measures" (人才项目管理办法) in a specific year.
+    *   **Clue 2 (Space Probe):** In the *same year*, a space detector developed by two countries for capturing transient cosmic phenomena achieved important observation results.
+    *   **Clue 3 (Rocket):** The launch vehicle that sent this detector into orbit is known for high reliability and has received honors.
+    *   **Clue 4 (Ocean Satellite):** The same rocket model also launched another ocean observation satellite that opened a new era of land-sea coordination of natural resources for its country.
+    *   **Clue 5 (Action Plan):** In the *same year* as the ocean satellite launch (which is the target year), the cultural heritage institution deployed a special action to combat cultural relic crimes nationwide.
+    *   **Question:** What is the launch year of the ocean observation satellite? (Which is also the year of the special action against relic crimes).
+
+3.  **Identify the Space Probe (Clue 2):**
+    *   "Two countries cooperation" (两国合作研制).
+    *   "Capturing transient cosmic phenomena" (捕捉宇宙短暂现象).
+    *   "Important observation results in the 2020s".
+    *   Candidate: SVOM (Space Variable Objects Monitor). It's a collaboration between China (CNSA) and France (CNES). It aims to detect gamma-ray bursts (transient phenomena).
+    *   Launch date of SVOM: June 2024.
+    *   Wait, let's check other candidates. Einstein Probe (EP)? Launched Jan 2024. It's CAS (China) + ESA (Europe) collaboration? Mostly CAS led, with ESA support. SVOM is more distinctly "two countries" (China-France).
+    *   Let's check the "Talent Project Management Measures" clue first to narrow down the year.
+
+4.  **Identify the Cultural Heritage Institution & Talent Project (Clue 1):**
+    *   Institution: National Cultural Heritage Administration (国家文物局).
+    *   Document: "Talent Project Management Measures" (人才项目管理办法).
+    *   Search query mental simulation: "国家文物局 人才项目管理办法 2020s".
+    *   Possible document: 《国家文物局专家库管理办法》? 《全国文物行业人才项目管理办法》?
+    *   Actually, there is a specific document: 《国家文物局青年英才项目管理办法》or similar?
+    *   Let's look for "国家文物局 人才 管理办法 2023" or "2022".
+    *   In 2023, the National Cultural Heritage Administration issued《国家文物局关于发布〈国家文物局青年英才项目管理办法〉的通知》? Or maybe《文物行业人才项目管理办法》?
+    *   Let's consider the "Special Action to Combat Cultural Relic Crimes" (打击文物犯罪专项行动).
+    *   The National Cultural Heritage Administration often collaborates with the Ministry of Public Security.
+    *   There was a "Special Action to Combat Cultural Relic Crimes" (打击文物犯罪专项行动) deployed in **2023**? Or **2021**?
+    *   In 2021, there was a three-year action plan.
+    *   In 2023, there might be a specific deployment.
+    *   Let's search for the specific phrase "在全国范围内部署了打击文物犯罪的专项行动" (deployed a special action to combat cultural relic crimes nationwide).
+    *   Common knowledge: The Ministry of Public Security and National Cultural Heritage Administration often launch these.
+    *   Key event: 2023?
+    *   Let's look at the Space Probe again.
+    *   SVOM (中法天文卫星) was launched in **2024** (June 22, 2024).
+    *   Einstein Probe (爱因斯坦探针) was launched in **2024** (January 9, 2024).
+    *   If the year is 2024:
+        *   Did the National Cultural Heritage Administration release a talent project measure in 2024?
+        *   Did they deploy a special action against relic crimes in 2024?
+    *   If the year is 2023:
+        *   Probe? Maybe not SVOM.
+    *   Let's reconsider the "Two Countries" probe.
+    *   SVOM (China-France). Launch: 2024.
+    *   Is there a 2023 probe?
+    *   What about the rocket?
+    *   SVOM was launched by **Long March 2C** (长征二号丙).
+    *   Einstein Probe was launched by **Long March 2C** (长征二号丙).
+    *   Long March 2C is known as the "Golden Cow" (金牌火箭) for high reliability.
+    *   Clue 4: The same rocket model launched an ocean observation satellite that opened a new era of land-sea coordination of natural resources.
+    *   Ocean Observation Satellite + Land-Sea Coordination (自然资源陆海统筹).
+    *   Candidate: **Haiyang-3D** (海洋三号 D 星)? Launched 2021.
+    *   Candidate: **Haiyang-2C**?
+    *   Candidate: **Zhongxing**?
+    *   Let's search for "自然资源陆海统筹新时代 海洋观测卫星" (New era of natural resources land-sea coordination ocean observation satellite).
+    *   This phrase likely refers to **Haiyang-3C** (海洋三号 C 星) or **Haiyang-3D**?
+    *   Actually, there is a satellite called **Haiyang-3C** (HY-3C) launched in 2022?
+    *   Wait, there is a specific satellite: **Haiyang-3D** (海洋三号 D 星) launched on **2021**? No.
+    *   Let's search for the phrase "开启了其所属国自然资源陆海统筹新时代". This sounds like a specific description used in news reports.
+    *   Satellite: **Haiyang-3C** (海洋三号 C 星)? Launched August 2022 by Long March 4B.
+    *   Satellite: **Haiyang-3D** (海洋三号 D 星)? Launched August 2023 by Long March 4B.
+    *   Satellite: **Haiyang-3B**?
+    *   Let's check the rocket for SVOM/EP. It's Long March 2C (CZ-2C).
+    *   Did CZ-2C launch an ocean satellite related to natural resources land-sea coordination?
+    *   CZ-2C launched **Haiyang-3C**? No, HY-3C was CZ-4B.
+    *   CZ-2C launched **Haiyang-3D**? No.
+    *   Maybe the satellite is **Haiyang-1D** (HY-1D)? Launched 2020 by CZ-2C.
+    *   Maybe the satellite is **Haiyang-2F**?
+    *   Let's focus on the phrase "自然资源陆海统筹" (Natural Resources Land-Sea Coordination). This relates to the Ministry of Natural Resources (自然资源部).
+    *   Satellite: **Haiyang-3C** (2022)?
+    *   Satellite: **Haiyang-3D** (2023)?
+    *   There is a satellite launched in **2023** by CZ-2C?
+    *   On **2023-08-21**, CZ-2C launched **Sino-French SVOM**? No, SVOM was 2024.
+    *   On **2024-01-09**, CZ-2C launched **Einstein Probe**.
+    *   On **2024-06-22**, CZ-2C launched **SVOM**.
+    *   So the "Same Year" for the Probe and the Talent Project is likely **2024**.
+    *   If the year is 2024:
+        *   Talent Project Measures released in 2024?
+        *   Special Action against relic crimes deployed in 2024?
+    *   Wait, the question asks for the launch year of the *Ocean Satellite*.
+    *   "In the same year [as the ocean satellite launch], the cultural heritage institution deployed a special action..."
+    *   So: Year X = Ocean Satellite Launch Year = Special Action Year.
+    *   Year Y = Talent Project Year = Probe Result Year.
+    *   The prompt says: "In a certain year of the 2020s [Year Y], an institution released a talent project measure. In the *same year* [Year Y], a probe... achieved results."
+    *   "The rocket that sent *this detector* [the one from Year Y] into orbit... also sent *another* ocean satellite... into space."
+    *   "Question: What is the launch year of *this ocean satellite*? In *the same year* [Year of Ocean Satellite], the institution deployed a special action..."
+    *   So Year Y (Probe/Talent) might be different from Year X (Ocean Satellite/Action).
+    *   However, the rocket model is the link.
+    *   Rocket: Long March 2C (likely).
+    *   Probe (Year Y): SVOM (2024) or Einstein Probe (2024). Let's assume Year Y = 2024.
+    *   Talent Project (Year Y): Did National Cultural Heritage Administration release a talent measure in 2024?
+    *   Ocean Satellite (Year X): Launched by CZ-2C. Related to Natural Resources Land-Sea Coordination.
+    *   Action (Year X): Special action against relic crimes.
+    *   We need to find Year X.
+
+    *   Let's identify the Ocean Satellite first.
+    *   Keywords: "自然资源陆海统筹新时代" (New era of natural resources land-sea coordination), "海洋观测卫星" (Ocean observation satellite), "长征二号丙" (Long March 2C - assuming based on SVOM/EP).
+    *   Search query mental check: "海洋三号 自然资源 陆海统筹".
+    *   There is a satellite **Haiyang-3C** (2022).
+    *   There is a satellite **Haiyang-3D** (2023).
+    *   There is a satellite **Haiyang-1D** (2020).
+    *   There is a satellite **Haiyang-2F** (2022).
+    *   Specific phrase match: "开启了我国自然资源陆海统筹新时代" (Opened a new era of China's natural resources land-sea coordination).
+    *   This phrase is associated with **Haiyang-3C** (海洋三号 C 星)? Or **Haiyang-3D**?
+    *   Actually, news reports often cite **Haiyang-3C** (launched 2022) or **Haiyang-3D** (launched 2023).
+    *   Let's check the rocket for HY-3C. It was Long March 4B (长征四号乙).
+    *   Let's check the rocket for HY-3D. It was Long March 4B.
+    *   Let's check the rocket for SVOM/EP. It was Long March 2C.
+    *   Does CZ-2C launch an ocean satellite fitting the description?
+    *   **Haiyang-1D** (HY-1D) was launched on **June 11, 2020** by **Long March 2C**.
+    *   Description for HY-1D: "我国海洋水色探测卫星...". Does it mention "自然资源陆海统筹"?
+    *   The Ministry of Natural Resources was established in 2018. HY-1D is operated by MNR.
+    *   Is there a specific satellite launched by CZ-2C that fits "Land-Sea Coordination"?
+    *   Maybe the probe is not SVOM/EP.
+    *   Maybe the probe is **GECAM** (引力波暴高能电磁对应体全天监测器)? Launched 2020 by CZ-2C. Two satellites (A & B). "Capturing transient cosmic phenomena" (Gamma-ray bursts).
+    *   If Probe Year = 2020.
+    *   Talent Project Measure in 2020?
+    *   Ocean Satellite Year = ?
+    *   Rocket = CZ-2C.
+    *   Ocean Satellite launched by CZ-2C.
+    *   Action Year = Ocean Satellite Year.
+
+    *   Let's look for the "Special Action to Combat Cultural Relic Crimes" (打击文物犯罪专项行动).
+    *   Major actions:
+        *   2018: Special action.
+        *   2021: Ministry of Public Security + National Cultural Heritage Administration launched a special action (often multi-year).
+        *   2023: There was a deployment?
+        *   In **2023**, the National Cultural Heritage Administration and Ministry of Public Security deployed a special action?
+        *   Actually, in **2023**, there was a specific notice or deployment.
+        *   In **2021**, the "Three-Year Special Action to Combat Cultural Relic Crimes" (打击文物犯罪三年专项行动) was launched.
+        *   In **2023**, did they deploy another one?
+        *   Search query mental: "国家文物局 打击文物犯罪 专项行动 2023".
+        *   There was a meeting in 2023.
+        *   But let's look for the Talent Project Measure.
+        *   "国家文物局 人才项目管理办法".
+        *   In **2023**, the National Cultural Heritage Administration issued《国家文物局青年英才项目管理办法》?
+        *   Actually, in **2023**, they issued《国家文物局关于公布 2023 年青年英才项目入选名单的通知》.
+        *   Is there a "Management Measures" (管理办法) document?
+        *   In **2021**?
+        *   In **2022**?
+        *   Let's check the date of《国家文物局专家库管理办法》.
+        *   Let's check the date of《全国文物行业人才项目管理办法》.
+        *   There is a document: 《国家文物局科技创新人才项目管理办法》?
+        *   Wait, there is a specific event: **2023**.
+        *   In 2023, the National Cultural Heritage Administration released《国家文物局青年英才项目管理办法》(Measures for the Management of Young Talents Project of National Cultural Heritage Administration).
+        *   If Year Y = 2023.
+        *   Probe in 2023?
+        *   SVOM was 2024. EP was 2024.
+        *   What probe in 2023?
+        *   **Einstein Probe** was launched Jan 2024.
+        *   **SVOM** was launched June 2024.
+        *   Maybe the "Important Observation Results" happened in 2023, even if launched earlier?
+        *   Or maybe the probe is **GECAM** (2020). Results in 2020?
+        *   Or maybe the probe is **Insight-HXMT** (2017).
+        *   Let's reconsider the "Two Countries" probe.
+        *   SVOM is the strongest candidate for "Two Countries" (China-France) + "Transient Phenomena" (Gamma Rays).
+        *   Launch: 2024.
+        *   Results: 2024 (soon after launch).
+        *   So Year Y = 2024.
+        *   Did National Cultural Heritage Administration release a Talent Project Measure in 2024?
+        *   Search: "国家文物局 人才项目管理办法 2024".
+        *   There is a document: 《国家文物局青年英才项目管理办法》issued in **2023**? Or **2024**?
+        *   Actually, in **2023**, the National Cultural Heritage Administration issued the "Measures".
+        *   If Year Y = 2023.
+        *   Is there a 2-country probe with results in 2023?
+        *   Maybe **SVOM** had results announced in 2023 before launch? Unlikely.
+        *   Maybe **Einstein Probe** (CAS + ESA). Launched 2024.
+        *   Maybe the probe is **SMILE** (Solar wind Magnetosphere Ionosphere Link Explorer)? China-ESA. Launch scheduled 2025.
+        *   Maybe the probe is **CSES** (Zhangheng-1)? 2018.
+        *   Let's go back to the Ocean Satellite.
+        *   Rocket: CZ-2C (Golden Rocket).
+        *   Satellite: Opened "Natural Resources Land-Sea Coordination New Era".
+        *   This phrase is very specific.
+        *   Search query: "自然资源陆海统筹新时代 卫星".
+        *   Result: **Haiyang-3C** (海洋三号 C 星).
+        *   Launch Date: **August 11, 2022**.
+        *   Rocket: **Long March 4B** (长征四号乙).
+        *   Wait, is CZ-4B known as "Golden Rocket" (金牌火箭)? Usually CZ-2C holds that title ("金牌火箭" 长征二号丙).
+        *   Does CZ-4B have that title? CZ-4B is reliable, but CZ-2C is famously the "Golden Rocket".
+        *   Is there an ocean satellite launched by CZ-2C?
+        *   **Haiyang-1D** (2020).
+        *   **Haiyang-3C** (2022) - CZ-4B.
+        *   **Haiyang-3D** (2023) - CZ-4B.
+        *   Maybe the rocket is **Long March 4B**?
+        *   Did CZ-4B launch a 2-country probe for transient phenomena?
+        *   SVOM was CZ-2C.
+        *   EP was CZ-2C.
+        *   GECAM was CZ-2C.
+        *   So the rocket is likely CZ-2C.
+        *   So the Ocean Satellite must be launched by CZ-2C.
+        *   Candidate: **Haiyang-1D** (2020).
+        *   Candidate: **Haiyang-2F**? (2022, CZ-4B).
+        *   Candidate: **Haiyang-3C**? (2022, CZ-4B).
+        *   Is there a 2023 ocean satellite by CZ-2C?
+        *   On **2023-08-21**, CZ-2C launched **Sino-French SVOM**? No, 2024.
+        *   On **2023-12-26**, CZ-2C launched **Shiyan-24**?
+        *   Let's check the phrase "自然资源陆海统筹新时代".
+        *   This phrase is strongly associated with **Haiyang-3C** (2022).
+        *   Quote: "海洋三号 C 星... 开启了我国自然资源陆海统筹新时代".
+        *   If Satellite Year = 2022.
+        *   Then Action Year = 2022.
+        *   Did National Cultural Heritage Administration deploy a special action against relic crimes in 2022?
+        *   In 2022, the Ministry of Public Security and National Cultural Heritage Administration continued the 3-year action started in 2021.
+        *   But was there a specific deployment in 2022?
+        *   Let's check the Rocket for HY-3C again.
+        *   HY-3C launched by **Long March 4B** (CZ-4B) from Taiyuan.
+        *   Is CZ-4B called "Golden Rocket"?
+        *   CZ-2C is the "Golden Rocket". CZ-4B is also very reliable ("金牌火箭" sometimes applied to CZ-4 series too? Or specifically CZ-2C).
+        *   However, SVOM (2-country, transient) was launched by **CZ-2C**.
+        *   If the rocket must be the same model...
+        *   Maybe the Ocean Satellite is **Haiyang-1D** (2020)?
+        *   Does HY-1D fit the "Land-Sea Coordination" description?
+        *   HY-1D is an ocean water color satellite.
+        *   The phrase "自然资源陆海统筹" (Natural Resources Land-Sea Coordination) became prominent after the formation of the Ministry of Natural Resources (2018).
+        *   News article title: "海洋三号 C 星发射成功 开启了我国自然资源陆海统筹新时代" (Haiyang-3C launched successfully, opened a new era of China's natural resources land-sea coordination).
+        *   This match is very strong for the satellite description.
+        *   So Satellite Year = 2022.
+        *   Rocket = CZ-4B.
+        *   Does CZ-4B fit the "High Reliability/Honor" description? Yes, CZ-4B is a mature rocket.
+        *   Does CZ-4B launch a 2-country probe for transient phenomena in 2022?
+        *   In 2022, did CZ-4B launch such a probe?
+        *   Maybe the probe is not SVOM.
+        *   Maybe the probe is **Einstein Probe**? (CZ-2C).
+        *   Maybe the probe is **SVOM**? (CZ-2C).
+        *   Contradiction: HY-3C (2022) is CZ-4B. SVOM/EP (2024) is CZ-2C.
+        *   Unless the "Rocket Model" description applies to CZ-4B as well (reliable, honors).
+        *   Or unless there is an ocean satellite launched by CZ-2C that fits the description.
+        *   Or unless the probe was launched by CZ-4B.
+        *   Did CZ-4B launch a 2-country transient probe in 2022?
+        *   In 2022, CZ-4B launched **Tianhui-5**? **Yaogan-35**?
+        *   What about **2023**?
+        *   In 2023, CZ-4B launched **Haiyang-3D**.
+        *   In 2023, did a 2-country probe achieve results?
+        *   Maybe the "Talent Project" year is 2023.
+        *   Let's check the Talent Project Measure again.
+        *   Document: 《国家文物局青年英才项目管理办法》.
+        *   When was it issued?
+        *   Search result simulation: Issued in **2023**. (Specifically, May 2023? Or late 2023).
+        *   If Year Y = 2023.
+        *   Probe in 2023?
+        *   Maybe **SVOM** had important results announced in 2023 (pre-launch calibration? No).
+        *   Maybe the probe is **GECAM** (2020) but results in 2023?
+        *   Maybe the probe is **Insight** (2017).
+        *   Let's focus on the "Special Action" (Clue 5).
+        *   "In the same year [as Ocean Satellite], the institution deployed a special action to combat cultural relic crimes nationwide."
+        *   Action: "打击文物犯罪专项行动".
+        *   Key years: 2018, 2021, 2023.
+        *   In **2023**, the National Cultural Heritage Administration and Ministry of Public Security held a meeting to deploy the special action?
+        *   Actually, in **2023**, there was a "Special Action to Combat Cultural Relic Crimes" (打击文物犯罪专项行动) specifically mentioned in news.
+        *   In **2021**, the "Three-Year Special Action" started.
+        *   In **2022**, it continued.
+        *   In **2023**, did they deploy a *new* one or emphasize it?
+        *   There is a specific event: **2023**. "国家文物局 公安部 打击文物犯罪专项行动".
+        *   If Action Year = 2023.
+        *   Then Ocean Satellite Year = 2023.
+        *   Ocean Satellite launched in 2023 by the same rocket as the Probe.
+        *   Ocean Satellite in 2023: **Haiyang-3D** (August 2023).
+        *   Rocket for HY-3D: **Long March 4B**.
+        *   Probe in 2023 (Same Rocket CZ-4B? Or Same Rocket Model as HY-3D):
+        *   Did CZ-4B launch a 2-country transient probe in 2023?
+        *   Or did the probe (launched by CZ-4B) achieve results in 2023?
+        *   Maybe the probe is not SVOM.
+        *   What about **Einstein Probe**? (CZ-2C).
+        *   What if the rocket is **Long March 4B**?
+        *   Is CZ-4B known as "Golden Rocket"? CZ-2C is the famous one. But CZ-4B has a high success rate.
+        *   Let's check the Talent Project Measure year again.
+        *   《国家文物局青年英才项目管理办法》.
+        *   According to public info, this was issued in **2023**. (Source: National Cultural Heritage Administration website).
+        *   So Year Y = 2023.
+        *   Probe in 2023:
+        *   "Two countries cooperation", "Capturing transient cosmic phenomena".
+        *   Could it be **SVOM**? Launch 2024.
+        *   Could it be **Einstein Probe**? Launch 2024.
+        *   Could it be **GECAM**? Launch 2020. Results in 2023?
+        *   Could it be a different probe?
+        *   Wait, is there a probe launched in 2023 by CZ-4B?
+        *   On 2023-08-21, CZ-4B launched **Haiyang-3D**.
+        *   On 2023-06-15, CZ-4B launched **Yaogan-36**.
+        *   Maybe the probe is **SVOM** and the year is 2024?
+        *   If Year Y = 2024.
+        *   Talent Project Measure in 2024?
+        *   Maybe the measure was updated in 2024?
+        *   Action in 2024?
+        *   Ocean Satellite in 2024?
+        *   HY-3E? Not launched yet.
+        *   Let's reconsider the "Special Action" year.
+        *   The most prominent "Special Action to Combat Cultural Relic Crimes" (打击文物犯罪专项行动) deployment by National Cultural Heritage Administration + Public Security was in **2021** (Start of 3-year action).
+        *   But there was also a deployment in **2023**.
+        *   In **2023**, the National Cultural Heritage Administration deployed the "Special Action" (maybe continuing or renewing).
+        *   Let's check the Ocean Satellite "Land-Sea Coordination" phrase again.
+        *   "开启了我国自然资源陆海统筹新时代" -> **Haiyang-3C** (2022).
+        *   If Satellite Year = 2022.
+        *   Then Action Year = 2022.
+        *   Was there a special action deployment in 2022?
+        *   In 2022, the action was ongoing.
+        *   But maybe the question refers to **2023**.
+        *   Is there an ocean satellite in 2023 with that description?
+        *   **Haiyang-3D** (2023). Does it have the same description?
+        *   News: "海洋三号 D 星... 进一步提升...".
+        *   News for HY-3C: "开启了...新时代".
+        *   So HY-3C (2022) fits the description better.
+        *   If Year = 2022.
+        *   Rocket: CZ-4B.
+        *   Probe in 2022 (CZ-4B)?
+        *   Talent Project in 2022?
+        *   Let's check Talent Project Measure date.
+        *   《国家文物局青年英才项目管理办法》issued in **2022**?
+        *   Some sources say 2022. Some say 2023.
+        *   Let's check the Probe.
+        *   Is there a 2-country probe launched by CZ-4B in 2022?
+        *   Or achieved results in 2022?
+        *   **GECAM** (2020) achieved results in 2022?
+        *   **SVOM** (2024).
+        *   Maybe the probe is **CSES-1** (Zhangheng-1)? 2018.
+        *   Maybe the probe is **SMILE**?
+        *   Let's try to match the Rocket "High Reliability/Honor".
+        *   "金牌火箭" (Golden Rocket) is specifically **Long March 2C**.
+        *   If Rocket = CZ-2C.
+        *   Ocean Satellite launched by CZ-2C.
+        *   Candidate: **Haiyang-1D** (2020).
+        *   Candidate: **Shiyan-6**?
+        *   Does HY-1D fit "Land-Sea Coordination New Era"?
+        *   HY-1D is the first satellite of the new generation of ocean water color satellites under the Ministry of Natural Resources.
+        *   Maybe the phrase applies to HY-1D too?
+        *   But HY-3C is more commonly associated with "Land-Sea Coordination" ( radar + optical?). HY-3C is a radar satellite (SAR).
+        *   Wait, HY-3C is SAR. HY-1D is Optical.
+        *   "Land-Sea Coordination" often implies SAR (all weather) + Optical.
+        *   Let's assume the Rocket is CZ-2C.
+        *   Probe (2-country, transient) launched by CZ-2C.
+        *   **SVOM** (2024). **Einstein Probe** (2024). **GECAM** (2020).
+        *   If Probe Year = 2024.
+        *   Talent Project Measure = 2024.
+        *   Ocean Satellite = Launched by CZ-2C.
+        *   Action = 2024.
+        *   Is there an ocean satellite launched by CZ-2C in 2024?
+        *   In 2024, CZ-2C launched SVOM, EP, etc.
+        *   Did it launch an ocean satellite?
+        *   Maybe **Haiyang-3E**?
+        *   Or maybe the Ocean Satellite was launched in a *different* year, but the Rocket is the same model.
+        *   Question: "What is the launch year of *this ocean satellite*?"
+        *   "In *the same year* [as ocean satellite], the institution deployed a special action..."
+        *   So Ocean Satellite Year = Action Year.
+        *   Probe Year = Talent Project Year.
+        *   Rocket connects Probe and Ocean Satellite (Same Model).
+        *   If Rocket = CZ-2C.
+        *   Probe = SVOM (2024) or EP (2024) or GECAM (2020).
+        *   If Probe = GECAM (2020).
+        *   Talent Project = 2020?
+        *   Ocean Satellite = Launched by CZ-2C. Action = 2020?
+        *   Action in 2020?
+        *   If Probe = SVOM (2024).
+        *   Talent Project = 2024?
+        *   Ocean Satellite = Launched by CZ-2C. Action = 2024?
+        *   Action in 2024?
+        *   Let's check the Action Year again.
+        *   "打击文物犯罪专项行动".
+        *   Major deployment: **2021**. (Ministry of Public Security + National Cultural Heritage Administration).
+        *   Is there a 2021 Ocean Satellite launched by CZ-2C?
+        *   **Haiyang-2F**? (2021, CZ-4B).
+        *   **Haiyang-1D** (2020).
+        *   **Shiyan-9**?
+        *   What if the Rocket is **Long March 4B**?
+        *   Probe launched by CZ-4B?
+        *   **SVOM** was CZ-2C.
+        *   **EP** was CZ-2C.
+        *   **GECAM** was CZ-2C.
+        *   **Hard X-ray Modulation Telescope (HXMT)** was CZ-4B (2017).
+        *   **DAMPE** was CZ-2D (2015).
+        *   Maybe the probe is **SVOM** and the rocket description is slightly loose (CZ-2C is the main one).
+        *   Let's assume the Year is **2023**.
+        *   Why 2023?
+        *   Talent Project: 《国家文物局青年英才项目管理办法》issued in 2023.
+        *   Probe: **Einstein Probe** (Jan 2024) or **SVOM** (June 2024).
+        *   Wait, if the Talent Project was 2023, and Probe results were 2023.
+        *   Maybe the probe is **GECAM** (results in 2023).
+        *   But "Two Countries". GECAM is CAS.
+        *   SVOM is China-France.
+        *   If SVOM results were in 2024.
+        *   Maybe the Talent Project was 2024.
+        *   Let's search for "国家文物局 人才项目管理办法 2024".
+        *   Actually, in **2023**, the National Cultural Heritage Administration issued the "Measures".
+        *   In **2023**, did they deploy the Special Action?
+        *   Yes, in **2023**, there was a deployment of the special action (continuation/emphasis).
+        *   If Action Year = 2023.
+        *   Then Ocean Satellite Year = 2023.
+        *   Ocean Satellite in 2023: **Haiyang-3D**.
+        *   Rocket for HY-3D: **Long March 4B**.
+        *   Does CZ-4B fit the rocket description? "High reliability, received honors". Yes.
+        *   Did CZ-4B launch a 2-country transient probe in 2023 (or same year as Talent Project)?
+        *   Talent Project Year = 2023.
+        *   Probe Year = 2023.
+        *   Probe: 2-country, transient.
+        *   Is there a 2023 probe?
+        *   Maybe **SVOM** had a milestone in 2023?
+        *   Or maybe the probe is **Einstein Probe** (Jan 2024) but considered 2023 planning? No.
+        *   Maybe the probe is **CSES-1** (2018).
+        *   Let's reconsider the "Golden Rocket" (金牌火箭).
+        *   This title is almost exclusively **Long March 2C**.
+        *   If Rocket = CZ-2C.
+        *   Ocean Satellite launched by CZ-2C.
+        *   Action Year = Ocean Satellite Year.
+        *   Talent Project Year = Probe Year.
+        *   Rocket connects them.
+        *   If Ocean Satellite = **Haiyang-1D** (2020).
+        *   Action Year = 2020.
+        *   Was there a special action in 2020?
+        *   In 2020, there was a action?
+        *   If Ocean Satellite = **Haiyang-3C** (2022) but launched by CZ-4B.
+        *   If the prompt implies CZ-2C (Golden Rocket).
+        *   Is there an ocean satellite launched by CZ-2C in **2023**?
+        *   On 2023-08-21, CZ-2C launched... wait, SVOM was 2024.
+        *   On 2023-12-26, CZ-2C launched...
+        *   Maybe the satellite is **Shiyan-24** (2023). Not ocean.
+        *   Maybe the satellite is **Hongyan**?
+        *   Let's go back to the most specific clue: "开启了其所属国自然资源陆海统筹新时代的海洋观测卫星" (Ocean observation satellite that opened a new era of natural resources land-sea coordination for its country).
+        *   This phrase is verbatim from news about **Haiyang-3C** (海洋三号 C 星).
+        *   Launch Date: **2022-08-11**.
+        *   Rocket: **Long March 4B**.
+        *   So Ocean Satellite Year = **2022**.
+        *   Action Year = **2022**.
+        *   Did National Cultural Heritage Administration deploy a special action in 2022?
+        *   In 2022, the "Three-Year Special Action" (started 2021) was in progress.
+        *   But maybe there was a specific deployment notice in 2022.
+        *   Now check the other side:
+        *   Year Y (Talent Project + Probe).
+        *   Rocket Model = CZ-4B (since it launched HY-3C).
+        *   Does CZ-4B fit "High Reliability/Honor"? Yes.
+        *   Did CZ-4B launch a 2-country transient probe in Year Y?
+        *   And Talent Project Measure released in Year Y.
+        *   If Year Y = 2022.
+        *   Talent Project Measure in 2022?
+        *   Probe in 2022 (CZ-4B)?
+        *   Is there a 2-country probe launched by CZ-4B in 2022?
+        *   Or achieved results in 2022?
+        *   Maybe the probe is **SVOM** (results in 2024).
+        *   Maybe the probe is **Einstein Probe** (results in 2024).
+        *   Maybe the probe is **GECAM** (results in 2022)? GECAM is CAS (China). Not 2-country.
+        *   Maybe the probe is **Insight** (2017).
+        *   Wait, is there a probe launched in **2022** by CZ-4B?
+        *   **Tianhui-5** (2022).
+        *   **Yaogan-35** (2022).
+        *   None are 2-country transient probes.
+        *   Maybe the Rocket is **Long March 2C** and the Ocean Satellite description applies to a CZ-2C satellite.
+        *   Is there a CZ-2C satellite described as "Land-Sea Coordination New Era"?
+        *   **Haiyang-1D** (2020).
+        *   If Year = 2020.
+        *   Action in 2020?
+        *   Talent Project in 2020?
+        *   Probe in 2020 (CZ-2C, 2-country).
+        *   **GECAM** (2020). Is it 2-country? No.
+        *   **SVOM** (2024).
+        *   Let's check the Talent Project Measure again.
+        *   《国家文物局青年英才项目管理办法》.
+        *   Issued: **2023**. (Most likely).
+        *   If Year Y = 2023.
+        *   Probe in 2023.
+        *   Rocket = CZ-2C (Golden).
+        *   Did CZ-2C launch a 2-country transient probe in 2023?
+        *   Or achieved results in 2023?
+        *   **SVOM** (China-France). Launch 2024.
+        *   **Einstein Probe** (China-Europe). Launch 2024.
+        *   Maybe the "Important Observation Results" were in 2023 for a previously launched probe?
+        *   **GECAM** (2020). Results in 2023?
+        *   **Insight** (2017). Results in 2023?
+        *   But "Two Countries".
+        *   **SVOM** is the best fit for "Two Countries + Transient".
+        *   If the year is **2024**.
+        *   Talent Project Measure in 2024?
+        *   Action in 2024?
+        *   Ocean Satellite in 2024 (CZ-2C)?
+        *   If the Ocean Satellite is **Haiyang-3C** (2022), then the Action Year is 2022.
+        *   This implies the Talent/Probe Year is different from Ocean/Action Year.
+        *   The prompt asks for the Ocean Satellite Launch Year.
+        *   So I need to confirm the Ocean Satellite Year.
+        *   Clue: "In the same year [as Ocean Satellite], the institution deployed a special action..."
+        *   So Ocean Satellite Year = Action Year.
+        *   Clue: "In a certain year [Year Y]... Talent Project... Same Year [Year Y]... Probe...".
+        *   "The rocket... also sent [Ocean Satellite]...".
+        *   So Rocket connects Year Y (Probe) and Year X (Ocean Satellite).
+        *   Rocket Model is the same.
+        *   If Ocean Satellite = HY-3C (2022, CZ-4B).
+        *   Then Action Year = 2022.
+        *   Then Probe Year (Year Y) must be a year where CZ-4B launched a 2-country transient probe (or results).
+        *   And Talent Project Measure released in Year Y.
+        *   If Year Y = 2023.
+        *   Did CZ-4B launch a 2-country probe in 2023?
+        *   No.
+        *   If Year Y = 2024.
+        *   Did CZ-4B launch a 2-country probe in 2024?
+        *   SVOM was CZ-2C.
+        *   This suggests the Rocket is **CZ-2C**.
+        *   So Ocean Satellite must be launched by CZ-2C.
+        *   Which ocean satellite launched by CZ-2C fits "Land-Sea Coordination New Era"?
+        *   Maybe **Haiyang-1D** (2020).
+        *   If Year X = 2020.
+        *   Action Year = 2020.
+        *   Was there a special action in 2020?
+        *   In 2020, the National Cultural Heritage Administration and Ministry of Public Security launched a special action?
+        *   Actually, the "Three-Year Special Action" started in **2021**.
+        *   Before that, there was a action in **2018**.
+        *   Is there a 2020 action?
+        *   Maybe the Ocean Satellite is **Haiyang-2F** (2021)? Rocket CZ-4B.
+        *   Maybe the Ocean Satellite is **Haiyang-3D** (2023)? Rocket CZ-4B.
+        *   Let's check the Action Year **2023**.
+        *   In 2023, National Cultural Heritage Administration deployed a special action.
+        *   Ocean Satellite Year = 2023.
+        *   Ocean Satellite = **Haiyang-3D** (2023).
+        *   Rocket = CZ-4B.
+        *   Probe Year (Year Y) = 2023 (Talent Project Year).
+        *   Probe launched by CZ-4B? Or same model (CZ-4B).
+        *   Did CZ-4B launch a 2-country transient probe in 2023?
+        *   No.
+        *   But maybe the Probe is **SVOM** (2024) and the Talent Project is 2024?
+        *   If Year Y = 2024.
+        *   Ocean Satellite Year = 2024?
+        *   Action Year = 2024?
+        *   Is there an ocean satellite in 2024?
+        *   **Haiyang-3E**?
+        *   Let's guess the year is **2023**.
+        *   Why?
+        *   Talent Project: 2023 (《国家文物局青年英才项目管理办法》).
+        *   Action: 2023 (Special Action deployed).
+        *   Ocean Satellite: 2023 (Haiyang-3D).
+        *   Probe: 2023?
+        *   Maybe the probe is **Einstein Probe** (Jan 2024) but considered 2023 fiscal? No.
+        *   Maybe the probe is **SVOM** (2024).
+        *   Maybe the "Certain Year" is 2024.
+        *   Talent Project 2024?
+        *   Action 2024?
+        *   Ocean Satellite 2024?
+        *   If the answer is a single number.
+        *   Common answer for recent riddles: 2023.
+        *   Let's check the "Land-Sea Coordination" phrase again.
+        *   It is most strongly linked to **Haiyang-3C** (2022).
+        *   If the answer is 2022.
+        *   Action in 2022?
+        *   Talent Project in 2022?
+        *   Probe in 2022?
+        *   Maybe the probe is **SVOM** (results in 2022? No).
+        *   Maybe the probe is **GECAM** (results in 2022).
+        *   But GECAM is not 2-country.
+        *   Wait, **SVOM** is China-France.
+        *   Launch 2024.
+        *   Maybe the "Certain Year" is 2024.
+        *   And the Ocean Satellite was launched in 2024?
+        *   Is there an ocean satellite launched in 2024 by CZ-2C?
+        *   On 2024-05-09, CZ-2C launched...
+        *   On 2024-06-22, CZ-2C launched SVOM.
+        *   Maybe the ocean satellite is **Haiyang-3E** (planned 2024/2025).
+        *   Let's search for the exact phrase "自然资源陆海统筹新时代".
+        *   Results point to **2022** and **Haiyang-3C**.
+        *   If the Ocean Satellite Year is 2022.
+        *   Then the Action Year is 2022.
+        *   Did the National Cultural Heritage Administration deploy a special action in 2022?
+        *   Yes, in 2022, they continued/deployed phases of the action.
+        *   But the Talent Project/Probe year might be different.
+        *   The question asks for the Ocean Satellite Launch Year.
+        *   So I should output 2022.
+        *   But I need to be sure about the Rocket connection.
+        *   Rocket for HY-3C: CZ-4B.
+        *   Rocket for Probe (2020s, 2-country, transient): SVOM (CZ-2C).
+        *   Contradiction on Rocket Model.
+        *   Unless CZ-4B is also considered "Golden Rocket" (it has high reliability).
+        *   Or unless there is a 2-country probe launched by CZ-4B.
+        *   Is there one?
+        *   **CSES-1** (2018, CZ-2D).
+        *   **SMILE** (2025, CZ-2D).
+        *   **SVOM** (2024, CZ-2C).
+        *   Maybe the probe is **Einstein Probe** (2024, CZ-2C).
+        *   Maybe the Ocean Satellite is **Haiyang-1D** (2020, CZ-2C).
+        *   Does HY-1D fit the description?
+        *   "Opened a new era of natural resources land-sea coordination".
+        *   HY-1D was the first satellite under the new Ministry of Natural Resources (est. 2018).
+        *   So 2020 is possible.
+        *   Action in 2020?
+        *   Talent Project in 2020?
+        *   Probe in 2020 (GECAM, CZ-2C). But GECAM is not 2-country.
+        *   Wait, **GECAM** has international cooperation?
+        *   Maybe the probe is **SVOM** and the year is 2024.
+        *   If Year = 2024.
+        *   Ocean Satellite launched in 2024 by CZ-2C.
+        *   Is there one?
+        *   Maybe **Haiyang-3E**?
+        *   Or maybe the Ocean Satellite was launched in a previous year, but the Rocket Model is the link.
+        *   Question: "What is the launch year of *this ocean satellite*?"
+        *   "In *the same year* [as ocean satellite], the institution deployed a special action..."
+        *   So Ocean Satellite Year = Action Year.
+        *   If Action Year = 2023 (Major deployment).
+        *   Ocean Satellite Year = 2023.
+        *   Satellite = **Haiyang-3D**.
+        *   Rocket = CZ-4B.
+        *   Probe Year = 2023 (Talent Project Year).
+        *   Probe = ? (2-country, transient).
+        *   Maybe **SVOM** had results in 2023?
+        *   Or maybe the Talent Project was 2023, and the Probe was 2023.
+        *   Let's check the Talent Project Measure date precisely.
+        *   《国家文物局青年英才项目管理办法》.
+        *   Issued: **2023-05-15**?
+        *   If 2023.
+        *   Then Probe Year = 2023.
+        *   Probe: 2-country, transient.
+        *   Maybe **Einstein Probe** (Jan 2024) is considered 2023 mission?
+        *   Or maybe **SVOM**.
+        *   But the Rocket for HY-3D is CZ-4B.
+        *   Does CZ-4B launch SVOM? No, CZ-2C.
+        *   This rocket mismatch is the main problem.
+        *   Unless "Rocket Model" refers to the **Long March 4** series (CZ-4B) and the probe was launched by CZ-4B.
+        *   Is there a 2-country transient probe launched by CZ-4B?
+        *   No obvious one.
+        *   Unless the probe is **Insight** (2017, CZ-4B). Not 2-country.
+        *   Let's assume the Rocket is **Long March 2C** (Golden Rocket).
+        *   Ocean Satellite launched by CZ-2C.
+        *   Action Year = Ocean Satellite Year.
+        *   Talent Project Year = Probe Year.
+        *   Probe launched by CZ-2C.
+        *   Probe = SVOM (2024).
+        *   Talent Project = 2024.
+        *   Ocean Satellite = Launched by CZ-2C in 2024?
+        *   Action = 2024.
+        *   If the answer is 2024.
+        *   But HY-3C (2022) fits the description best.
+        *   Maybe the Action was in 2022.
+        *   Maybe the Talent Project was in 2022.
+        *   Maybe the Probe was in 2022 (GECAM results?).
+        *   But GECAM is not 2-country.
+        *   Wait, **SVOM** is the only strong "2-country transient" candidate.
+        *   Launch 2024.
+        *   If the "Certain Year" is 2024.
+        *   Then Ocean Satellite Year must be 2024 (if Action Year = Ocean Satellite Year).
+        *   Is there an ocean satellite in 2024?
+        *   **Haiyang-3E** is planned.
+        *   Maybe **Haiyang-1D** (2020) is the one, and Action was 2020.
+        *   But "Land-Sea Coordination" phrase is 2022 (HY-3C).
+        *   Let's check if CZ-4B is called "Golden Rocket".
+        *   Some sources call CZ-4B "金牌火箭" too.
+        *   If Rocket = CZ-4B.
+        *   Probe launched by CZ-4B in 2020s.
+        *   2-country, transient.
+        *   Maybe **CSES-1** (2018).
+        *   Maybe **SMILE** (2025).
+        *   Maybe the probe is **SVOM** and I am wrong about the rocket?
+        *   SVOM Launch Vehicle: **Long March 2C**.
+        *   Okay, let's assume the question implies **2023**.
+        *   Why?
+        *   Talent Project: 2023.
+        *   Action: 2023.
+        *   Ocean Satellite: 2023 (HY-3D).
+        *   Probe: 2023 (Maybe results of EP/SVOM announced?).
+        *   Rocket: CZ-4B (for HY-3D).
+        *   Did CZ-4B launch the probe?
+        *   Maybe the probe is not SVOM.
+        *   Maybe the probe is **Einstein Probe** (CZ-2C).
+        *   This is tricky.
+        *   Let's try to find the specific "Talent Project Management Measures" document year.
+        *   《国家文物局青年英才项目管理办法》.
+        *   Search result: Issued in **2023**.
+        *   So Year Y = 2023.
+        *   Probe in 2023.
+        *   Ocean Satellite in Year X.
+        *   Action in Year X.
+        *   Rocket connects Probe and Ocean Satellite.
+        *   If Probe = SVOM (2024). Mismatch.
+        *   If Probe = EP (2024). Mismatch.
+        *   If Probe = GECAM (2020).
+        *   If Probe = **Hard X-ray Modulation Telescope** (2017).
+        *   Maybe the "Certain Year" is 2023, and the Probe achieved results in 2023 (even if launched earlier).
+        *   Example: **GECAM** achieved important results in 2023.
+        *   But "Two Countries".
+        *   Maybe **Insight** (HXMT) has international cooperation?
+        *   Let's bet on the Ocean Satellite Year being **2023**.
+        *   Because Action Year 2023 is strong (Special Action deployed).
+        *   Ocean Satellite 2023 (HY-3D).
+        *   Rocket CZ-4B.
+        *   Probe 2023 (Results).
+        *   Talent Project 2023.
+        *   Answer: 2023.
+
+        *   Wait, one more check: "打击文物犯罪专项行动".
+        *   In **2023**, the National Cultural Heritage Administration and Ministry of Public Security held a video conference to deploy the special action. (Date: 2023-04-19?).
+        *   In **2022**, was there a deployment?
+        *   In **2021**, the action started.
+        *   The prompt says "In the same year [as Ocean Satellite], the institution deployed...".
+        *   If Ocean Satellite = 2023 (HY-3D).
+        *   Then Answer = 2023.
+        *   Does HY-3D fit "Land-Sea Coordination"?
+        *   HY-3C (2022) fits the phrase better.
+        *   But if HY-3C (2022), then Action = 2022.
+        *   Was there a deployment in 2022?
+        *   Maybe.
+        *   But Talent Project = 2023.
+        *   So Year Y (2023) != Year X (2022).
+        *   This is allowed.
+        *   But Rocket must match.
+        *   HY-3C Rocket = CZ-4B.
+        *   Probe Rocket (2023) = CZ-4B?
+        *   If Probe = SVOM (CZ-2C). Mismatch.
+        *   If Probe = EP (CZ-2C). Mismatch.
+        *   If Probe = GECAM (CZ-2C). Mismatch.
+        *   Is there a 2-country probe launched by CZ-4B?
+        *   Maybe the probe is **CSES-1** (2018).
+        *   Maybe the probe is **SMILE** (2025).
+        *   Maybe the Rocket is **Long March 2C**.
+        *   Then Ocean Satellite must be CZ-2C.
+        *   HY-1D (2020).
+        *   Action 2020?
+        *   Talent Project 2020?
+        *   Probe 2020 (GECAM).
+        *   But GECAM not 2-country.
+        *   Okay, let's look for "21 世纪 20 年代" (2020s).
+        *   Most likely **2023**.
+        *   Because Talent Project Measure is 2023.
+        *   Action is 2023.
+        *   Ocean Satellite 2023 (HY-3D).
+        *   Rocket CZ-4B (Reliable).
+        *   Probe 2023 (Maybe **SVOM** had a key milestone in 2023?).
+        *   Or maybe the probe is **Einstein Probe** (Jan 2024) but considered 2023 mission year?
+        *   Let's check the date of《国家文物局青年英才项目管理办法》.
+        *   It was issued in **2023**.
+        *   Let's check the date of the Special Action.
+        *   In **2023**, the National Cultural Heritage Administration deployed the action.
+        *   So Ocean Satellite Year = 2023.
+        *   Answer: 2023.
+
+Answer:
+2023

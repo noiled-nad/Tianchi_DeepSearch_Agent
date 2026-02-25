@@ -1,0 +1,223 @@
+Question ID: 51
+Question: 某一年，一个源自东南亚某群岛国家的计算机蠕虫通过伪装成个人信息的电子邮件在全球传播，造成了巨大的经济损失，但其制造者因当时法律的缺失而未被追究。在同一年成立的一家中国公司，其业务后来拓展至管理一支欧洲顶级联赛的职业球队。这家公司还为一款策略游戏系列开发了移动版本，该系列原作在上述年份流行的操作系统上广受欢迎，其内容从早期对某古代帝国历史的描绘，逐渐演变为加入了神话生物与角色。这个游戏系列叫什么？请仅回答游戏系列的核心中文名称，不添加标点符号。
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A assistant.
+    *   Constraint: Direct answer only, no reasoning, no extra explanation, no formatting.
+    *   Task: Identify a specific game series based on a riddle-like description.
+
+2.  **Deconstruct the Clues:**
+    *   **Clue 1 (The Worm/Year):** "某一年，一个源自东南亚某群岛国家的计算机蠕虫通过伪装成个人信息的电子邮件在全球传播，造成了巨大的经济损失，但其制造者因当时法律的缺失而未被追究。"
+        *   Southeast Asian archipelago country: Philippines (Philippines is an archipelago).
+        *   Computer worm via email pretending to be personal info: "ILOVEYOU" worm (VBS/LoveLetter).
+        *   Year: 2000.
+        *   Creator not prosecuted due to lack of laws: Onel de Guzman was not prosecuted because Philippines had no cybercrime laws at the time.
+        *   **Key Year: 2000.**
+
+    *   **Clue 2 (The Chinese Company):** "在同一年成立的一家中国公司，其业务后来拓展至管理一支欧洲顶级联赛的职业球队。"
+        *   Founded in 2000.
+        *   Chinese company.
+        *   Later managed a European top-league professional football team.
+        *   Candidate: Desports (Desports Sports Investment)? No.
+        *   Candidate: Rastar Group (星辉集团)? Founded in 2000? Let's check. Rastar Group (星辉互动娱乐股份有限公司) was founded in 2000 (originally as a toy company, later games). They own RCD Espanyol (Spanish La Liga team).
+        *   Candidate: Suning? Founded 1990.
+        *   Candidate: Dalian Wanda? Founded 1988.
+        *   Candidate: CMC Capital?
+        *   Let's verify Rastar (星辉娱乐). Founded 2000. Acquired RCD Espanyol (2015-2016). This fits.
+
+    *   **Clue 3 (The Game Series):** "这家公司还为一款策略游戏系列开发了移动版本，该系列原作在上述年份流行的操作系统上广受欢迎，其内容从早期对某古代帝国历史的描绘，逐渐演变为加入了神话生物与角色。"
+        *   Company: Rastar (星辉娱乐).
+        *   They developed a mobile version for a strategy game series.
+        *   Original series popular on the OS popular in that year (2000). OS: Windows 98/2000/ME? Basically PC strategy games popular around 2000.
+        *   Content evolution: Early depiction of an ancient empire's history -> Later added mythological creatures and characters.
+        *   Game Series Candidate: "Age of Empires" (帝国时代)?
+            *   Early: Historical (Romans, Egyptians, etc.).
+            *   Later: Age of Mythology (神话时代) - added mythological creatures.
+            *   Is it the same series? Often considered spin-off or related.
+            *   Did Rastar develop a mobile version?
+            *   Wait, let's look for "Rastar" + "Strategy Game" + "Mobile".
+            *   Actually, let's reconsider the company. Is there another company founded in 2000 that owns a European football team and made a mobile strategy game?
+            *   Maybe the company is "Level Infinite"? No.
+            *   Maybe the company is "NetEase"? Founded 1997.
+            *   Maybe the company is "Tencent"? Founded 1998.
+            *   Let's search for "Chinese company founded 2000 owns European football team".
+            *   Result: 星辉娱乐 (Rastar Games). They own 西班牙人 (RCD Espanyol).
+            *   Did they develop a mobile version for a strategy game series?
+            *   They licensed/developed "Age of Empires: World Domination"? No.
+            *   They developed "真王" (True King)?
+            *   Let's look at the game description again: "Strategy game series", "Original popular on OS popular in that year (2000)", "Early ancient empire history", "Later added mythological creatures".
+            *   This strongly points to **Age of Empires** (帝国时代).
+            *   Age of Empires I & II: Historical.
+            *   Age of Mythology: Mythological.
+            *   Is there a mobile version by this company?
+            *   Actually, there is a game called "帝国时代：城堡围攻" (Age of Empires: Castle Siege) by Microsoft.
+            *   Wait, maybe the company is not Rastar.
+            *   Let's check the company clue again: "Founded in the same year (2000)... later expanded to manage a European top-league professional team."
+            *   Another candidate: **复星国际 (Fosun)**? Founded 1992. Owned Wolves.
+            *   **苏宁 (Suning)**? Owned Inter.
+            *   **AC Milan**? Owned by Rossoneri Sport Investment Lux (Chinese consortium led by Li Yonghong), but not a company founded in 2000 specifically for this.
+            *   **Inter Milan**? Suning.
+            *   **Espanyol**? Rastar (星辉娱乐). Rastar was founded in 2000.
+            *   Did Rastar make a mobile version of a strategy game series fitting the description?
+            *   Rastar Games (星辉游戏) published/developed "三国群英传" (Heroes of the Three Kingdoms)? No.
+            *   Let's search for "星辉娱乐 策略游戏 移动版" (Rastar Entertainment Strategy Game Mobile Version).
+            *   They have "倚天" (Yitian), "龙将" (Longjiang).
+            *   Wait, is there a connection to "Age of Empires"?
+            *   Maybe the company is **微软 (Microsoft)**? No, not Chinese.
+            *   Maybe the game is **文明 (Civilization)**?
+            *   Maybe the game is **全面战争 (Total War)**?
+            *   Let's reconsider the game description: "Early depiction of an ancient empire's history, gradually evolved to include mythological creatures and characters."
+            *   This is the exact trajectory of **Age of Empires** (帝国时代) -> **Age of Mythology** (神话时代). Although AoM is often considered a spin-off, it's part of the same universe/franchise family.
+            *   However, the clue says "This company developed a mobile version for a strategy game series".
+            *   Is there a Chinese company that made an AoE mobile game?
+            *   "帝国时代：统治世界" (Age of Empires: World Domination) was by KLab and Microsoft.
+            *   "帝国时代：城堡围攻" was by Microsoft.
+            *   Maybe the game is not AoE.
+            *   What about **英雄无敌 (Heroes of Might and Magic)**?
+            *   What about **三国志 (Romance of the Three Kingdoms)**?
+            *   Let's focus on the company again. "Founded in 2000", "Chinese", "Owns European Football Team".
+            *   **星辉娱乐 (Rastar)** is the strongest match for the football team (Espanyol).
+            *   Did they make a mobile game related to a classic PC strategy series?
+            *   In 2017, Rastar Games announced they licensed **Age of Empires** for mobile?
+            *   Search query mental check: "星辉娱乐 帝国时代 手游".
+            *   Result: Yes, 星辉娱乐 (Rastar) licensed and developed/published **《帝国时代：城堡围攻》**? No.
+            *   Wait, there is a game called **《帝国时代：统治世界》**?
+            *   Actually, in 2019/2020, there was news about 星辉娱乐 (Rastar) and **《帝国时代》 (Age of Empires)** mobile version.
+            *   Specifically, 星辉娱乐 (Rastar Games) obtained the IP authorization for **《帝国时代》 (Age of Empires)** to develop a mobile game in China.
+            *   Let's verify the game description again: "Original popular on OS popular in that year (2000)" -> Windows 98/2000, Age of Empires II was released in 1999, very popular in 2000.
+            *   "Content from early depiction of an ancient empire's history" -> Age of Empires (Rise of Rome, etc.).
+            *   "Gradually evolved to include mythological creatures and characters" -> Age of Mythology.
+            *   This fits the "Age of Empires" franchise evolution perfectly.
+            *   The question asks for the game series' core Chinese name.
+            *   Game Series: 帝国时代 (Age of Empires).
+
+    *   **Verification:**
+        *   Worm: ILOVEYOU (2000), Philippines. Correct.
+        *   Company: 星辉娱乐 (Rastar), founded 2000, owns RCD Espanyol (La Liga). Correct.
+        *   Game: 帝国时代 (Age of Empires). PC popular around 2000 (AoE2). Early history (Romans, Egyptians), later mythology (Age of Mythology). Rastar licensed/developed mobile version (《帝国时代：统治世界》or similar authorization news).
+        *   Actually, specific news: 星辉娱乐 (Rastar) announced cooperation with Microsoft to bring Age of Empires to mobile? Or maybe it's just the IP name.
+        *   Wait, there is a specific game: 《帝国时代：文明》?
+        *   Regardless of the specific mobile title, the series described is clearly "Age of Empires".
+        *   The description "from early depiction of an ancient empire's history, gradually evolved to include mythological creatures" is the defining characteristic distinguishing AoE from other RTS like StarCraft or WC3. AoE started historical, then AoM added myths.
+        *   Core Chinese Name: 帝国时代.
+
+3.  **Final Check:**
+    *   Constraint: "Please answer only the core Chinese name of the game series, no punctuation."
+    *   Answer: 帝国时代.
+
+4.  **Wait, one more check on the company:**
+    *   Is there any other company?
+    *   莱茵体育？No.
+    *   双传？No.
+    *   星辉娱乐 (300043.SZ) is definitely the one associated with Espanyol.
+    *   Did they make an AoE mobile game?
+    *   News: 2017 年，星辉娱乐宣布获得微软《帝国时代》IP 授权，将推出手游。(In 2017, Rastar Entertainment announced obtaining Microsoft's "Age of Empires" IP authorization to launch a mobile game.)
+    *   This confirms the link.
+    *   The game series is 帝国时代.
+
+5.  **Formatting:**
+    *   No punctuation.
+    *   No reasoning.
+    *   Just the name.
+
+    *   Name: 帝国时代
+
+6.  **Final Decision:** 帝国时代.
+
+    *   Wait, is "神话时代" (Age of Mythology) considered part of the series? The prompt says "This game series... content from early... gradually evolved to...". This implies the series encompasses both. The core series name is Age of Empires (帝国时代). Age of Mythology is often treated as a spin-off but within the same branding universe described here. The prompt asks for the "game series" (游戏系列). The main series is 帝国时代.
+    *   Also, AoE2 was the peak in 2000.
+    *   So "帝国时代" is the correct answer.
+
+    *   Double check: "核心中文名称" (Core Chinese Name).
+    *   "帝国时代" is the standard translation.
+
+    *   One more check on the worm: ILOVEYOU virus, 2000, Philippines, Onel de Guzman, no cybercrime law. Matches perfectly.
+    *   Company: Rastar (星辉娱乐), founded 2000, owns Espanyol. Matches perfectly.
+    *   Game: Age of Empires, popular on Win98/2000, historical -> mythological (AoM). Matches perfectly.
+    *   Mobile version: Rastar licensed AoE for mobile. Matches.
+
+    *   Answer: 帝国时代.
+
+    *   Wait, could it be "文明" (Civilization)?
+    *   Civ 1 (1991), Civ 2 (1996), Civ 3 (2001).
+    *   Mythological creatures? Civ games usually stay historical until Civ 6 (Gathering Storm? No). Civ doesn't typically add mythological creatures as a core evolution path like AoE -> AoM.
+    *   AoE -> AoM is the specific transition from history to myth.
+    *   So 帝国时代 is correct.
+
+    *   Final check on constraints: "不添加标点符号" (No punctuation).
+    *   Output: 帝国时代.
+
+    *   Wait, is there any chance it's "魔兽争霸" (Warcraft)?
+    *   Warcraft 1 (1994), 2 (1995), 3 (2002).
+    *   History -> Myth? Warcraft is fantasy from the start.
+    *   Total War? Historical -> Fantasy (Warhammer). But Total War company is Creative Assembly (UK). Chinese company mobile version?
+    *   世嘉 (Sega)? No.
+    *   The Rastar + Espanyol link is very specific and strong.
+    *   The AoE mobile license by Rastar is a specific fact.
+    *   So it must be 帝国时代.
+
+    *   Ready to output.
+
+    *   Wait, one detail: "该系列原作在上述年份流行的操作系统上广受欢迎".
+    *   Year: 2000. OS: Windows 98/2000.
+    *   AoE2 was released 1999, huge in 2000.
+    *   Fits.
+
+    *   Final Answer: 帝国时代.
+
+    *   Wait, is "帝国时代" the *series* name? Yes.
+    *   Is there any ambiguity? Maybe "帝国时代系列"? The prompt asks for "游戏系列的核心中文名称" (Core Chinese Name of the Game Series). Usually just "帝国时代".
+    *   I will output "帝国时代".
+
+    *   Wait, could it be "神话时代"? No, that's the later evolution. The series started with history.
+    *   Could it be "世纪帝国"? That's the Traditional Chinese name. The prompt uses Simplified Chinese ("某一年...", "中国公司"). So "帝国时代" (Simplified) is appropriate.
+
+    *   Final confirmation.
+    *   Worm: ILOVEYOU (2000).
+    *   Company: 星辉娱乐 (Founded 2000, owns Espanyol).
+    *   Game: 帝国时代 (Licensed by 星辉 for mobile, PC popular in 2000, History -> Myth).
+    *   Answer: 帝国时代.
+
+    *   Wait, I need to make sure I don't add any punctuation like periods.
+    *   Just the characters.
+
+    *   One more thought: Is there any other company?
+    *   体坛传媒？No.
+    *   乐视？Founded 2004.
+    *   万达？1988.
+    *   恒大？1996.
+    *   复星？1992.
+    *   苏宁？1990.
+    *   星辉 (Rastar) is the only one fitting "Founded 2000" + "European Top League Team (Espanyol in La Liga)".
+    *   So the game must be linked to Rastar.
+    *   Rastar + Strategy Game Mobile = Age of Empires (Licensed).
+    *   So the answer is definitely 帝国时代.
+
+    *   Wait, did they actually *develop* it or just *license* it? The prompt says "developed a mobile version" (开发了移动版本).
+    *   News: 2017 年 5 月，星辉娱乐宣布与微软合作，获得《帝国时代》IP 授权，将推出官方正版手游。 (May 2017, Rastar announced cooperation with Microsoft, obtained AoE IP authorization, will launch official mobile game.)
+    *   Later, the game was released as《帝国时代：统治世界》? Or just《帝国时代》手游.
+    *   The prompt says "developed" (开发了). Licensing usually involves development by the licensee or co-development. This fits well enough for a riddle.
+    *   The description of the game series (History -> Myth) is the strongest identifier for AoE.
+    *   So I am confident.
+
+    *   Final Output Generation.
+    *   Text: 帝国时代
+    *   No punctuation.
+    *   No reasoning.
+    *   No extra text.
+
+    *   Wait, is "核心中文名称" implying I should not include "系列"? Yes. Just "帝国时代".
+    *   Okay.
+
+    *   One nuance: "上述年份流行的操作系统" (OS popular in the above year).
+    *   Year 2000. Windows 98/2000/ME.
+    *   AoE2 ran on these.
+    *   Okay.
+
+    *   Ready.
+
+Answer:
+帝国时代

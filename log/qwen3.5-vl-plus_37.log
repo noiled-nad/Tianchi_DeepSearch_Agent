@@ -1,0 +1,473 @@
+Question ID: 37
+Question: 在21世纪10年代初期，一个亚洲大国启动了一项重要的国家级空间项目。大约在同一时期，一个北美城市开始了一项为期十余年的研究，该研究针对的是由某一特定细菌属引起的侵袭性感染。该细菌属在一种源自南美大陆的植物的栽培品种根际微生物群中占据主导地位。这种南美品种植物与另一种源自北美大陆的植物杂交，产生了一种如今在全球广泛种植的杂交水果。请问，在这种南美品种植物的野生（而非栽培）版本的根际中，占主导地位的细菌属英文官方名称是什么？
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A assistant.
+    *   Constraint: Direct answer only, no reasoning, no extra explanation, no formatting.
+    *   Question Content:
+        *   Timeframe: Early 2010s (21st century 10s).
+        *   Event 1: An Asian major country launched an important national space project.
+        *   Event 2: Around the same time, a North American city started a decade-long study on invasive infections caused by a specific bacterial genus.
+        *   Bacterial Genus Context: This genus dominates the rhizosphere microbiome of a cultivated variety of a plant originating from South America.
+        *   Plant Context: This South American plant variety was hybridized with a North American plant to produce a hybrid fruit now widely grown globally.
+        *   Target Question: What is the English official name of the bacterial genus that dominates the rhizosphere of the *wild* (not cultivated) version of this South American plant?
+
+2.  **Deconstruct the Clues:**
+
+    *   **Clue 1: Asian major country space project (Early 2010s).**
+        *   China (Asian major country).
+        *   Space project: Tiangong-1 (2011), Chang'e program (Chang'e 2 in 2010, Chang'e 3 in 2013), Beidou navigation system.
+        *   Likely candidate: China's manned space program or lunar exploration. Let's keep this broad for now.
+
+    *   **Clue 2: North American city, decade-long study, invasive infection, specific bacterial genus.**
+        *   North American city: Maybe Boston, New York, San Francisco?
+        *   Study: "Decade-long study" (longitudinal).
+        *   Infection: Invasive infection caused by a specific bacterial genus.
+        *   Connection to plants/bacteria: This seems like a specific scientific trivia link.
+
+    *   **Clue 3: The Plant Hybrid.**
+        *   South American plant species (cultivated variety) + North American plant species = Hybrid fruit widely grown globally.
+        *   Common hybrid fruits:
+            *   Citrus? (Many hybrids).
+            *   Strawberry? (Fragaria chiloensis [South/North America] x Fragaria virginiana [North America] = Garden Strawberry). Wait, F. chiloensis is from Chile (South America) and F. virginiana is from North America. The modern garden strawberry (Fragaria × ananassa) is the hybrid.
+            *   Let's check the strawberry hypothesis.
+            *   South American parent: *Fragaria chiloensis* (Chilean strawberry).
+            *   North American parent: *Fragaria virginiana* (Virginia strawberry).
+            *   Hybrid: *Fragaria × ananassa* (Garden strawberry). Widely grown globally.
+            *   Does this fit the bacterial clue?
+
+    *   **Clue 4: The Bacterial Genus.**
+        *   Context: Dominates the rhizosphere microbiome of the *cultivated variety* of the South American plant (*Fragaria chiloensis* cultivated?).
+        *   Wait, the prompt says: "This bacterial genus dominates the rhizosphere microbiome of a cultivated variety of a plant originating from South America."
+        *   Then: "What is the English official name of the bacterial genus that dominates the rhizosphere of the *wild* (not cultivated) version of this South American plant?"
+        *   This implies a shift in microbiome between wild and cultivated versions, or a specific study comparing them.
+        *   There is a famous study regarding strawberries, microbiomes, and *Pseudomonas*? Or *Burkholderia*? Or *Ralstonia*?
+        *   Let's search for the "North American city decade-long study invasive infection bacterial genus".
+        *   Maybe the city is **Boston**? Boston Children's Hospital?
+        *   Maybe the study is about **Pseudomonas aeruginosa**?
+        *   Maybe the study is about **Burkholderia cepacia** complex?
+        *   Let's reconsider the space project. China's **Chang'e 3** (2013) or **Tiangong-1** (2011).
+        *   Let's focus on the plant/bacteria link. This sounds like a specific scientific paper finding.
+        *   "South American plant cultivated variety rhizosphere microbiome dominates by bacterial genus".
+        *   "Wild version rhizosphere dominates by different genus?" Or the question asks for the genus in the *wild* version, implying the one mentioned earlier (in the cultivated) is different, or maybe the same?
+        *   Actually, re-reading: "The bacterial genus [from the city study]... dominates the rhizosphere... of a cultivated variety... of a South American plant."
+        *   Then the question asks: "In the *wild* version of this South American plant's rhizosphere, what is the dominant bacterial genus?"
+        *   So, Genus A (City Study) = Dominant in Cultivated South American Plant.
+        *   Question = What is Genus B (Dominant in Wild South American Plant)?
+        *   OR, is it asking for the name of the genus mentioned in the city study, but specifying it's the one in the wild version? No, it asks "In the wild version... what is the dominant genus?". This implies a contrast.
+        *   However, often these riddles rely on a specific paper title or finding.
+        *   Let's look for "Strawberry rhizosphere microbiome wild vs cultivated".
+        *   There is a known study: "Domestication alters the microbiome of strawberry".
+        *   Paper: "Domestication alters the microbiome of strawberry" (or similar).
+        *   Authors? Maybe from a North American city university.
+        *   Let's search memory for "Strawberry rhizosphere bacteria wild vs cultivated".
+        *   Key paper: *Leff et al., 2017*? "Domestication alters the microbiome of strawberry".
+        *   In this study, they compared wild *Fragaria chiloensis* and cultivated *Fragaria × ananassa* (which has *chiloensis* ancestry).
+        *   Wait, the prompt says: "South American plant... cultivated variety... hybridized with North American plant... hybrid fruit".
+        *   South American plant: *Fragaria chiloensis*.
+        *   North American plant: *Fragaria virginiana*.
+        *   Hybrid: *Fragaria × ananassa*.
+        *   The prompt says the bacterial genus (from the city study) dominates the rhizosphere of the *cultivated variety of the South American plant*. This phrasing is slightly tricky. *Fragaria chiloensis* itself has cultivated varieties? Or does it refer to the hybrid which is cultivated?
+        *   "This South American plant variety... hybridized... to produce a hybrid fruit". This implies the South American plant is the parent.
+        *   "The bacterial genus... dominates the rhizosphere... of a cultivated variety of a plant originating from South America."
+        *   Maybe the "cultivated variety of the South American plant" refers to the hybrid itself (which is cultivated)? Or a cultivated form of *F. chiloensis*?
+        *   Let's look for the "North American city decade-long study".
+        *   City: **Boston**. Study: **Boston Birth Cohort**? No, that's health.
+        *   Study on invasive infection: **Pseudomonas**? **Staphylococcus**? **Burkholderia**?
+        *   There is a specific connection between a bacterial genus studied in a city hospital and strawberry microbiomes.
+        *   Could it be **Pseudomonas**? *Pseudomonas* is common in rhizospheres.
+        *   Could it be **Burkholderia**?
+        *   Let's recall the paper: "Domestication alters the microbiome of strawberry" (Leff et al., 2017, PNAS?).
+        *   Findings: Wild strawberries have more protective bacteria?
+        *   Actually, there is a specific trivia fact often associated with this.
+        *   Let's try to match the "North American city... decade-long study... invasive infection".
+        *   Maybe the city is **Seattle**? **San Francisco**?
+        *   Maybe the study is about **Cystic Fibrosis** patients? (Decade-long, invasive infection).
+        *   Bacterial genus: **Pseudomonas** (specifically *P. aeruginosa*).
+        *   Is *Pseudomonas* dominant in cultivated strawberry rhizosphere?
+        *   Or is it **Streptomyces**?
+        *   Let's search for the specific riddle structure. This looks like a "Jeopardy" style or specific knowledge graph query.
+        *   Key elements:
+            1.  Asian Space Project (Early 2010s) -> China, Tiangong/Chang'e (2011-2013).
+            2.  North American City Study (Early 2010s, 10 years, invasive infection, bacterial genus).
+            3.  Bacterial genus dominates cultivated South American plant rhizosphere.
+            4.  South American plant + North American plant = Global Hybrid Fruit (Strawberry).
+            5.  Question: Dominant genus in *Wild* South American plant rhizosphere.
+
+        *   Hypothesis: The fruit is the **Strawberry** (*Fragaria × ananassa*).
+        *   Parents: *F. chiloensis* (Chile/South America) and *F. virginiana* (North America).
+        *   Study: "Domestication alters the microbiome of strawberry". Published around 2017 (fits "Early 2010s start" for a decade study? Or the study started early 2010s).
+        *   Where was the study from? University of **Colorado**? **Boston**?
+        *   Actually, there is a specific finding: In wild strawberries, **Pseudomonas** is dominant? Or **Burkholderia**?
+        *   Let's recall the specific contrast.
+        *   Paper: *Leff, J. W., et al. (2017). Domestication alters the microbiome of strawberry. mBio.* (Wait, check journal).
+        *   Actually, there is a paper: "Domestication reduces the capacity of the strawberry microbiome to suppress pathogens".
+        *   Another angle: The "North American city" study on invasive infection.
+        *   Maybe the genus is **Burkholderia**. *Burkholderia cepacia* complex causes invasive infections in CF patients.
+        *   Is there a study in **Boston** (e.g., Harvard/MGH) on *Burkholderia*?
+        *   Or **Pseudomonas**.
+        *   Let's focus on the Wild vs Cultivated Strawberry Microbiome.
+        *   Reference: *Leff, J. W., et al. "Domestication alters the microbiome of strawberry."*
+        *   In wild *Fragaria chiloensis*, the rhizosphere is dominated by **Pseudomonas**?
+        *   In cultivated, it shifts?
+        *   Wait, I need to be precise.
+        *   There is a specific fact: "In the wild version of this South American plant's rhizosphere, the dominant bacterial genus is..."
+        *   Common answer in this context: **Pseudomonas**.
+        *   Why? *Pseudomonas* is often cited as beneficial in wild plants, lost in cultivation.
+        *   But let's check the "North American city... invasive infection" clue.
+        *   *Pseudomonas aeruginosa* is a major cause of invasive infections (hospital-acquired, CF).
+        *   Is there a specific decade-long study in a North American city starting early 2010s?
+        *   Maybe the **Boston** Children's Hospital study on *Pseudomonas*?
+        *   Or the **Chicago** study?
+        *   Let's consider the phrase "English official name". Just the genus name.
+        *   Is it **Pseudomonas**?
+        *   Let's check if there's a more specific fit.
+        *   Plant: *Fragaria chiloensis*.
+        *   Hybrid: *Fragaria × ananassa*.
+        *   Study: "Domestication alters the microbiome of strawberry" (Leff et al., 2017). Authors from University of **Colorado** (Boulder)? Not a city study on infection.
+        *   Maybe the clue refers to a different plant?
+        *   South American plant + North American plant = Hybrid Fruit.
+        *   Could it be **Blueberry**? (Highbush blueberry hybrid). *Vaccinium corymbosum* (NA) x ...?
+        *   Could it be **Kiwi**? (China/NZ).
+        *   Could it be **Pineapple**?
+        *   Strawberry is the strongest candidate for "South America (Chile) x North America (Virginia) = Global Hybrid".
+        *   So the plant is *Fragaria chiloensis*.
+        *   The question asks for the dominant genus in the *wild* version's rhizosphere.
+        *   In the Leff et al. study (2017), they found that domestication shifted the microbiome.
+        *   Specific finding: Wild strawberries had higher abundance of **Pseudomonas**?
+        *   Actually, some sources say **Burkholderia** is dominant in wild?
+        *   Let's dig deeper into the "North American city... invasive infection" clue. This must identify the genus *indirectly* or confirm the genus found in the *cultivated* version, implying the wild one is different?
+        *   Re-reading carefully: "Approximately at the same time [as Asian space project, early 2010s], a North American city started a decade-long study... targeting invasive infections caused by a specific bacterial genus. This bacterial genus dominates the rhizosphere... of a cultivated variety of a plant originating from South America."
+        *   So: Genus X = Cause of infection (City Study) = Dominant in Cultivated South American Plant Rhizosphere.
+        *   Question: What is the dominant genus in the *Wild* South American Plant Rhizosphere? (Implies Genus Y).
+        *   OR, does it imply Genus X is also the answer, but I need to verify the wild status? "In the wild version... what is the dominant genus?" Usually implies a contrast. If it were the same, the question would be trivial.
+        *   However, if Genus X dominates the *cultivated* one, and the question asks for the *wild* one, I need to find Genus Y.
+        *   But wait, maybe the text implies Genus X dominates the *cultivated* one, and the study links them.
+        *   Let's assume the Fruit is Strawberry.
+        *   Cultivated Strawberry (*F. ananassa*) rhizosphere dominant genus?
+        *   Wild *F. chiloensis* rhizosphere dominant genus?
+        *   Paper: *Leff, J. W., et al. (2017). Domestication alters the microbiome of strawberry.*
+        *   Quote: "We found that domestication... resulted in a loss of microbial diversity... and a shift in community composition."
+        *   Specific genera: **Pseudomonas** was more abundant in wild? Or cultivated?
+        *   Another paper: *Hassani et al.*?
+        *   Let's search for the "North American city... decade-long study... invasive infection".
+        *   City: **Boston**. Study: **The Boston Birth Cohort**? No.
+        *   Study: **PFGE study**?
+        *   Maybe the genus is **Acinetobacter**? **Klebsiella**?
+        *   Let's consider the phrase "English official name".
+        *   Is it possible the genus is **Pseudomonas**?
+        *   If Genus X (City Study) = *Pseudomonas*.
+        *   Does *Pseudomonas* dominate cultivated strawberry rhizosphere?
+        *   And what dominates wild?
+        *   Actually, there is a specific trivia point: Wild strawberries are associated with **Pseudomonas** which protects them. Cultivated ones lose this.
+        *   If the City Study is about *Pseudomonas* infections (very common, e.g., in CF, hospitals).
+        *   Is there a specific "Decade-long study" in a "North American City" starting early 2010s?
+        *   Maybe the **Seattle** Giardia study? No.
+        *   Maybe the **San Francisco** HIV study? No.
+        *   How about the **Chicago** *Pseudomonas* study?
+        *   Let's pivot. Is there a specific connection between **Tiangong-1** (2011) and a study?
+        *   Time: 2011.
+        *   City: **Boston**.
+        *   Study: **Harvard Pilgrim**?
+        *   Maybe the genus is **Burkholderia**.
+        *   *Burkholderia* is known for being in plant rhizospheres (beneficial) and causing infections (opportunistic).
+        *   Paper: "Domestication of strawberry alters the microbiome...".
+        *   In some contexts, **Burkholderia** is the key genus shifted.
+        *   However, **Pseudomonas** is more famous for "invasive infection" + "rhizosphere".
+        *   Let's guess the answer is **Pseudomonas**.
+        *   Wait, if Genus X (Infection/Cultivated) is *Pseudomonas*, and the question asks for the Wild one...
+        *   Maybe the Wild one is *also* Pseudomonas?
+        *   Or maybe the prompt implies: The genus studied in the city (Genus X) dominates the *cultivated* plant. What dominates the *wild* plant?
+        *   If the study highlights the *loss* of a beneficial genus in cultivation, then the Wild one has the beneficial genus.
+        *   If the City Study is about an *infection*, Genus X is likely a pathogen (e.g., *Pseudomonas*).
+        *   If Genus X dominates the *cultivated* rhizosphere, that sounds bad (pathogen enrichment).
+        *   Then the Wild rhizosphere would be dominated by something else (beneficial).
+        *   What is the beneficial genus in wild strawberries?
+        *   Some studies suggest **Streptomyces**? **Bacillus**?
+        *   Let's try to find the specific "North American city" study.
+        *   "Decade-long study" "Invasive infection" "Bacterial genus".
+        *   Could it be the **Toronto** study? (North America).
+        *   Could it be **New York**?
+        *   Maybe the study is the **"Boston Area Community Health"**?
+        *   Let's reconsider the "Asian Space Project".
+        *   2010s early: **Chang'e 2** (2010), **Tiangong 1** (2011). China.
+        *   So the time is ~2011.
+        *   Study starts ~2011. Duration 10 years.
+        *   City: **Boston**? **San Francisco**?
+        *   In 2011, a study started on **Pseudomonas aeruginosa** evolution in CF patients? (e.g., at **Boston** Children's Hospital or **Seattle**).
+        *   There is a well-known study: "Parallel evolution of Pseudomonas aeruginosa..." (Marvig et al., 2015)? Based on Danish patients.
+        *   US Study: **University of Washington** (Seattle)?
+        *   Let's assume the Genus is **Pseudomonas**.
+        *   If Genus = *Pseudomonas*.
+        *   Cultivated South American Plant (*F. chiloensis* cv?) Rhizosphere -> Dominated by *Pseudomonas*?
+        *   Wild South American Plant (*F. chiloensis* wild) Rhizosphere -> Dominated by?
+        *   Actually, a key paper "Domestication alters the microbiome of strawberry" (Leff et al., 2017) states: "Wild strawberries had higher relative abundance of **Pseudomonas**..."?
+        *   Wait, if Wild has *Pseudomonas*, and the City Study is about *Pseudomonas* infection...
+        *   The prompt says: "This bacterial genus [from City Study]... dominates the rhizosphere... of a **cultivated** variety".
+        *   If Wild has *Pseudomonas*, and Cultivated has *Pseudomonas*, there's no contrast.
+        *   If the prompt implies the City Study Genus (Pathogen) dominates the *Cultivated* one (due to domestication loss of defense), then the Wild one is dominated by something else.
+        *   OR, the prompt says the City Study Genus dominates the *Cultivated* one. Question asks for the *Wild* one.
+        *   Maybe the Wild one is dominated by **Pseudomonas** (beneficial strains), and the City Study is about **Pseudomonas** (pathogenic strains). The genus name is the same.
+        *   Question: "What is the English official name of the bacterial genus...?"
+        *   If the genus is the same, the answer is just the genus name.
+        *   Why the distinction "Wild (not cultivated)"?
+        *   Maybe to ensure I identify the plant correctly (*F. chiloensis* wild) and confirm the genus associated with it in literature, which might be the same genus but different context.
+        *   OR, there is a switch.
+        *   Let's search for the specific phrasing "North American city... decade-long study... invasive infection".
+        *   This sounds like the **"Boston Birth Cohort"** but that's not bacterial genus specific.
+        *   How about the **"San Francisco General Hospital"** study?
+        *   How about **"Chicago"**?
+        *   Let's consider the phrase "English official name". This suggests a scientific name.
+        *   Most likely answer: **Pseudomonas**.
+        *   Reasoning:
+            1.  Space Project: China Tiangong-1 (2011).
+            2.  City Study: Boston/Seattle study on *Pseudomonas aeruginosa* (common invasive, CF, hospital).
+            3.  Plant: Strawberry (*Fragaria chiloensis* x *virginiana*).
+            4.  Microbiome: *Pseudomonas* is a key genus in strawberry rhizosphere.
+            5.  Wild vs Cultivated: *Pseudomonas* is often cited as the dominant/beneficial genus in wild strawberries that is reduced/changed in cultivated ones, OR enriched in cultivated ones depending on the specific paper.
+            6.  However, if the prompt says the City Study Genus dominates the *Cultivated* one, and asks for the *Wild* one...
+            7.  If the answer is the *same* genus, the distinction is to test knowledge of the plant's microbiome stability or the specific study linking them.
+            8.  But usually, riddles imply a difference.
+            9.  Is there a genus like **Burkholderia**?
+            10. Is there a genus like **Ralstonia**?
+            11. Let's check the Leff 2017 paper details.
+            12. Title: "Domestication alters the microbiome of strawberry".
+            13. Abstract: "Wild strawberries... enriched in... **Pseudomonas**... Cultivated... enriched in... **Sphingomonas**?"
+            14. If Wild = Pseudomonas, Cultivated = Something else.
+            15. But the prompt says: "This bacterial genus [City Study]... dominates... **cultivated** variety".
+            16. So City Study Genus = Cultivated Dominant.
+            17. Question = Wild Dominant.
+            18. If Cultivated = *Pseudomonas* (Pathogen study), then Wild = ?
+            19. If Cultivated = *Sphingomonas*, then Wild = *Pseudomonas*?
+            20. Is there a decade-long study on *Sphingomonas* infections? No, *Sphingomonas* is rarely a major invasive pathogen compared to *Pseudomonas*.
+            21. So City Study Genus is likely *Pseudomonas*.
+            22. If City Study Genus (*Pseudomonas*) dominates the *Cultivated* variety...
+            23. Then the question asks for the *Wild* variety dominant genus.
+            24. If Wild is also *Pseudomonas*, the answer is *Pseudomonas*.
+            25. If Wild is different, what is it?
+            26. Wait, maybe I have the Cultivated/Wild dominance reversed in my memory.
+            27. Common narrative: Domestication loses beneficial microbes (like *Pseudomonas*). So Wild = *Pseudomonas*. Cultivated = Loss/Other.
+            28. But the prompt says: "This bacterial genus [City Study]... dominates... **cultivated** variety".
+            29. This contradicts the "Domestication loses Pseudomonas" narrative IF the City Study Genus is *Pseudomonas*.
+            30. Unless the City Study Genus is NOT *Pseudomonas*.
+            31. What genus causes invasive infections, studied in a North American city (early 2010s), and dominates *cultivated* strawberry rhizosphere?
+            32. Maybe **Enterobacter**? **Klebsiella**?
+            33. Let's reconsider the "North American City" study.
+            34. Could it be the **Toronto** Invasive Bacterial Diseases Network?
+            35. Could it be **Atlanta** (CDC)?
+            36. Let's focus on the Plant. South American (Chile) x North American (Virginia) = Strawberry. This is very solid.
+            37. So the plant is *Fragaria chiloensis*.
+            38. The question asks for the dominant genus in the *wild* version of *Fragaria chiloensis*.
+            39. Scientific consensus on Wild Strawberry Rhizosphere Dominant Genus?
+            40. Many studies point to **Pseudomonas**.
+            41. Is there a specific "City Study" link?
+            42. Maybe the city is **Davis**? (UC Davis).
+            43. Maybe the study is not about humans, but about the plant? No, "invasive infection" implies humans/animals.
+            44. Okay, let's assume the answer is **Pseudomonas**. It fits the "Invasive infection" (P. aeruginosa), "Rhizosphere" (Common PGPR), "Strawberry" (Key microbiome member).
+            45. Whether it dominates wild or cultivated might be a detail I need to get right.
+            46. If the prompt says "This genus [Infection] dominates Cultivated", and asks for "Wild".
+            47. If Wild is also *Pseudomonas*, the answer is *Pseudomonas*.
+            48. If Wild is different, I need to know the difference.
+            49. However, in many "trivia" contexts, the genus name is the key takeaway, and the wild/cultivated distinction confirms the specific plant context (Strawberry microbiome studies often compare wild vs cultivated).
+            50. A prominent study (Leff et al., 2017) highlights **Pseudomonas** as being more abundant in **wild** strawberries.
+            51. If the prompt says the genus dominates the **cultivated** one... this contradicts Leff 2017 if the genus is *Pseudomonas*.
+            52. Unless the prompt implies the genus *studied in the city* (e.g. *Pseudomonas*) is the one that *also* dominates the cultivated one (perhaps pathogenic strains?).
+            53. But if the question asks for the Wild one, and Wild is known for *Pseudomonas* (beneficial), then the answer is still *Pseudomonas*.
+            54. Is there any other genus?
+            55. What if the plant is not Strawberry?
+            56. South American Plant + North American Plant = Hybrid Fruit.
+            57. **Tomato**? (South America). Hybridized with North American? No, mostly South/Central.
+            58. **Potato**? (South America).
+            59. **Maize**? (North/Central).
+            60. **Sunflower**? (North America).
+            61. **Blueberry**? (North America).
+            62. **Cranberry**? (North America).
+            63. **Grape**? (Europe/NA/Asia).
+            64. Strawberry is the best fit for "South American (Chilean) x North American (Virginia) = Global Hybrid".
+            65. So Plant = *Fragaria chiloensis*.
+            66. Question: Dominant genus in Wild *F. chiloensis* rhizosphere.
+            67. Based on Leff et al. (2017) and similar microbiome domestication studies: **Pseudomonas** is the standout genus associated with wild strawberries (often lost or reduced in cultivated).
+            68. Wait, if the prompt says the City Study Genus dominates the *Cultivated* one...
+            69. Maybe the City Study Genus is **not** Pseudomonas.
+            70. Maybe the City Study Genus is **Burkholderia**?
+            71. But *Pseudomonas* is the most famous "Invasive Infection" genus (ICU, CF).
+            72. Let's check if there's a specific riddle source. This looks like a complex knowledge graph query.
+            73. "Asian大国... 21 世纪 10 年代初期... 空间项目" -> China, Tiangong-1 (2011).
+            74. "North American city... decade-long study... invasive infection... bacterial genus".
+            75. Maybe the city is **Boston**. Study: **Boston Children's Hospital** study on **Pseudomonas**.
+            76. "This bacterial genus dominates... cultivated variety...".
+            77. If the prompt asserts this as fact, I must accept it. (Even if Leff 2017 says Wild has more, maybe another study says Cultivated is dominated by it).
+            78. But the question asks for the **Wild** version's dominant genus.
+            79. If the prompt implies a contrast ("This genus dominates Cultivated... What dominates Wild?"), the answer might be different.
+            80. However, if the "City Study Genus" is the *key* to identifying the plant/bacteria link, and the Wild version is known for the *same* genus (but beneficial), the answer is the genus name.
+            81. Given the specificity, **Pseudomonas** is the strongest candidate for "Bacterial Genus" + "Invasive Infection" + "Strawberry Rhizosphere".
+            82. Is there any other candidate? **Streptomyces**? (Not typically invasive infection in humans in the same way). **Ralstonia**? (Plant pathogen, less human invasive).
+            83. I will bet on **Pseudomonas**.
+            84. Wait, one more check: "English official name". So "Pseudomonas".
+            85. Is there a chance it's **Pseudomonas aeruginosa**? The question asks for "Bacterial Genus" (细菌属). So just "Pseudomonas".
+            86. Let's verify the "Wild vs Cultivated" dominance.
+            87. Some sources say: Wild strawberries have a microbiome enriched in **Pseudomonas** which protects against pathogens. Cultivated strawberries have lost this.
+            88. If the prompt says "This genus [City Study]... dominates... Cultivated", it might be referring to a specific pathogenic strain dominance in cultivated due to lack of competition?
+            89. OR, I might be misinterpreting "dominates".
+            90. But regardless, the question asks for the dominant genus in the **Wild** version.
+            91. If Wild is known for **Pseudomonas**, and the City Study is about **Pseudomonas**, the answer is **Pseudomonas**.
+            92. If Wild is known for something else (e.g. **Bacillus**), I need to know that.
+            93. However, the link between the City Study Genus and the Plant suggests they are the *same* genus, used as a bridge to identify the plant context.
+            94. Logic:
+            95. 1. Identify Genus X via City Study (Invasive infection). -> Likely *Pseudomonas*.
+            96. 2. Verify Genus X dominates Cultivated South American Plant. (Prompt states this).
+            97. 3. Identify Plant via Hybrid clue (Strawberry).
+            98. 4. Question: What dominates Wild version of this plant?
+            99. If the scientific fact is "Wild Strawberries are dominated by Pseudomonas", then the answer is *Pseudomonas*.
+            100. Why would the prompt say Genus X dominates Cultivated? Maybe to confuse, or maybe in that specific context (e.g. pathogen load) it does.
+            101. But the most robust fact in this niche (Strawberry Microbiome) is the association with **Pseudomonas**.
+            102. I will provide "Pseudomonas".
+
+3.  **Final Check:**
+    *   Asian Space Project: China Tiangong-1 (2011).
+    *   North American City Study: Boston/Seattle, *Pseudomonas* infection study (e.g. in CF).
+    *   Plant: *Fragaria chiloensis* (South America) x *F. virginiana* (North America) = *F. × ananassa* (Strawberry).
+    *   Bacteria: *Pseudomonas*.
+    *   Wild Rhizosphere Dominant: *Pseudomonas* (often cited as the beneficial microbiome component in wild relatives).
+    *   Format: Direct answer, English official name.
+
+    *   Wait, is there a chance the answer is **Pseudomonas**?
+    *   Or is it **Burkholderia**?
+    *   There is a study "Domestication alters the microbiome of strawberry" (Leff et al.).
+    *   They found **Pseudomonas** was more abundant in **wild**.
+    *   The prompt says "This bacterial genus... dominates... cultivated".
+    *   This is a contradiction if the genus is *Pseudomonas* and the fact is Wild > Cultivated.
+    *   Unless the prompt implies the City Study Genus is *different* from the Wild Dominant Genus.
+    *   "This bacterial genus [City]... dominates... Cultivated. ... What is the dominant genus in Wild?"
+    *   If City Genus = *Pseudomonas* (Infection).
+    *   And Prompt says *Pseudomonas* dominates Cultivated.
+    *   And Science says *Pseudomonas* dominates Wild.
+    *   Then the Prompt's premise might be specific to a certain study or I am misremembering the direction.
+    *   OR, the City Study Genus is **not** *Pseudomonas*.
+    *   What genus dominates Cultivated Strawberry Rhizosphere?
+    *   Some studies say **Sphingomonas**, **Flavobacterium**, **Massilia**.
+    *   Do any of these cause invasive infections studied in a North American City?
+    *   **Sphingomonas**: Rare infection.
+    *   **Flavobacterium**: Rare.
+    *   **Massilia**: Rare.
+    *   **Pseudomonas**: Common infection.
+    *   So City Study Genus is almost certainly *Pseudomonas*.
+    *   If the Prompt says *Pseudomonas* dominates Cultivated, I must accept the Prompt's universe or assume there's a specific context (e.g. pathogenic load).
+    *   But the Question asks for Wild.
+    *   If the "Trivia Fact" is "Wild Strawberries have Pseudomonas", then the answer is *Pseudomonas*.
+    *   The distinction might be that the *strain* differs, but the *Genus* is the same.
+    *   The question asks for the "Bacterial Genus English official name".
+    *   So "Pseudomonas" fits both.
+    *   I will go with **Pseudomonas**.
+
+    *   Wait, one more possibility: **Rhizobium**? (Infection? No).
+    *   **Agrobacterium**? (Infection? No).
+    *   **Erwinia**? (Plant pathogen).
+    *   **Pseudomonas** is the only one fitting "Human Invasive Infection" + "Rhizosphere".
+    *   Final decision: Pseudomonas.
+
+    *   Wait, I need to check if there is a more specific name like "Pseudomonas fluorescens"? No, asks for Genus.
+    *   Is there a chance the "North American City" is **Montreal**? **Vancouver**?
+    *   Does not change the genus.
+    *   Is there a chance the plant is **Tomato**? (South America). Hybrid? No.
+    *   **Strawberry** is the only major "South x North = Global Hybrid" fruit.
+    *   So Plant = Strawberry.
+    *   Genus = Pseudomonas.
+
+    *   Wait, I found a reference to a specific riddle/question online potentially?
+    *   Query mental check: "Strawberry wild rhizosphere dominant bacteria".
+    *   Result: Often **Pseudomonas**.
+    *   Query: "North American city decade long study invasive infection bacterial genus".
+    *   Result: Could be the **Boston** *Pseudomonas* study.
+    *   Okay, I'm confident in **Pseudomonas**.
+
+    *   Wait, is it **Pseudomonas** or **Pseudomonas spp.**? Just "Pseudomonas".
+    *   Is it capitalized? Yes.
+
+    *   One nuance: "English official name".
+    *   Scientific name is Latin/English. "Pseudomonas".
+    *   Ready.
+
+    *   Wait, let me double check the "Cultivated vs Wild" dominance direction.
+    *   If the prompt says Genus X dominates Cultivated.
+    *   And I think Genus X dominates Wild.
+    *   Does the prompt imply Genus X is *not* the answer?
+    *   "This bacterial genus [X]... dominates... Cultivated... What is the dominant genus in Wild?"
+    *   If X dominates Cultivated, and Y dominates Wild.
+    *   If X = Pseudomonas.
+    *   Is Y = Pseudomonas?
+    *   If the scientific consensus is Wild = Pseudomonas, Cultivated = Less Pseudomonas.
+    *   Then the Prompt's statement "X dominates Cultivated" contradicts consensus *unless* X is not Pseudomonas.
+    *   But X must be an invasive infection genus.
+    *   Is there a genus that dominates Cultivated Strawberry and causes invasive infections?
+    *   Maybe **Enterobacter**?
+    *   If X = Enterobacter.
+    *   Then what dominates Wild? **Pseudomonas**?
+    *   This makes more sense as a contrast.
+    *   But is there a "Decade-long study in a North American City" on **Enterobacter** invasive infections starting 2011?
+    *   Less famous than *Pseudomonas*.
+    *   Let's reconsider the "Domestication alters microbiome" paper (Leff 2017).
+    *   Findings: "Wild strawberries had higher abundance of **Pseudomonas**... Cultivated had higher abundance of **Sphingomonas**?"
+    *   If so, and if the City Study is about **Pseudomonas** (Infection).
+    *   Then the Prompt says "This bacterial genus [Pseudomonas]... dominates... Cultivated". This contradicts Leff 2017.
+    *   UNLESS the prompt refers to a different study or I have the Leff 2017 finding reversed.
+    *   Let's check Leff 2017 abstract memory: "Domestication... loss of microbial diversity... shift... Wild enriched in Proteobacteria (Pseudomonas)?".
+    *   Actually, some sources say Cultivated strawberries are more susceptible to disease because they lack the wild microbiome (Pseudomonas).
+    *   So Wild = Pseudomonas. Cultivated = Low Pseudomonas.
+    *   If the Prompt says "This genus... dominates Cultivated", then the Genus is NOT Pseudomonas (based on Leff 2017).
+    *   So what genus dominates Cultivated and causes invasive infections?
+    *   Maybe **Staphylococcus**? (Skin, infection). Rhizosphere? No.
+    *   Maybe **Escherichia**? (Gut).
+    *   Maybe the Prompt implies the City Study Genus *is* the Wild one, but phrased it as "This genus [which we are talking about]... dominates Cultivated [in some context]..."?
+    *   No, "This bacterial genus... dominates... Cultivated".
+    *   Okay, let's search for the specific phrasing "North American city... decade-long study".
+    *   Could it be the **Seattle** **Group Health** study?
+    *   Could it be related to **Lyme disease**? (Borrelia). Not a genus dominating rhizosphere.
+    *   Could it be **Borrelia**? No.
+    *   Let's go with the most robust link: Strawberry + Microbiome + Pseudomonas.
+    *   Even if the Cultivated/Wild dominance is flipped in the prompt vs my memory, the Genus associated with Strawberry Microbiome studies in this context is **Pseudomonas**.
+    *   Why? Because the "Wild" question is the target. Wild Strawberry Microbiome = Pseudomonas is a strong trivia fact.
+    *   The "Cultivated" part might be a distractor or refers to a specific pathogen outbreak study.
+    *   But the Question asks for the **Wild** version's dominant genus.
+    *   Answer: **Pseudomonas**.
+
+    *   Wait, is there a chance the answer is **Pseudomonas**?
+    *   Let's check if the prompt implies the answer is the *same* genus.
+    *   "This bacterial genus... dominates... Cultivated... What is the dominant genus in Wild?"
+    *   If the answer were different, the prompt would usually give more info to distinguish.
+    *   If the answer is the same, it emphasizes the genus's versatility (Pathogen in humans, Dominant in Wild Plant, Dominant in Cultivated Plant?).
+    *   Given the constraints, **Pseudomonas** is the only genus that fits "Invasive Infection" + "Strawberry Rhizosphere" strongly.
+    *   I will output Pseudomonas.
+
+    *   Wait, one detail: "English official name".
+    *   "Pseudomonas" is the scientific name (Latin), used in English.
+    *   Is there an English common name? "Pseudomonas bacteria".
+    *   Scientific name is expected for "Genus".
+    *   Final check on "Asian Space Project". China, 2011, Tiangong-1. Fits "Early 2010s".
+    *   "North American City". Boston. Study on Pseudomonas. Fits.
+    *   "South American Plant". Fragaria chiloensis. Fits.
+    *   "Hybrid". Fragaria x ananassa. Fits.
+    *   "Wild Rhizosphere Dominant". Pseudomonas. Fits literature (Leff et al.).
+    *   (Even if Prompt says Cultivated is dominated by it, maybe it refers to the *potential* or a specific study finding, but Wild is definitely associated with it).
+    *   Actually, if Leff says Wild = High Pseudomonas, Cultivated = Low.
+    *   Prompt says: "This genus... dominates... Cultivated".
+    *   This is the only conflict.
+    *   Is there another genus?
+    *   What if the City Study is about **Burkholderia**?
+    *   Burkholderia cepacia complex. Invasive in CF.
+    *   Does Burkholderia dominate Cultivated Strawberry?
+    *   Some studies show Burkholderia is a core microbiome member.
+    *   But Pseudomonas is more "Official" for invasive infection studies.
+    *   I'll stick with Pseudomonas as the most likely intended answer for a general knowledge riddle of this complexity. The "Cultivated" detail might be from a specific paper claiming pathogen enrichment in cultivated due to loss of diversity.
+    *   Wait, if Cultivated is enriched in Pathogens (Pseudomonas), and Wild is enriched in Beneficials (Also Pseudomonas, different strains)?
+    *   Then the Genus Name is the same.
+    *   So the answer is Pseudomonas.
+
+    *   Final check: "English official name".
+    *   "Pseudomonas".
+
+Answer:
+Pseudomonas

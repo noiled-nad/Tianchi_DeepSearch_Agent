@@ -1,0 +1,283 @@
+Question ID: 24
+Question: 一部在21世纪20年代中期于欧洲某知名动画节获得提名的国产动画长片，艺术化地再现了一套古老的星象系统。该系统中的一个东方星象由七个星宿构成，其完整升空的过程被视为吉兆，它的布局也曾被描绘在一幅10世纪末绘制、后藏于海外某大学的绢本舆图上。这个东方星象的运行变化，又与一部占卜经典中的某个全阳爻卦象的解释紧密相关，而这部经典的推演，相传与一位曾在其父宅邸地下密室中进行卜算的古代诸侯有关。请问以上述全阳爻卦象为上卦，且卦辞中包含“勿用取女”警示的另一个卦象是什么？
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A assistant.
+    *   Constraint: Direct answer only, no reasoning process, no extra explanation or formatting.
+    *   Question: A complex riddle involving a Chinese animated film, an ancient star system, a specific Eastern asterism (7 stars), a 10th-century silk map overseas, a divination classic, a specific all-yang hexagram, an ancient feudal lord who divined in his father's basement, and finally asking for a specific hexagram name based on conditions (all-yang hexagram as upper trigram, hexagram text contains "勿用取女").
+
+2.  **Deconstruct the Clues:**
+    *   **Clue 1: Animated Film.** 21st century 20s (2020-2029), mid-period (around 2024-2026?), nominated at a famous European animation festival (Annecy, Berlin, etc.), Chinese domestic animated feature, artistically reproduces an ancient star system.
+        *   Candidate: *Chang'an San Wan Li* (2023)? *Deep Sea* (2023)? *Chiang Tzu Ya*?
+        *   Specific clue: "Ancient star system", "Eastern asterism of 7 stars".
+        *   Search query mental check: Chinese animation about stars/constellations.
+        *   Actually, there is a specific film: *The Universe of Lei Wu*? No.
+        *   Let's look at the star system clue first, it might be more specific.
+    *   **Clue 2: Star System & Asterism.**
+        *   "Ancient star system" -> Chinese constellations (Xiu).
+        *   "Eastern asterism composed of 7 star宿 (Xiux)" -> The Azure Dragon of the East (东方青龙) consists of 7 Xiux: Horn (角), Neck (亢), Root (氐), Room (房), Heart (心), Tail (尾), Winnowing Basket (箕).
+        *   "Complete rising process considered auspicious".
+        *   "Layout depicted on a 10th-century late silk map stored overseas at a university".
+        *   10th century late -> Song Dynasty or late Tang/Five Dynasties.
+        *   Silk map overseas university -> Dunhuang maps?
+        *   Specific map: *Dunhuang Star Chart* (敦煌星图). Date: Around 940 AD (10th century). Stored at: British Library? Or a university?
+        *   Wait, there is a specific map called the *Suzhou Star Chart* (12th century).
+        *   Let's search for "10 世纪末 绢本 舆图 海外 大学" (Late 10th century, silk, map, overseas, university).
+        *   There is a *Dunhuang Star Chart* (Tang Dynasty, ~700 AD).
+        *   There is a map known as the *Astrolabe*?
+        *   Let's reconsider the film. Film nominated in mid-2020s at European festival.
+        *   Film: *Chang'an San Wan Li* (2023) was nominated at Annecy?
+        *   Film: *Deep Sea*?
+        *   Film: *The Legend of Hei*?
+        *   Actually, there is a film called *The Starry Night*? No.
+        *   Let's focus on the "All-yang hexagram" (全阳爻卦象).
+        *   In I Ching (Book of Changes), the only all-yang hexagram is **Qian (乾)** (Heaven).
+        *   Clue: "Divination classic's 推演 (deduction) is 相传 (legend says) related to an ancient feudal lord who divined in his father's basement secret room".
+        *   Who divined in his father's basement?
+        *   Legend: King Wen of Zhou (Zhou Wen Wang) was imprisoned by King Zhou of Shang. He deduced the 64 hexagrams while imprisoned (Youli).
+        *   "Father's basement secret room"? This sounds specific.
+        *   Maybe it refers to **Ji Chang (King Wen)**?
+        *   Or maybe **Zhou Gong**?
+        *   Wait, there is a specific legend about **King Wen of Zhou** developing the Zhou Yi while imprisoned.
+        *   Is there a legend about a "basement secret room" (地下密室)?
+        *   Maybe it refers to the **Shuangduishi** (Double Pile Tomb)? No.
+        *   Let's look at the "All-yang hexagram" again. It is **Qian (乾)**.
+        *   The question asks: "Using the above all-yang hexagram (Qian) as the **Upper Trigram** (上卦), and the hexagram text (卦辞) contains the warning '勿用取女' (Do not take this woman/marry), what is the other hexagram?"
+        *   So, Upper Trigram = Qian (Heaven ☰).
+        *   Hexagram Text contains "勿用取女".
+        *   I need to find a hexagram where the Upper Trigram is Qian (Heaven) and the text says "勿用取女".
+        *   Let's list hexagrams with Upper Trigram Qian:
+            1.  Qian (乾) - Upper Qian, Lower Qian.
+            2.  Song (讼) - Upper Qian, Lower Kan (Water).
+            3.  Tong Ren (同人) - Upper Qian, Lower Li (Fire).
+            4.  Wu Wang (无妄) - Upper Qian, Lower Zhen (Thunder).
+            5.  Gou (姤) - Upper Qian, Lower Xun (Wind).
+            6.  Dun (遁) - Upper Qian, Lower Gen (Mountain).
+            7.  Pi (否) - Upper Qian, Lower Kun (Earth).
+            8.  Lu (履) - Upper Qian, Lower Dui (Lake).
+        *   Now check which one contains "勿用取女" in its Hexagram Text (卦辞).
+        *   **Gou (姤)**: 卦辞：女壮，勿用取女。(The female is powerful. Do not marry this woman.)
+        *   Let's verify others.
+            *   Song: 有孚，窒惕，中吉，终凶。利见大人，不利涉大川。
+            *   Tong Ren: 同人于野，亨。利涉大川，利君子贞。
+            *   Wu Wang: 元亨，利贞。其匪正有眚，不利有攸往。
+            *   Dun: 亨，小利贞。
+            *   Pi: 否之匪人，不利君子贞，大往小来。
+            *   Lu: 履虎尾，不咥人，亨。
+            *   Qian: 元亨利贞。
+        *   Only **Gou (姤)** has "勿用取女".
+        *   So the answer should be **姤卦** (Hexagram Gou / Coming to Meet).
+
+3.  **Verify the Contextual Clues (to ensure "Qian" is indeed the intended all-yang hexagram):**
+    *   **Film:** "21 世纪 20 年代中期" (Mid 2020s). "欧洲某知名动画节" (European famous animation festival). "国产动画长片" (Chinese animated feature). "艺术化地再现了一套古老的星象系统" (Artistically reproduces an ancient star system).
+        *   Film: *Chang'an San Wan Li* (2023) is close but early 20s.
+        *   Film: *The Universe of Lei Wu*?
+        *   Actually, there is a film called **《深海》 (Deep Sea)**? No.
+        *   There is a film called **《新神榜：杨戬》**?
+        *   Wait, is there a film specifically about the **Twenty-Eight Mansions**?
+        *   Maybe the film is **《落凡尘》 (Fallen into the Mortal World)**? Released 2024. Nominated at Annecy?
+        *   Maybe the film is **《二郎神之深海蛟龙》**?
+        *   Let's search for the specific description: "艺术化地再现了一套古老的星象系统" (Artistically reproduces an ancient star system).
+        *   This sounds like the film **《长安三万里》** mentions stars, but not the main theme.
+        *   There is a film **《星源共鸣》**?
+        *   Actually, the clue about the film might be pointing to **《深海》** or something else, but the core of the question relies on the I Ching logic.
+        *   However, let's check the star map clue to confirm the "All-yang hexagram" connection.
+        *   "10 世纪末绘制、后藏于海外某大学的绢本舆图" (Painted late 10th century, stored overseas at a university, silk map).
+        *   This sounds like the **Dunhuang Star Chart (敦煌星图)**. But that's usually associated with the British Library.
+        *   Is there a map at a university? **Kyoto University**? **Cambridge**?
+        *   There is a **Suzhou Star Chart (苏州石刻天文图)**, but that's 12th century stone.
+        *   There is a **Tang Dynasty Star Map** in the **British Library** (Or.8210/S.3326).
+        *   Wait, there is a specific map called the **"Dunhuang Star Chart"** held by the **British Library**, not a university.
+        *   Is there a map at **Harvard**? **Berkeley**?
+        *   Maybe the **《天文图》** in **Japan**?
+        *   Let's reconsider the "Ancient Feudal Lord" clue.
+        *   "相传与一位曾在其父宅邸地下密室中进行卜算的古代诸侯有关" (Legend says related to an ancient feudal lord who divined in his father's residence's underground secret room).
+        *   This is a very specific legend.
+        *   King Wen (Zhou Wen Wang) was imprisoned at Youli (羑里).
+        *   Is there a legend about **Jiang Ziya**?
+        *   Is there a legend about **Guo Pu**?
+        *   Actually, this might refer to **King Wen of Zhou** and the **Yan Yi (Prison of Youli)**. But "Father's residence underground secret room"?
+        *   Maybe it refers to **Zhou Gong**?
+        *   Wait, could it be **King Wu**?
+        *   Let's focus on the I Ching logic which is very strong.
+        *   All-yang hexagram = **Qian (乾)**.
+        *   Upper trigram = Qian.
+        *   Hexagram text contains "勿用取女".
+        *   This uniquely identifies **Gou (姤)**.
+        *   Does the rest of the riddle fit?
+        *   "Eastern asterism of 7 stars" = Azure Dragon (青龙).
+        *   "Complete rising process considered auspicious" = Dragon rising.
+        *   "Divination classic" = I Ching (Zhou Yi).
+        *   "All-yang hexagram" = Qian (Dragon is associated with Qian hexagram: "See the dragon in the field", "Flying dragon in the sky").
+        *   The connection between Azure Dragon and Qian Hexagram is strong (Qian represents Heaven/Dragon).
+        *   The "Father's residence underground secret room" might be a specific detail about King Wen or the origin of the Zhou Yi that I need to accept to confirm Qian.
+        *   Actually, there is a legend that **King Wen** developed the hexagrams while imprisoned. The "Father's residence" part is tricky. Maybe it refers to **King Wu** continuing his father's work?
+        *   Or maybe it refers to **Fu Xi**? No, "Feudal Lord" (诸侯).
+        *   Maybe it refers to **Ji Chang (King Wen)**.
+        *   Regardless, "All-yang hexagram" is definitively **Qian**.
+        *   The condition "Upper trigram is Qian" + "Text contains '勿用取女'" definitively points to **Gou (姤)**.
+        *   Hexagram 44: 天风姤 (Heaven over Wind). Upper is Qian (Heaven), Lower is Xun (Wind).
+        *   Text: "姤，女壮，勿用取女。"
+        *   This matches perfectly.
+
+4.  **Final Check:**
+    *   Question: "以上述全阳爻卦象为上卦" (Using the above all-yang hexagram as the upper trigram). All-yang = Qian. Upper = Qian.
+    *   "且卦辞中包含“勿用取女”警示的另一个卦象是什么" (And the hexagram text contains the warning "勿用取女", what is the other hexagram).
+    *   Target: Hexagram with Upper Qian and text "勿用取女".
+    *   Result: 姤卦 (Gou).
+    *   Format: Direct answer only.
+
+5.  **Refining the Answer:**
+    *   The user wants the name of the hexagram.
+    *   Common names: 姤卦，天风姤，姤.
+    *   "另一个卦象" implies the name of the hexagram.
+    *   I will provide the standard name.
+
+    *   Wait, let me double check the "Father's residence underground secret room" clue.
+    *   Is there a specific story?
+    *   Maybe it refers to **King Wen of Zhou** being imprisoned in **Youli (羑里)**.
+    *   Is there a story about **King Zhao of Qin**? No.
+    *   Actually, there is a recent discovery or a specific legend regarding **King Wen** and a "secret room"?
+    *   Or maybe it refers to **Zhou Gong** divining in a secret room?
+    *   However, the "All-yang hexagram" is universally known as Qian in the I Ching context. There is no other all-yang hexagram in the 64 hexagrams.
+    *   So the identification of Qian is solid.
+    *   The identification of Gou based on Qian + "勿用取女" is solid.
+    *   The film and map clues are likely context to confirm the "Qian/Dragon/Star" theme (Azure Dragon = Qian).
+    *   Film: Possibly *Chang'an San Wan Li* (mentions Li Bai, stars) or a newer one like *The Legend of Hei* sequel?
+    *   Actually, there is a film **《落凡尘》 (Fallen into the Mortal World)** released in 2024 (mid-2020s). It deals with stars (Twenty-Eight Mansions). It was nominated at Annecy 2024?
+    *   Map: The **Dunhuang Star Chart** is often cited. But "Overseas University"?
+    *   There is a **Tang Dynasty Silk Map** at **Kyoto University**? Or **Cambridge University**?
+    *   Actually, the **Dunhuang Star Chart** is in the British Library.
+    *   There is a map called the **"Stars Map"** in the **Harvard-Yenching Library**?
+    *   Regardless, the I Ching logic is self-contained and robust.
+    *   All-yang = 乾 (Qian).
+    *   Upper = 乾.
+    *   Text = "勿用取女".
+    *   Hexagram = 姤 (Gou).
+
+    *   Wait, is there any ambiguity about "All-yang hexagram"?
+    *   In the 64 hexagrams, only Qian (䷀) is all Yang lines.
+    *   Is there any other system? No, "Divination Classic" implies I Ching.
+    *   "Ancient Feudal Lord" = King Wen (Zhou Hou).
+    *   "Father's residence underground secret room" -> This might be a specific detail from a recent archaeological find or a specific legend variation (e.g., Zhou Yuan excavations). But it doesn't change the fact that Qian is the only all-yang hexagram.
+    *   So the answer is 姤卦.
+
+    *   Final check on constraints: "Directly give the final answer", "No reasoning process", "No extra explanation or formatting".
+    *   Answer: 姤卦 (or 天风姤). I will use the standard name "姤卦".
+
+    *   Wait, one more check: "另一个卦象" (Another hexagram).
+    *   The "All-yang hexagram" is Qian.
+    *   The target hexagram has Qian as Upper.
+    *   So it is distinct from Qian (which has Qian as Upper and Lower).
+    *   So "Another" makes sense.
+    *   Answer is 姤卦.
+
+    *   Wait, could it be "天风姤"? Usually just "姤卦" is sufficient. I'll provide "姤卦".
+
+    *   Re-reading the film clue to be absolutely sure nothing contradicts "Qian".
+    *   Film: 2024 Annecy Festival. Chinese film *Fallen into the Mortal World* (落凡尘) was nominated. It features the 28 Mansions.
+    *   Eastern Asterism: Azure Dragon (7 mansions).
+    *   Map: Dunhuang Star Chart (Tang Dynasty, ~940 AD is late 10th century? Tang ended 907. Five Dynasties ended 960. Song started 960. Late 10th century is early Song. The Dunhuang cave was sealed ~1000 AD. The star chart is dated ~700 AD usually, but some copies exist).
+    *   Actually, there is a specific map: **《敦煌星图甲本》** is dated to ~700 AD.
+    *   Is there a 10th-century one?
+    *   Maybe the **《新仪象法要》** map? No.
+    *   There is a silk map in the **Collection of Kyoto University**?
+    *   Actually, the clue "10 世纪末... 海外某大学" might refer to the **British Library** (often confused) or a specific university collection like **Cambridge**.
+    *   But again, the I Ching part is the key to the final question.
+    *   All-yang = 乾.
+    *   Upper = 乾.
+    *   "勿用取女" = 姤.
+    *   This logic is unbreakable within the context of I Ching.
+
+    *   Final decision: 姤卦.
+
+    *   Wait, should I include the full name "天风姤"?
+    *   The question asks "是什么" (What is it). "姤卦" is the standard name.
+    *   I will write "姤卦".
+
+    *   Wait, one detail: "曾在其父宅邸地下密室中进行卜算的古代诸侯".
+    *   This refers to **King Wen of Zhou (Zhou Wen Wang)**.
+    *   Legend: He was imprisoned by King Zhou of Shang at Youli.
+    *   Is there a legend about "Father's residence underground secret room"?
+    *   Maybe it refers to **Zhou Gong** assisting King Wu?
+    *   Actually, recent archaeological news (2023-2024) might have revealed something about **Zhou Yuan** or **Qishan** where a "secret room" for divination was found associated with King Wen or his father **Ji Li**.
+    *   Or maybe it refers to the **Zhou Yi** being hidden/compiled there.
+    *   But again, "All-yang hexagram" is the strongest anchor.
+    *   Answer is 姤卦.
+
+    *   Wait, is there any other hexagram with "勿用取女"?
+    *   Search memory:
+    *   姤 (Gou): 女壮，勿用取女。
+    *   蒙 (Meng): 勿用取女，见金夫，不有躬，无攸利。(Hexagram 4).
+    *   Let's check 蒙 (Meng).
+    *   Structure of 蒙：Upper Gen (Mountain ☶), Lower Kan (Water ☵).
+    *   Upper trigram is Gen, not Qian.
+    *   So 蒙 is excluded by the condition "Using the above all-yang hexagram (Qian) as the Upper Trigram".
+    *   So only 姤 fits both conditions (Upper = Qian, Text = 勿用取女).
+    *   Confirmed.
+
+    *   Final Answer Formulation: 姤卦.
+
+    *   Wait, the prompt says "Directly give the final answer".
+    *   I should output just the text.
+    *   "姤卦" or "天风姤". "姤卦" is more direct as a name.
+    *   I'll use "姤卦".
+
+    *   Wait, one more check on the film.
+    *   Film: *Fallen into the Mortal World* (落凡尘).
+    *   Released: July 2024.
+    *   Festival: Annecy 2024 (Contrechamp selection?).
+    *   Theme: 28 Mansions (Star system).
+    *   Eastern Asterism: Azure Dragon.
+    *   Map: Dunhuang Star Chart (often associated with British Library, but maybe a specific copy at a university).
+    *   This confirms the "Star/Qian/Dragon" context.
+    *   The I Ching logic holds.
+    *   Ready.
+
+    *   Wait, is "勿用取女" in 姤卦 exactly?
+    *   Yes. 《周易·姤卦》：姤，女壮，勿用取女。
+    *   Is "勿用取女" in 蒙卦 exactly?
+    *   Yes. 《周易·蒙卦》：...勿用取女...
+    *   But 蒙卦 Upper is Gen (Mountain).
+    *   Question requires Upper to be the "All-yang hexagram" (Qian).
+    *   So it must be 姤卦.
+    *   Correct.
+
+    *   Final check on constraints: "No reasoning process", "No extra explanation".
+    *   Just the answer.
+
+    *   Answer: 姤卦.
+    *   Or maybe "天风姤".
+    *   "卦象" usually asks for the name. "姤卦" is appropriate.
+    *   I will write "姤卦".
+
+    *   Wait, could it be "乾卦"? No, "Another hexagram".
+    *   Could it be "大有"? No "勿用取女".
+    *   Could it be "同人"? No.
+    *   So "姤卦" is the only solution.
+
+    *   One nuance: "全阳爻卦象" (All-yang line hexagram).
+    *   This is 乾 (Qian).
+    *   "以上述全阳爻卦象为上卦" (Use Qian as Upper Trigram).
+    *   So Upper = ☰.
+    *   "卦辞中包含“勿用取女”".
+    *   Matches 姤 (☰ over ☴).
+    *   Answer is 姤卦.
+
+    *   Wait, is there any possibility the "All-yang hexagram" refers to something else?
+    *   In some contexts, 8 Trigrams are also called 卦象.
+    *   But "Hexagram" (卦象 in context of 64) usually means 6-line figure.
+    *   "All-yang hexagram" is strictly 乾.
+    *   If it meant Trigram, it would say "All-yang Trigram" (全阳爻卦).
+    *   It says "全阳爻卦象" (All-yang line Hexagram image).
+    *   So it's 乾卦.
+    *   So Upper Trigram is 乾.
+    *   So it's consistent.
+
+    *   Final Answer: 姤卦.
+
+Answer:
+姤卦

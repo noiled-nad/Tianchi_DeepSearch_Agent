@@ -1,0 +1,79 @@
+Question ID: 91
+Question: 在21世纪10年代后期，一场网络勒索事件波及全球多个大洲，影响了包括汽车制造和医疗在内的多个行业。该事件中恶意软件的传播，利用了一种此前被另一组织公开的攻击工具，而该工具的原始开发者是一个活跃近二十年、被指隶属于某大国情报机构的组织。该组织的攻击活动曾在一个亚洲国家被大量发现，其开发的恶意程序不仅能跨多个主流及非主流操作系统平台，甚至拥有能够直接改写硬件固件的模块。这个组织叫什么？
+
+Reasoning:
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Role: Rigorous Q&A Assistant.
+    *   Constraint: Directly give the final answer. No reasoning process, no extra explanations, no formatting.
+    *   Question: Identify a specific hacker group based on several clues.
+
+2.  **Analyze the Clues:**
+    *   Timeframe: Late 2010s (21 世纪 10 年代后期).
+    *   Event: A global ransomware outbreak affecting multiple continents and industries (automotive, healthcare, etc.).
+    *   Malware Propagation: Used an attack tool previously leaked by another organization.
+    *   Tool Origin: The original developer of the tool is an organization active for nearly 20 years, alleged to be affiliated with a major power's intelligence agency.
+    *   Specific Event: This points to the WannaCry ransomware attack (2017).
+    *   Tool Used: EternalBlue (永恒之蓝).
+    *   Tool Leaker: The Shadow Brokers (影子经纪人).
+    *   Original Developer of the Tool: An organization active for nearly 20 years, alleged to be affiliated with a major power's intelligence agency (specifically the US NSA).
+    *   Group Characteristics: Attack activities found extensively in an Asian country (often cited as China), malware crosses multiple OS platforms, has modules capable of rewriting hardware firmware.
+    *   Target Group: The question asks for the name of the *organization* that originally developed the tool (EternalBlue), not the leaker (Shadow Brokers) or the ransomware author (WannaCry authors).
+    *   Key Identifiers for the Group:
+        *   Active for nearly 20 years (by late 2010s).
+        *   Alleged affiliation with a major power's intelligence agency (US NSA).
+        *   Tools used in WannaCry (EternalBlue).
+        *   Activities found in an Asian country (China).
+        *   Capabilities: Cross-platform, firmware rewriting.
+        *   Name often associated with these traits in cybersecurity reports (especially from Chinese cybersecurity firms like Qihoo 360, Kaspersky, etc., regarding NSA-linked groups).
+
+3.  **Identify the Group:**
+    *   The ransomware event is WannaCry (2017).
+    *   The exploit is EternalBlue.
+    *   The exploit was developed by the US National Security Agency (NSA).
+    *   However, the question asks for the *organization's name* (often a specific APT group name used in cybersecurity community) that is affiliated with the intelligence agency.
+    *   Common APT groups linked to NSA: Equation Group (方程式组织).
+    *   Let's verify the clues against "Equation Group":
+        *   Active for nearly 20 years? Yes, discovered around 2015, believed active since early 2000s.
+        *   Affiliated with a major power's intelligence agency? Yes, widely attributed to NSA.
+        *   Tool used in global ransomware? Yes, EternalBlue was part of their toolkit, leaked by Shadow Brokers, used by WannaCry.
+        *   Activities found in an Asian country? Yes, reports (e.g., by Kaspersky) showed infections in many countries including China.
+        *   Capabilities: Cross-platform, firmware rewriting? Yes, Equation Group is known for "Fanny" worm and hard drive firmware malware (EquationDrug, GrayFish).
+    *   The question asks: "这个组织叫什么？" (What is this organization called?).
+    *   Is it "NSA" or "Equation Group"? The description fits "Equation Group" (方程式组织) more precisely as a specific cyber espionage group name used in the security community, though they are affiliated with NSA. The clue about "active for nearly 20 years" and "alleged to be affiliated with" suggests the group name rather than the agency itself, though sometimes they are used interchangeably. However, the specific technical capabilities (firmware rewriting) are hallmark traits of the Equation Group as documented by Kaspersky Lab in 2015.
+    *   Let's check the Chinese name commonly used: 方程式组织 (Equation Group).
+
+4.  **Refine the Answer:**
+    *   The prompt asks for the name of the organization.
+    *   Context: Late 2010s ransomware (WannaCry), used leaked tool (EternalBlue), original developer active ~20 years, linked to intelligence agency, found in Asia, firmware rewriting capabilities.
+    *   This perfectly matches the profile of the **Equation Group** (方程式组织).
+    *   Some might argue "NSA", but the description of "an organization... alleged to be affiliated with" implies the group is distinct from the agency in name, though linked. The "firmware rewriting" is a specific signature of Equation Group revealed by Kaspersky.
+    *   Final decision: 方程式组织 (Equation Group).
+
+5.  **Final Check against Constraints:**
+    *   Direct answer only.
+    *   No reasoning.
+    *   No extra format.
+
+    Answer: 方程式组织 (or Equation Group). Since the query is in Chinese, the answer should be in Chinese.
+
+    Wait, let's double check if "NSA" is a better fit.
+    "该工具的原始开发者是一个活跃近二十年、被指隶属于某大国情报机构的组织" -> The original developer is an organization active for nearly 20 years, alleged to be affiliated with a major power's intelligence agency.
+    If the answer was NSA, it would say "is a major power's intelligence agency". Saying "affiliated with" suggests the group is a subset or specific unit known by a different name.
+    Also, the specific technical details (firmware rewriting) are strongly associated with the "Equation Group" disclosure by Kaspersky.
+    Therefore, "方程式组织" is the precise answer expected in cybersecurity contexts.
+
+    One more check: Is there another group?
+    Shadow Brokers? No, they leaked it.
+    WannaCry authors? No, they used the tool.
+    Lazarus? No, North Korean.
+    Equation Group is the one.
+
+    Chinese name: 方程式组织.
+
+6.  **Construct Final Output:**
+    方程式组织
+
+Answer:
+方程式组织
