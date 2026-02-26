@@ -1,16 +1,17 @@
 # deepresearch/nodes/retrieve.py
 # -*- coding: utf-8 -*-
-"""
-节点3：retrieve
-目标：执行 search + fetch，把网页正文保存到 documents。
-- 修复原实现：fetch 放在内层循环外导致只抓最后一个 result 的 bug
-- 支持并发抓取：读取 state.parallelism
-- 兼容 queries 既是 List[str] 也可能是 List[dict]（为后续 claim_id 绑定铺路）
+"""节点：retrieve
+
+执行 search + fetch。
+新版支持循环式研究：
+- 增量抓取（保留历史 documents）
+- query_history 去重
+- 跨轮避免重复 URL
 """
 from __future__ import annotations
 
 import asyncio
-from typing import Callable, List, Set, Any, Dict, Tuple
+from typing import Callable, List, Set, Any
 
 from langchain_core.messages import AIMessage
 
@@ -32,6 +33,8 @@ def make_retrieve_node(searcher, fetcher, max_docs: int = 8, per_query_results: 
         print("\n============ retrieve 阶段 ============")
         raw_queries = state.get("queries", []) or []
         queries = [_normalize_query(q) for q in raw_queries if _normalize_query(q)]
+        existing_docs: List[Document] = state.get("documents", []) or []
+        existing_urls = {d.url for d in existing_docs if getattr(d, "url", None)}
         print(f"[retrieve] raw_queries={len(raw_queries)}, normalized_queries={len(queries)}")
         for i, q in enumerate(queries, start=1):
             print(f"[retrieve] query_{i}: {q}")
@@ -43,7 +46,7 @@ def make_retrieve_node(searcher, fetcher, max_docs: int = 8, per_query_results: 
         parallelism = max(1, min(10, parallelism))  # 简单保护
         print(f"[retrieve] parallelism={parallelism}, max_docs={max_docs}, per_query_results={per_query_results}")
 
-        seen_urls: Set[str] = set()
+        seen_urls: Set[str] = set(existing_urls)
         candidate_urls: List[str] = []
 
         # 1) 先 search：收集候选 URL（去重 + 限额）
@@ -83,22 +86,35 @@ def make_retrieve_node(searcher, fetcher, max_docs: int = 8, per_query_results: 
                 except Exception:
                     return None
 
-        docs: List[Document] = []
+        new_docs: List[Document] = []
         tasks = [asyncio.create_task(_fetch_one(u)) for u in candidate_urls]
         for fut in asyncio.as_completed(tasks):
             doc = await fut
             if doc is not None:
-                docs.append(doc)
+                if doc.url in existing_urls:
+                    continue
+                new_docs.append(doc)
                 print(f"[retrieve] fetched_doc: url={doc.url} title={doc.title} content_len={len(doc.content or '')}")
                 print("[retrieve] --- doc_content begin ---")
                 print(doc.content)
                 print("[retrieve] --- doc_content end ---")
-            if len(docs) >= max_docs:
+            if len(new_docs) >= max_docs:
                 break
 
-        msg = AIMessage(content=f"[retrieve] 搜索 {len(queries)} 条 query，候选 {len(candidate_urls)} 个 URL，并发={parallelism}，抓取成功 {len(docs)} 篇。")
-        print(f"[retrieve] fetched_docs={len(docs)}")
-        return {"documents": docs, "messages": [msg]}
+        merged_docs = existing_docs + new_docs
+        query_history = state.get("query_history", []) or []
+        query_history.extend(queries)
+        # 保序去重
+        dedup_history = list(dict.fromkeys([q for q in query_history if q]))
+
+        msg = AIMessage(
+            content=(
+                f"[retrieve] 本轮查询 {len(queries)} 条，候选 {len(candidate_urls)}，"
+                f"新增文档 {len(new_docs)}，累计文档 {len(merged_docs)}。"
+            )
+        )
+        print(f"[retrieve] fetched_new_docs={len(new_docs)}, total_docs={len(merged_docs)}")
+        return {"documents": merged_docs, "query_history": dedup_history, "messages": [msg]}
 
     return retrieve
 
