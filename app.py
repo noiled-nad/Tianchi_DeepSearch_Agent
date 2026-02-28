@@ -14,8 +14,8 @@ from langgraph.store.memory import InMemoryStore
 
 from deepresearch.config import create_llm
 from deepresearch.graph import build_deepresearch_graph
-from deepresearch.tools.search_tool import DuckDuckGoSearcher
-from deepresearch.tools.fetch_tool import SimpleFetcher
+from deepresearch.tools.search_tool import build_searcher
+from deepresearch.tools.fetch_tool import build_fetcher
 
 
 short_term_memory: BaseCheckpointSaver = None
@@ -39,8 +39,8 @@ async def initialize(self):
     long_term_memory = InMemoryStore()
 
     llm = create_llm()
-    searcher = DuckDuckGoSearcher(max_results=5)
-    fetcher = SimpleFetcher(timeout_s=20.0)
+    searcher = build_searcher()
+    fetcher = build_fetcher()
 
     graph_builder = build_deepresearch_graph(llm, searcher, fetcher)
     # 目前先不做复杂持久化，把 checkpointer/store 先挂上

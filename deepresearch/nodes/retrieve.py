@@ -11,7 +11,7 @@
 from __future__ import annotations
 
 import asyncio
-from typing import Callable, List, Set, Any
+from typing import Callable, List, Set, Any, Tuple
 
 from langchain_core.messages import AIMessage
 
@@ -47,11 +47,11 @@ def make_retrieve_node(searcher, fetcher, max_docs: int = 8, per_query_results: 
         print(f"[retrieve] parallelism={parallelism}, max_docs={max_docs}, per_query_results={per_query_results}")
 
         seen_urls: Set[str] = set(existing_urls)
-        candidate_urls: List[str] = []
+        candidate_items: List[Tuple[str, str]] = []
 
         # 1) 先 search：收集候选 URL（去重 + 限额）
         for query in queries:
-            if len(candidate_urls) >= max_docs:
+            if len(candidate_items) >= max_docs:
                 break
             try:
                 results: List[SearchResult] = await searcher.search(query)
@@ -62,32 +62,36 @@ def make_retrieve_node(searcher, fetcher, max_docs: int = 8, per_query_results: 
 
             for r in results[:per_query_results]:
                 print(f"[retrieve] result: title={getattr(r, 'title', '')} url={getattr(r, 'url', '')} snippet={getattr(r, 'snippet', '')}")
-                if len(candidate_urls) >= max_docs:
+                if len(candidate_items) >= max_docs:
                     break
                 if not r.url or r.url in seen_urls:
                     continue
                 seen_urls.add(r.url)
-                candidate_urls.append(r.url)
+                candidate_items.append((r.url, query))
 
-        if not candidate_urls:
+        if not candidate_items:
             return {"documents": [], "messages": [AIMessage(content="[retrieve] 搜索无结果或全部被去重/过滤。")]}
-        print(f"[retrieve] candidate_urls={len(candidate_urls)}")
-        for i, u in enumerate(candidate_urls, start=1):
-            print(f"[retrieve] candidate_{i}: {u}")
+        print(f"[retrieve] candidate_urls={len(candidate_items)}")
+        for i, (u, q) in enumerate(candidate_items, start=1):
+            print(f"[retrieve] candidate_{i}: {u} | from_query={q}")
 
         # 2) 并发 fetch：受 parallelism 控制
         sem = asyncio.Semaphore(parallelism)
 
-        async def _fetch_one(url: str):
+        async def _fetch_one(url: str, query: str):
             async with sem:
                 try:
-                    doc: Document = await fetcher.fetch(url)
+                    try:
+                        doc: Document = await fetcher.fetch(url, query=query)
+                    except TypeError:
+                        # 兼容旧 fetcher（只接受 url）
+                        doc = await fetcher.fetch(url)
                     return doc
                 except Exception:
                     return None
 
         new_docs: List[Document] = []
-        tasks = [asyncio.create_task(_fetch_one(u)) for u in candidate_urls]
+        tasks = [asyncio.create_task(_fetch_one(u, q)) for (u, q) in candidate_items]
         for fut in asyncio.as_completed(tasks):
             doc = await fut
             if doc is not None:
@@ -109,7 +113,7 @@ def make_retrieve_node(searcher, fetcher, max_docs: int = 8, per_query_results: 
 
         msg = AIMessage(
             content=(
-                f"[retrieve] 本轮查询 {len(queries)} 条，候选 {len(candidate_urls)}，"
+                f"[retrieve] 本轮查询 {len(queries)} 条，候选 {len(candidate_items)}，"
                 f"新增文档 {len(new_docs)}，累计文档 {len(merged_docs)}。"
             )
         )
