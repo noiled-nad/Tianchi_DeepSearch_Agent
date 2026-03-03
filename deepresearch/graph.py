@@ -1,8 +1,12 @@
 # deepresearch/graph.py
 # -*- coding: utf-8 -*-
 """
-新版流程（更少节点，弱化 SPOQ）：
-START -> parse_claims(brief) -> retrieve -> finalize -> (retrieve|END)
+OAgents 风格子任务拆解流程：
+START -> parse_claims(subtask planning) -> execute_subtasks -> finalize -> (execute_subtasks|END)
+
+execute_subtasks 内部按 parallel_groups 分层并行：
+  每个子任务: query_optimize → search → fetch → extract_findings
+  后序子任务注入前序 findings（级联推理）
 """
 from __future__ import annotations
 
@@ -14,7 +18,7 @@ from langgraph.graph import END, START, StateGraph
 
 from deepresearch.state import DeepResearchState
 from deepresearch.nodes.parse_claims import make_parse_claims_node
-from deepresearch.nodes.retrieve import make_retrieve_node
+from deepresearch.nodes.execute_subtasks import make_execute_subtasks_node
 from deepresearch.nodes.finalize import make_finalize_node
 
 
@@ -24,22 +28,25 @@ def _route_after_finalize(state: DeepResearchState) -> str:
     needs_followup = bool(state.get("needs_followup", False))
 
     if needs_followup and it < max_it:
-        return "retrieve"
+        return "execute_subtasks"   # followup 走 execute_subtasks
     return "end"
 
-def build_deepresearch_graph(llm, searcher, fetcher):
+
+def build_deepresearch_graph(llm, searcher, fetcher, flash_llm=None):
     g = StateGraph(DeepResearchState)
 
     g.add_node("parse_claims", make_parse_claims_node(llm))
-    g.add_node("retrieve", make_retrieve_node(searcher, fetcher))
+    g.add_node("execute_subtasks", make_execute_subtasks_node(llm, flash_llm, searcher, fetcher))
     g.add_node("finalize", make_finalize_node(llm))
 
+    # START -> parse_claims -> execute_subtasks -> finalize
     g.add_edge(START, "parse_claims")
-    g.add_edge("parse_claims", "retrieve")
-    g.add_edge("retrieve", "finalize")
+    g.add_edge("parse_claims", "execute_subtasks")
+    g.add_edge("execute_subtasks", "finalize")
 
+    # finalize -> execute_subtasks (循环) | END
     g.add_conditional_edges("finalize", _route_after_finalize, {
-        "retrieve": "retrieve",
+        "execute_subtasks": "execute_subtasks",
         "end": END,
     })
     return g

@@ -12,7 +12,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.store.base import BaseStore
 from langgraph.store.memory import InMemoryStore
 
-from deepresearch.config import create_llm
+from deepresearch.config import create_llm, create_flash_llm
 from deepresearch.graph import build_deepresearch_graph
 from deepresearch.tools.search_tool import build_searcher
 from deepresearch.tools.fetch_tool import build_fetcher
@@ -39,10 +39,11 @@ async def initialize(self):
     long_term_memory = InMemoryStore()
 
     llm = create_llm()
+    flash_llm = create_flash_llm()
     searcher = build_searcher()
     fetcher = build_fetcher()
 
-    graph_builder = build_deepresearch_graph(llm, searcher, fetcher)
+    graph_builder = build_deepresearch_graph(llm, searcher, fetcher, flash_llm=flash_llm)
     # 目前先不做复杂持久化，把 checkpointer/store 先挂上
     self.graph = graph_builder.compile(checkpointer=short_term_memory, store=long_term_memory)
 

@@ -2,6 +2,9 @@
 agent.py
 test.ipynb
 eval
+venv/
+.venv/
+
 # Python cache
 __pycache__/
 *.pyc
