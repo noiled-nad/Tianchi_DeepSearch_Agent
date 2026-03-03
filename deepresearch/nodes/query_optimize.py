@@ -18,6 +18,11 @@ from typing import Any, Callable, Dict, List, Tuple
 from langchain_core.messages import AIMessage
 
 try:
+    from ..prompt_loader import load_prompt
+except ImportError:
+    from deepresearch.prompt_loader import load_prompt
+
+try:
     from ..state import DeepResearchState
 except ImportError:
     # 直接运行时的兼容
@@ -80,103 +85,9 @@ def _parse_rollout_queries(text: str, n_rollout: int) -> List[str]:
 
 # ───────── Prompt 模板（参考 OAgents search_prompts.yaml） ─────────
 
-BATCH_REFLECTION_PROMPT = """\
-You are a highly skilled query evaluation and augmentation agent.
-
-Problem Identification:
-- Information Ambiguity: The query is ambiguous or lacks information.
-- Semantic Ambiguity: Terms with multiple meanings, leading to misunderstandings.
-- Complex Requirements: Multiple search targets crammed into one query (MUST split into separate queries).
-- Overly Specific: Too narrow, potentially excluding relevant results.
-
-Available Solution:
-- Information Ambiguity: Query expansion or removing the ambiguous part.
-- Semantic Ambiguity: Resolve ambiguity via context or rephrasing.
-- Complex Requirements: SPLIT into multiple short single-target queries. One query = one entity/concept.
-- Overly Specific: Use less specific query while retaining core content.
-
-Objective:
-- Evaluate EACH query below, identify problems, and provide optimized version(s).
-- Keep optimized queries concise (3-8 words). Do NOT fabricate information.
-- If a query has Complex Requirements, return MULTIPLE augmented queries (one per search target).
-- Preserve domain-critical terms from the original query. Do NOT replace a term with a different category.
-- If you are unsure whether two terms are equivalent, keep the original term and optionally add a parallel variant.
-
-Original Question Context: {question}
-
-Queries to evaluate:
-{queries_block}
-
-Output Format — return a JSON array, one object per query, in the SAME order:
-[
-  {{"original": "...", "analysis": "brief analysis", "augmented": "optimized query OR pipe-separated if split: query1|query2"}},
-  ...
-]
-Note: Use | to separate multiple queries when splitting a complex query. Example: "product A features list|product B features list"
-"""
-
-QUERY_ROLLOUT_PROMPT = """\
-Your task is to receive a search query, analyze the user's intent, break down the search task, and generate N new search queries to improve search quality.
-
-Original Question: {question}
-Key Entities: {key_entities}
-Base Query: {query}
-Query History (avoid duplicates): {history_text}
-
-Generate {roll_out} alternative versions of this query. Each query should:
-1. Be distinct and maintain the core intent of the original
-2. Broaden its scope for more comprehensive search results
-3. Include synonyms, related terms, or different phrasings
-4. Consider both Chinese and English variants where applicable
-5. Focus on specific anchor terms (years, proper nouns, organizations)
-6. Preserve domain-critical terms from Base Query; do not change entity/category semantics
-7. If uncertain about synonym equivalence, keep the original wording as one variant
-
-Format your response as follows:
-<begin>
-query_1
-query_2
-...
-query_N
-<end>
-Where N represents the total number of queries you've generated.
-"""
-
-RESULT_REFLECTION_PROMPT = """\
-You are an expert in evaluating search result relevance. Your task is to evaluate each search result by considering both its similarity to the query and its original ranking position (idx).
-
-Inputs:
-- A search query
-- Multiple search results, each containing: idx (original ranking position), title, snippet
-
-Output:
-For each search result, provide two scores between 0-10:
-- Similarity score (0-10): Based on how well the title and snippet match the query's intent and keywords
-- Overall score (0-10): Combination of similarity score and idx position
-
-Scoring Guidelines:
-Similarity Score Evaluation:
-- 9-10: Directly answers the query with precise keywords and relevant context
-- 7-8: Strongly relevant but may lack some specific details
-- 5-6: Partially relevant with some related information
-- 3-4: Marginally related with minimal relevant content
-- 0-2: Virtually unrelated or completely off-topic
-
-Overall Score Formula:
-overall_score = (similarity_score * 0.7) + (idx_weight * 0.3)
-Where idx_weight is calculated as: idx_weight = (max_idx - current_idx + 1) / max_idx * 10
-
-Now evaluate:
-Query: {query}
-Results:
-{results_text}
-
-Output Format (JSON array):
-[
-  {{"idx": 1, "similarity_score": 8, "overall_score": 8.5}},
-  ...
-]
-"""
+BATCH_REFLECTION_PROMPT = load_prompt("query_optimize.yaml", "batch_reflection_prompt")
+QUERY_ROLLOUT_PROMPT = load_prompt("query_optimize.yaml", "query_rollout_prompt")
+RESULT_REFLECTION_PROMPT = load_prompt("query_optimize.yaml", "result_reflection_prompt")
 
 
 # ───────── 核心函数 ─────────
@@ -366,7 +277,9 @@ async def _run_reflect_rollout(state: DeepResearchState, llm, flash_llm=None) ->
         print(f"[query_optimize] rollout '{rq[:30]}' -> {len(variants)} variants")
         return variants
 
+    # 创建并发任务列表：每个refined query独立发起一次LLM rollout调用
     rollout_tasks = [_do_rollout(rq) for rq in refined_queries]
+    # 使用asyncio.gather并发执行所有rollout任务，提高效率
     rollout_results = await asyncio.gather(*rollout_tasks)
 
     expanded_queries: List[str] = []

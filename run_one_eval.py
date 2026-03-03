@@ -7,7 +7,7 @@ from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.store.memory import InMemoryStore
 
-from deepresearch.config import create_llm, create_flash_llm
+from deepresearch.config import create_llm, create_flash_llm, enable_langsmith_tracing_from_env
 from deepresearch.graph import build_deepresearch_graph
 from deepresearch.tools.search_tool import build_searcher
 from deepresearch.tools.fetch_tool import build_fetcher
@@ -18,6 +18,9 @@ TEST = {"id": 1,
         }
 
 async def main():
+    # # 启用 LangSmith tracing（如果环境变量配置了）
+    # enable_langsmith_tracing_from_env()
+
     # 1) 初始化：LLM + 工具 + 图
     llm = create_llm()
     flash_llm = create_flash_llm()

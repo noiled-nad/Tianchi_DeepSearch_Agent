@@ -20,51 +20,15 @@ from typing import Any, Callable, Dict, List, Set, Tuple
 from langchain_core.messages import AIMessage
 
 from ..schemas import Document, SearchResult
+from ..prompt_loader import load_prompt
 from ..state import DeepResearchState
 from .query_optimize import _reflect_batch, _rollout_query
 
 
 # ───────── Prompts ─────────
 
-FINDING_EXTRACTION_PROMPT = """\
-你是信息提取专家。请根据以下文档内容，提取与当前子任务相关的关键发现。
-
-原始问题：{question}
-子任务：[{subtask_id}] {subtask_title}
-{deps_context}
-
-文档内容：
-{docs_text}
-
-要求：
-1) 只提取与子任务直接相关的事实（人名、时间、地点、关系、数字等）
-2) 用简洁的要点列表输出（3~8 条）
-3) 标注信息来源的文档编号 [D1] [D2] 等
-4) 如果文档中没有相关信息，直接回答"未找到相关信息"
-5) 不要编造任何信息
-
-关键发现："""
-
-
-DEPS_QUERY_REFINE_PROMPT = """\
-根据前序子任务的发现，为当前子任务优化搜索查询。
-
-原始问题：{question}
-当前子任务：{subtask_title}
-原始查询：{original_queries}
-
-前序子任务发现：
-{deps_findings}
-
-## 关键规则
-1) 每条查询只检索一个实体/概念/事实，绝不混合多个检索目标
-2) 用前序发现中的具体实体名替代原始查询中的泛化描述
-3) 如果子任务需要"匹配"或"交叉对比"两侧信息，必须为每一侧分别生成独立查询
-   - 错误示例："A产品特性 B产品特性 对比"（混合多目标，搜索引擎无法理解）
-   - 正确示例：分别查 "A产品 特性列表"、"B产品 特性列表"
-4) 生成 3~6 条短查询（每条 3~8 词），覆盖中英双语
-
-只输出查询列表，每行一条，不要其他内容。"""
+FINDING_EXTRACTION_PROMPT = load_prompt("execute_subtasks.yaml", "finding_extraction_prompt")
+DEPS_QUERY_REFINE_PROMPT = load_prompt("execute_subtasks.yaml", "deps_query_refine_prompt")
 
 
 # ───────── 工具函数 ─────────

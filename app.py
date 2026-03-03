@@ -12,7 +12,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.store.base import BaseStore
 from langgraph.store.memory import InMemoryStore
 
-from deepresearch.config import create_llm, create_flash_llm
+from deepresearch.config import create_llm, create_flash_llm, enable_langsmith_tracing_from_env
 from deepresearch.graph import build_deepresearch_graph
 from deepresearch.tools.search_tool import build_searcher
 from deepresearch.tools.fetch_tool import build_fetcher
@@ -34,6 +34,9 @@ async def initialize(self):
     """
     global short_term_memory
     global long_term_memory
+
+    # 启用 LangSmith tracing（如果环境变量配置了）
+    enable_langsmith_tracing_from_env()
 
     short_term_memory = MemorySaver()
     long_term_memory = InMemoryStore()

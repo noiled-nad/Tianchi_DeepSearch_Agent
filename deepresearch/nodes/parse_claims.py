@@ -10,12 +10,75 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from typing import Callable, Dict, List, Set
 
 from langchain_core.messages import AIMessage, BaseMessage
 
 from ..state import DeepResearchState
 from ..plan_tips import get_plan_tips, format_tips_for_prompt
+from ..prompt_loader import load_prompt
+
+
+async def _ainvoke_with_stream_debug(llm, prompt: str, tag: str = "parse_claims") -> str:
+    """
+    调试用：优先走 astream 流式打印模型输出，便于观察卡点。
+    若模型不支持流式，则退回 ainvoke。
+    """
+    t0 = time.perf_counter()
+    print(f"[{tag}] request_sent, prompt_len={len(prompt)}")
+
+    # 优先尝试流式
+    if hasattr(llm, "astream"):
+        chunks: List[str] = []
+        first_token_at = None
+        chunk_count = 0
+        try:
+            async for chunk in llm.astream(prompt):
+                text = str(getattr(chunk, "content", "") or "")
+                if not text:
+                    continue
+                chunk_count += 1
+                if first_token_at is None:
+                    first_token_at = time.perf_counter()
+                    print(f"[{tag}] first_token_latency={first_token_at - t0:.2f}s")
+                    print(f"[{tag}] stream_start >>>")
+                print(text, end="", flush=True)
+                chunks.append(text)
+
+            if first_token_at is not None:
+                print(f"\n[{tag}] <<< stream_end")
+            t1 = time.perf_counter()
+            total = t1 - t0
+            out_text = "".join(chunks)
+            if first_token_at is None:
+                print(f"[{tag}] no_stream_chunk_received, total_latency={total:.2f}s")
+                print(f"[{tag}] diagnosis=请求/排队慢（首包未返回）")
+            else:
+                first = first_token_at - t0
+                gen = t1 - first_token_at
+                print(
+                    f"[{tag}] timing_breakdown: request_wait={first:.2f}s, "
+                    f"output_stream={gen:.2f}s, total={total:.2f}s, chunks={chunk_count}, out_len={len(out_text)}"
+                )
+                if first > 8 and gen < 3:
+                    print(f"[{tag}] diagnosis=请求慢（首包等待长，输出本身快）")
+                elif first < 3 and gen > 8:
+                    print(f"[{tag}] diagnosis=输出慢（首包快，但生成耗时长）")
+                else:
+                    print(f"[{tag}] diagnosis=请求与输出均有耗时")
+            return out_text
+        except Exception as e:
+            print(f"[{tag}] stream_failed, fallback_to_ainvoke: {e}")
+
+    # 回退：非流式
+    resp = await llm.ainvoke(prompt)
+    t1 = time.perf_counter()
+    total = t1 - t0
+    out = str(getattr(resp, "content", "") or "")
+    print(f"[{tag}] non_stream_done, total_latency={total:.2f}s, out_len={len(out)}")
+    print(f"[{tag}] diagnosis=无法拆分首包与输出时间（非流式回退）")
+    return out
 
 
 def _extract_last_user_question(messages: List[BaseMessage]) -> str:
@@ -79,50 +142,7 @@ def _compute_parallel_groups(subtasks: List[Dict]) -> List[List[str]]:
     return groups
 
 
-SUBTASK_PLAN_PROMPT = """\
-你是 Deep Research 的任务规划器。请将用户问题拆解为可独立搜索执行的子任务。
-
-## 拆解规则
-1) 每个子任务应聚焦一个独立的信息检索目标
-2) 多跳问题必须拆成链式子任务（ST1 的结果用于 ST2 的查询）
-3) 可并行的子任务不要标注依赖
-4) 每个子任务给 2~4 条搜索查询（短查询，覆盖中英双语，聚焦年份/人名/作品名等锚点）
-5) 子任务数量通常 2~5 个，简单问题可以只有 1 个
-
-## 查询编写规则（极重要）
-- 每条查询只检索一个实体/概念，绝不在一条查询中混合多个检索目标
-- 查询要短（3~8 个词），聚焦年份/人名/作品名等锚点词
-- 覆盖中英双语（同一目标的中文和英文各一条）
-- 对于依赖前序子任务的子任务，queries 写成"单侧检索"形式：
-  例如子任务是"找出A和B的共同点"，queries 应分别查 A 的信息和 B 的信息，
-  而不是把 A 和 B 塞进同一条查询
-
-## 输出格式（严格 JSON，不要 markdown）
-{{
-  "objective": "一句话研究目标",
-  "answer_format": "期望的答案格式（如：人名/年份/数字...）",
-  "key_entities": ["实体1", "实体2"],
-  "hard_constraints": ["约束1"],
-  "done_criteria": ["完成标准1"],
-  "subtasks": [
-    {{
-      "id": "ST1",
-      "title": "子任务标题（简洁明确）",
-      "reason": "为什么需要这个子任务",
-      "queries": ["搜索词1", "搜索词2"],
-      "depends_on": []
-    }},
-    {{
-      "id": "ST2",
-      "title": "子任务标题",
-      "reason": "需要 ST1 的结果来确定...",
-      "queries": ["搜索词1", "搜索词2"],
-      "depends_on": ["ST1"]
-    }}
-  ]
-}}
-{tips_block}
-问题：{question}"""
+SUBTASK_PLAN_PROMPT = load_prompt("parse_claims.yaml", "subtask_plan_prompt")
 
 
 def make_parse_claims_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
@@ -147,8 +167,11 @@ def make_parse_claims_node(llm) -> Callable[[DeepResearchState], DeepResearchSta
         )
 
         try:
-            resp = await llm.ainvoke(prompt)
-            obj = _safe_json_obj(str(resp.content))
+            raw = await _ainvoke_with_stream_debug(llm, prompt, tag="parse_claims")
+            t_parse0 = time.perf_counter()
+            obj = _safe_json_obj(raw)
+            t_parse1 = time.perf_counter()
+            print(f"[parse_claims] json_parse_latency={t_parse1 - t_parse0:.3f}s")
         except Exception as e:
             print(f"[parse_claims] LLM parse failed: {e}")
             obj = {}

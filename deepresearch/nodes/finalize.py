@@ -14,8 +14,12 @@ from typing import Callable, Dict, List
 
 from langchain_core.messages import AIMessage
 
+from ..prompt_loader import load_prompt
 from ..schemas import Document
 from ..state import DeepResearchState
+
+
+FINALIZE_PROMPT = load_prompt("finalize.yaml", "finalize_prompt")
 
 
 def _format_sources_full(docs: List[Document], max_chars_each: int = 1200) -> str:
@@ -98,16 +102,12 @@ def make_finalize_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
             sources_text = _format_sources_full(docs)
             sources_label = "原始证据包"
 
-        prompt = (
-            "基于子任务调查结果和证据，输出 JSON（不要 markdown code fence）：\n"
-            "{\"reasoning\":string,\"final_answer\":string,\"confidence\":number,"
-            "\"needs_followup\":boolean,\"research_gaps\":[string],\"followup_queries\":[string]}\n"
-            "规则：reasoning 简洁串联推理链；final_answer 直接可交付，用[S1]引用来源；"
-            "证据不足时 needs_followup=true 给3~6条followup_queries。\n\n"
-            f"问题：{question}\n"
-            f"已知缺口：{json.dumps(gaps, ensure_ascii=False)}\n\n"
-            f"{findings_text}\n\n"
-            f"{sources_label}：\n{sources_text}\n"
+        prompt = FINALIZE_PROMPT.format(
+            question=question,
+            gaps_json=json.dumps(gaps, ensure_ascii=False),
+            findings_text=findings_text,
+            sources_label=sources_label,
+            sources_text=sources_text,
         )
 
         print(f"[finalize] prompt_len={len(prompt)} chars")
