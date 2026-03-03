@@ -1,51 +1,125 @@
 # Tianchi DeepResearch Agent
 
-当前仓库是一个可运行的 DeepResearch 代理实现，基于 LangGraph 的**迭代式检索-综合**流程：
+基于 LangGraph 的 **OAgents 风格子任务拆解 + 级联推理** Deep Research 代理实现：
 
-`parse_claims(brief) -> retrieve -> finalize -> (retrieve | END)`
+```
+START -> parse_claims(subtask planning) -> execute_subtasks -> finalize -> (execute_subtasks | END)
+```
 
-与旧版相比，当前主流程不再依赖 SPOQ 强结构化拆分，而是采用 `research_brief + follow-up queries` 的轻量循环研究策略。
+核心思路：将复杂多跳问题拆解为带依赖关系的子任务，按拓扑序分层并行执行，后序子任务注入前序 findings 实现级联推理。
 
 ---
 
-## 1. 当前能力（按代码实况）
+## 1. 当前能力
 
-- 迭代研究图：最多多轮检索，`finalize` 决定是否继续。
-- 多源搜索聚合：支持 `Serper / 阿里云 IQS / DuckDuckGo / Wikipedia / Bocha`，并兼容 `SerpApi`。
-- 搜索并发聚合去重：跨源并发、URL 去重、交错合并。
-- 搜索可观测性：输出每个源的 `source_raw_counts` 与 `source_errors`。
-- 抓取后端可切换：`SimpleFetcher / JinaReaderFetcher / HybridFetcher`。
-- Query 相关段抽取：抓取文本可按 query 做轻量打分抽段，降低噪声。
+- **子任务拆解**：自动将复杂问题拆分为 2~5 个子任务，标注依赖关系（`depends_on`）
+- **分层并行执行**：按拓扑序计算 `parallel_groups`，同层 `asyncio.gather` 并行，跨层级联
+- **两阶段查询优化**：Batch Reflection（识别 4 类问题并重写/拆分）+ Parallel Rollout（多样化变体扩展）
+- **双模型架构**：主模型（`qwen3.5-plus`）用于规划和综合，轻量模型（`qwen3.5-flash`）用于查询优化和信息抽取
+- **增量 followup**：finalize 判断证据不足时，保留已完成子任务 findings，仅新增 gap 子任务定向补查
+- **多源搜索聚合**：支持 Serper / 阿里云 IQS / DuckDuckGo / Wikipedia / Bocha
+- **抓取后端可切换**：SimpleFetcher / JinaReaderFetcher / HybridFetcher
 
 ---
 
 ## 2. 流程架构
 
-主图定义在 [deepresearch/graph.py](deepresearch/graph.py)：
+主图定义在 [deepresearch/graph.py](deepresearch/graph.py)，3 节点流程：
 
-- `START -> parse_claims -> retrieve -> finalize`
-- `finalize` 根据 `needs_followup` 和 `iteration/max_iterations` 路由：
-  - 继续检索：`retrieve`
-  - 结束：`END`
+```
+START -> parse_claims -> execute_subtasks -> finalize
+                                               |
+                              (needs_followup) ↓ (done)
+                           execute_subtasks    END
+```
 
-### 节点说明
+### 2.1 parse_claims — 子任务规划
 
-- [deepresearch/nodes/parse_claims.py](deepresearch/nodes/parse_claims.py)
-  - 输入问题，生成 `research_brief` 和首轮 `queries`（5~8 条）
-  - 初始化循环状态：`needs_followup=True`、`iteration/max_iterations`
+文件：[deepresearch/nodes/parse_claims.py](deepresearch/nodes/parse_claims.py)
 
-- [deepresearch/nodes/retrieve.py](deepresearch/nodes/retrieve.py)
-  - 对 `queries` 做搜索，收集候选 URL
-  - 并发抓取文档，增量合并到 `documents`
-  - 支持 `parallelism`、跨轮 URL 去重
+- 输入问题，生成 `research_brief`（目标、答案格式、关键实体、约束条件）
+- 将问题拆解为多个 `subtasks`，每个子任务包含：
+  - `id`：唯一标识（如 ST1, ST2）
+  - `title`：子任务标题
+  - `reason`：为什么需要这个子任务
+  - `queries`：2~4 条初始搜索查询（短查询，每条聚焦一个实体/概念）
+  - `depends_on`：前置依赖子任务 ID 列表
+- 通过 `_compute_parallel_groups()` 拓扑排序，计算可并行执行的分组
+- 注入 `plan_tips`（基于问题关键词匹配的经验规则）
 
-- [deepresearch/nodes/finalize.py](deepresearch/nodes/finalize.py)
-  - 基于证据包输出 JSON：`final_answer/confidence/needs_followup/research_gaps/followup_queries`
-  - 若需继续检索，写回新一轮 `queries`
+**查询编写规则**（防止混合检索）：
+- 每条查询只检索一个实体/概念
+- 依赖子任务的 queries 写成"单侧检索"形式
+- 覆盖中英双语，3~8 词短查询
+
+### 2.2 execute_subtasks — 子任务执行
+
+文件：[deepresearch/nodes/execute_subtasks.py](deepresearch/nodes/execute_subtasks.py)
+
+按 `parallel_groups` 分层执行，每个子任务内部走完整流程：
+
+```
+query_optimize → search → fetch → extract_findings
+```
+
+**子任务内部流程详解：**
+
+1. **依赖注入**：收集前序子任务的 `findings`，构建 `deps_context`
+2. **查询细化**（有依赖时）：通过 `DEPS_QUERY_REFINE_PROMPT` 用前序 findings 中的具体实体替换泛化描述
+3. **Batch Reflection**：一次 LLM 调用评估所有查询，识别 4 类问题：
+   - 信息歧义 → 扩展或去除歧义
+   - 语义歧义 → 基于上下文消歧
+   - 复杂需求 → **拆分为多条单目标查询**（`|` 分隔符）
+   - 过度具体 → 放宽范围
+4. **Parallel Rollout**：每条 reflected 查询并行扩展 2~3 个变体（中英双语、同义词、锚点词）
+5. **搜索 + 抓取**：多源搜索、URL 去重、并发抓取
+6. **Findings 抽取**：用 flash_llm 从文档中提取与子任务相关的关键事实（3~8 条要点）
+
+**关键设计：**
+- 传给 reflect/rollout 的上下文是**子任务 title+reason**（非完整原始问题），防止查询跑偏到其他子任务
+- 保留原始查询参与检索，防止优化阶段的语义漂移
+- 已有 findings 的子任务自动跳过（支持增量 followup）
+- 每个子任务最多 10 条优化查询，最多 6 篇文档
+
+### 2.3 finalize — 综合推理
+
+文件：[deepresearch/nodes/finalize.py](deepresearch/nodes/finalize.py)
+
+- 汇总所有子任务 findings + 文档引用索引，生成最终答案
+- 输出 JSON：`reasoning / final_answer / confidence / needs_followup / research_gaps / followup_queries`
+- `reasoning` 串联各子任务推理链路（尤其是多跳依赖）
+
+**Prompt 优化**：
+- 有 `subtask_findings` 时，原始文档只附轻量索引（标题+URL），大幅压缩 prompt 体积
+- 无 findings 时回退到完整证据包
+- `max_tokens=2048` 限制输出长度
+
+**增量 followup 策略**（非清空重来）：
+- 保留原始子任务结构和已完成的 findings
+- 为每个 `research_gap` 创建独立 gap 子任务（`gap_0_0`, `gap_0_1`...），带定向查询
+- 重算 `parallel_groups`，已完成子任务由 execute_subtasks 自动跳过
+- 无 gaps 但有 followup_queries 时，创建通用 `followup_N` 子任务
+
+### 2.4 query_optimize — 查询优化引擎
+
+文件：[deepresearch/nodes/query_optimize.py](deepresearch/nodes/query_optimize.py)
+
+被 execute_subtasks 内部调用的两阶段查询优化流水线（参考 OAgents SearchReflector）：
+
+| 阶段 | 函数 | 说明 |
+|---|---|---|
+| Batch Reflection | `_reflect_batch()` | 一次 LLM 调用评估所有查询，识别问题并重写；支持 `\|` 分隔输出拆分复合查询 |
+| Parallel Rollout | `_rollout_query()` | 每条查询并行扩展 N 个变体，覆盖同义词/双语/锚点词 |
+| Result Reflection | `reflect_search_results()` | 对搜索结果进行相关性评分（similarity + idx 加权） |
+
+**防语义漂移机制**：
+- Prompt 明确要求保留领域关键术语，不做类别替换
+- 不确定同义时保留原词
+- 原始查询始终参与最终查询集
 
 ---
 
-## 3. 搜索层（新增：多源聚合 + Serper 安全搜索）
+## 3. 搜索层
 
 实现文件：[deepresearch/tools/search_tool.py](deepresearch/tools/search_tool.py)
 
@@ -62,51 +136,28 @@
 
 - 并发请求各源
 - 统一转成 `SearchResult`
-- 结果 snippet 自动打源标签（如 `[serper] ...`）
-- URL 归一化去重
-- 交错合并（round-robin）提升来源多样性
-- 多源时自动保证总上限：`SEARCH_MAX_RESULTS >= SEARCH_PER_SOURCE_RESULTS * 源数量`
-
-### 运行时可观测指标
-
-脚本自测会输出：
-
-- `sources(n)`
-- `source_raw_counts`
-- `source_errors`（例如 `ConnectTimeout`）
-
-可直接运行：
-
-```bash
-python deepresearch/tools/search_tool.py
-```
+- URL 归一化去重，交错合并（round-robin）提升来源多样性
+- 运行时输出 `source_raw_counts` 与 `source_errors`
 
 ---
 
-## 4. 抓取层（新增：Jina Reader）
+## 4. 抓取层
 
 实现文件：[deepresearch/tools/fetch_tool.py](deepresearch/tools/fetch_tool.py)
 
 ### 可用抓取器
 
-- `SimpleFetcher`
-  - HTML 抽取（BeautifulSoup）
-  - PDF 抽取（pypdf / PyPDF2）
-  - 可按 query 做文本分块与相关段提取
+| 抓取器 | 说明 |
+|---|---|
+| `SimpleFetcher` | HTML（BeautifulSoup）+ PDF（pypdf）抽取，支持按 query 做相关段提取 |
+| `JinaReaderFetcher` | 通过 Jina Reader 网关抓正文，支持 engine/return_format/token_budget |
+| `HybridFetcher` | 顺序回退：Simple → Jina(direct) → Jina(browser) |
 
-- `JinaReaderFetcher`（新增）
-  - 通过 Jina Reader 网关抓正文
-  - 支持 `engine`、`return_format`、`token_budget`
-
-- `HybridFetcher`（新增）
-  - 顺序回退：`Simple -> Jina(direct) -> Jina(browser)`
-  - 提升抓取成功率
-
-`build_fetcher()` 根据环境变量选择模式。
+`build_fetcher()` 根据环境变量 `FETCH_MODE` 选择模式。
 
 ---
 
-## 5. 环境变量配置（建议）
+## 5. 环境变量配置
 
 请在项目根目录创建 `.env`。
 
@@ -119,9 +170,13 @@ DEEPRESEARCH_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
 DEEPRESEARCH_TEMPERATURE=0.2
 ENABLE_THINKING=1
 MAX_TOKENS=2000
+
+# Flash 模型（查询优化 / findings 抽取用）
+FLASH_MODEL=qwen3.5-flash
+FLASH_TEMPERATURE=0.3
 ```
 
-### 5.2 多源搜索（推荐）
+### 5.2 多源搜索
 
 ```env
 SEARCH_SOURCES=serper,iqs,duckduckgo,wikipedia
@@ -144,7 +199,7 @@ BOCHA_API_KEY=
 SERPAPI_API_KEY=
 ```
 
-### 5.3 抓取（含 Jina Reader）
+### 5.3 抓取
 
 ```env
 FETCH_TIMEOUT_S=20
@@ -153,16 +208,11 @@ FETCH_MAX_CHARS=12000
 # simple | jina | hybrid
 FETCH_MODE=simple
 
-# 兼容开关：设置为 jina 或 1 也会启用 JinaReader
-FETCH_READER=
-USE_JINA_READER=0
-
 JINA_READER_BASE_URL=https://r.jina.ai/http://
 JINA_API_KEY=
 JINA_ENGINE=direct
 JINA_RETURN_FORMAT=text
 JINA_TOKEN_BUDGET=50000
-JINA_BROWSER_TOKEN_BUDGET=80000
 
 # query 相关段提取参数
 FETCH_QUERY_TOPK=3
@@ -174,66 +224,58 @@ FETCH_QUERY_CHUNK_OVERLAP=120
 
 ## 6. 运行方式
 
-### 6.1 单题评测脚本
+### 6.1 单题评测
 
 ```bash
 python run_one_eval.py
 ```
 
-该脚本会构建图并输出最终答案。
+输出包括：子任务规划 → 各子任务 findings → 文档列表 → 最终答案。
 
 ### 6.2 启动 AgentApp（可选）
 
-入口在 [app.py](app.py)。如果你使用 agentscope runtime，可按你的部署方式启动该应用。
+入口在 [app.py](app.py)，使用 agentscope runtime 部署。
 
 ---
 
 ## 7. 关键文件索引
 
-- [deepresearch/config.py](deepresearch/config.py)：加载配置，创建 LLM（支持 `enable_thinking`）
-- [deepresearch/state.py](deepresearch/state.py)：LangGraph 状态定义
-- [deepresearch/graph.py](deepresearch/graph.py)：图与条件路由
-- [deepresearch/nodes/parse_claims.py](deepresearch/nodes/parse_claims.py)：研究简报与首轮 query 生成
-- [deepresearch/nodes/retrieve.py](deepresearch/nodes/retrieve.py)：搜索+抓取
-- [deepresearch/nodes/finalize.py](deepresearch/nodes/finalize.py)：答案综合与 follow-up 决策
-- [deepresearch/tools/search_tool.py](deepresearch/tools/search_tool.py)：多源搜索聚合
-- [deepresearch/tools/fetch_tool.py](deepresearch/tools/fetch_tool.py)：抓取器（Simple/Jina/Hybrid）
+| 文件 | 用途 |
+|---|---|
+| [deepresearch/config.py](deepresearch/config.py) | 配置管理，`create_llm()` + `create_flash_llm()` |
+| [deepresearch/state.py](deepresearch/state.py) | LangGraph 状态定义（含 subtasks/parallel_groups/subtask_findings） |
+| [deepresearch/graph.py](deepresearch/graph.py) | 3 节点图 + 条件路由 |
+| [deepresearch/nodes/parse_claims.py](deepresearch/nodes/parse_claims.py) | 子任务规划 + 拓扑排序 |
+| [deepresearch/nodes/execute_subtasks.py](deepresearch/nodes/execute_subtasks.py) | 子任务执行器（核心节点） |
+| [deepresearch/nodes/query_optimize.py](deepresearch/nodes/query_optimize.py) | 查询优化引擎（reflect + rollout） |
+| [deepresearch/nodes/finalize.py](deepresearch/nodes/finalize.py) | 综合推理 + 增量 followup |
+| [deepresearch/nodes/retrieve.py](deepresearch/nodes/retrieve.py) | 搜索+抓取基础逻辑（被 execute_subtasks 内部复用） |
+| [deepresearch/plan_tips.py](deepresearch/plan_tips.py) | 关键词匹配的规划经验规则 |
+| [deepresearch/tools/search_tool.py](deepresearch/tools/search_tool.py) | 多源搜索聚合 |
+| [deepresearch/tools/fetch_tool.py](deepresearch/tools/fetch_tool.py) | 抓取器（Simple/Jina/Hybrid） |
 
 ---
 
 ## 8. 常见问题
 
-### Q1: 为什么某源显示 0 条？
+### Q1: 为什么某搜索源显示 0 条？
 
-看 `source_errors`。例如 `wikipedia: ConnectTimeout` 往往是网络可达性问题，而不是融合逻辑问题。
+看 `source_errors`。例如 `wikipedia: ConnectTimeout` 是网络可达性问题。
 
 ### Q2: finalize 报 `data_inspection_failed` (400)
 
-通常是输入证据包含触发风控的文本。可通过以下方式缓解：
-
+输入证据可能触发了风控。缓解方式：
 - 开启 `SERPER_SAFE=active`
-- 提升检索源质量（`serper + iqs`）
-- 缩短抓取文本上限（`FETCH_MAX_CHARS`）
+- 缩短 `FETCH_MAX_CHARS`
 
-### Q3: 无 SerpApi 是否可用？
+### Q3: 子任务的查询混合了多个检索目标怎么办？
 
-可以。推荐直接使用：`serper,iqs,duckduckgo,wikipedia`。
+系统已内置三层防护：
+1. `parse_claims` 的查询编写规则要求每条查询只检索一个实体
+2. `DEPS_QUERY_REFINE_PROMPT` 明确禁止混合检索
+3. `BATCH_REFLECTION_PROMPT` 对 Complex Requirements 强制拆分（`|` 分隔输出）
 
----
+### Q4: followup 会重跑所有子任务吗？
 
-## 9. 本次新增修改说明
-
-1. **Jina Reader 抓取链路**
-   - 新增 `JinaReaderFetcher`
-   - 新增 `HybridFetcher` 回退策略
-   - `build_fetcher()` 支持 `FETCH_MODE=jina/hybrid`
-
-2. **多源搜索增强**
-   - 新增 `SerperSearcher`、`AliyunIQSSearcher`
-   - `MultiSourceSearcher` 增加每源计数与错误统计
-   - 支持 `SEARCH_SOURCES` 灵活组合
-
-3. **安全搜索**
-   - `Serper` 支持 `SERPER_SAFE`，默认 `active`
-   - `Serper` 仍然存在检索到违禁内容的问题，后续可能需要其他过滤方式
+不会。已完成子任务的 findings 保留在 state 中，execute_subtasks 自动跳过已有 findings 的子任务，只执行新增的 gap 子任务。
 

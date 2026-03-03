@@ -119,6 +119,24 @@ def create_llm():
         )
 
 
+def create_flash_llm():
+    """
+    创建 qwen3.5-flash 模型实例 —— 用于 query_optimize 等轻量推理节点。
+    快、便宜、适合 reflect/rollout 这种不需要深度推理的场景。
+    """
+    from langchain_openai import ChatOpenAI
+
+    return ChatOpenAI(
+        model=_getenv("FLASH_MODEL", default="qwen3.5-flash"),
+        api_key=_getenv("DASHSCOPE_API_KEY", required=True),
+        base_url=_getenv(
+            "DEEPRESEARCH_BASE_URL",
+            default="https://dashscope.aliyuncs.com/compatible-mode/v1",
+        ),
+        temperature=float(_getenv("FLASH_TEMPERATURE", default="0.3")),
+    )
+
+
 def enable_langsmith_tracing_from_env() -> None:
     """
     想开 LangSmith tracing，可以在 .env 里配置 :ENABLE_LANGSMITH=1

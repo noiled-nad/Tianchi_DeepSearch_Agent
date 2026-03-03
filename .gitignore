@@ -2,3 +2,5 @@
 agent.py
 test.ipynb
 eval
+venv/
+.venv/

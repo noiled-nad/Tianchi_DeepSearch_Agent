@@ -94,7 +94,7 @@ itemloaders==1.4.0
 jedi
 Jinja2==3.1.6
 jiter==0.13.0
-jmespath==1.1.0
+jmespath==0.10.0
 json5==0.13.0
 json_repair==0.56.0
 jsonpatch==1.33
@@ -138,7 +138,7 @@ orjson==3.11.7
 ormsgpack==1.12.2
 oss2==2.19.1
 packaging
-parsel==1.11.0
+parsel==1.10.0
 parso
 pexpect
 pickleshare
