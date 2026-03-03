@@ -279,3 +279,4 @@ python run_one_eval.py
 
 不会。已完成子任务的 findings 保留在 state 中，execute_subtasks 自动跳过已有 findings 的子任务，只执行新增的 gap 子任务。
 
+

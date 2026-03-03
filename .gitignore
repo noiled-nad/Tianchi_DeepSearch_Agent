@@ -4,3 +4,17 @@ test.ipynb
 eval
 venv/
 .venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Output directories
+.output/
+.pytest_cache/
+
+# Logs
+*.log
