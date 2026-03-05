@@ -29,6 +29,7 @@ from ..schemas import Document, SearchResult
 from ..prompt_loader import load_prompt
 from ..state import DeepResearchState
 from .query_optimize import _reflect_and_expand
+from ..tools.compress import compress_doc
 
 
 # ───────── Prompts ─────────
@@ -53,20 +54,6 @@ def _dedup_queries(queries: List[str], history: Set[str]) -> List[str]:
         seen.add(q_norm)
         result.append(q_clean)
     return result
-
-
-def _format_docs_text(docs: List[Document], max_chars_each: int = 1200) -> str:
-    """格式化文档为文本，供 LLM 抽取。"""
-    if not docs:
-        return "（无文档）"
-    chunks = []
-    for i, d in enumerate(docs, 1):
-        title = (d.title or "").strip().replace("\n", " ")
-        content = d.content or ""
-        if len(content) > max_chars_each:
-            content = content[:max_chars_each] + "\n[截断]"
-        chunks.append(f"[D{i}] {title}\nURL: {d.url}\n{content}")
-    return "\n\n".join(chunks)
 
 
 def _safe_json_obj(text: str) -> Dict:
@@ -215,17 +202,22 @@ async def _optimize_queries_for_subtask(
     deduped = _dedup_queries(all_queries, {q.lower() for q in query_history})
     return deduped[:10]
 
-async def _search_and_fetch(
+async def _search_fetch_compress(
     queries: List[str],
     searcher,
     fetcher,
+    flash_llm,
+    question: str,
+    subtask: Dict,
     existing_urls: Set[str],
     max_docs: int = 6,
     per_query_results: int = 3,
-) -> Tuple[List[Document], List[str]]:
+) -> Tuple[List[Document], List[str], List[str]]:
     """
-    搜索 + 抓取，返回 (new_docs, searched_queries)。
-    复用 retrieve.py 的核心逻辑，但无需 state。
+    搜索 → 抓取 → 压缩 流水线。
+    asyncio.as_completed 实现原子级并发：谁先抓完谁先压缩。
+    网络 I/O 和 LLM I/O 完美交叠，互不阻塞。
+    Returns: (raw_docs, used_queries, compressed_snippets)
     """
     seen_urls = set(existing_urls)
     candidate_items: List[Tuple[str, str]] = []  # (url, query)
@@ -253,49 +245,64 @@ async def _search_and_fetch(
             seen_urls.add(r.url)
             candidate_items.append((r.url, query))
 
-    print(f"    [search] queries={len(queries)}, search_results={total_search_results}, "
-          f"candidate_urls={len(candidate_items)}, errors={search_errors}, "
-          f"existing_urls_skipped={total_search_results - len(candidate_items) - search_errors}")
+    print(f"    [search] queries={len(queries)}, results={total_search_results}, "
+          f"candidates={len(candidate_items)}, errors={search_errors}")
 
     if not candidate_items:
-        return [], queries
+        return [], queries, []
 
-    # Fetch（全部并发）
-    fetch_hard_timeout_s = 45.0
+    # ── Fetch → Compress 流水线 ──
+    fetch_timeout_s = 45.0
 
-    async def _fetch_one(url: str, query: str):
+    async def _fetch_then_compress(url: str, query: str):
+        """原子级流水线：fetch → compress"""
         try:
             async def _call_fetch():
                 try:
                     return await fetcher.fetch(url, query=query)
                 except TypeError:
                     return await fetcher.fetch(url)
-
-            try:
-                return await asyncio.wait_for(_call_fetch(), timeout=fetch_hard_timeout_s)
-            except asyncio.TimeoutError:
-                print(f"    [fetch] TIMEOUT({fetch_hard_timeout_s}s) url='{url[:80]}'")
-                return None
+            doc = await asyncio.wait_for(_call_fetch(), timeout=fetch_timeout_s)
+        except asyncio.TimeoutError:
+            print(f"    [fetch] TIMEOUT({fetch_timeout_s}s) url='{url[:80]}'")
+            return None, None
         except Exception as e:
             print(f"    [fetch] FAILED url='{url[:80]}': {type(e).__name__}: {e}")
-            return None
+            return None, None
 
-    new_docs: List[Document] = []
-    fetch_failures = 0
-    tasks = [asyncio.create_task(_fetch_one(u, q)) for (u, q) in candidate_items]
+        if doc is None:
+            return None, None
+
+        # 紧跟 fetch，立刻压缩
+        snippet = await compress_doc(flash_llm, question, subtask, doc)
+        return doc, snippet
+
+    raw_docs: List[Document] = []
+    snippets: List[str] = []
+    failures = 0
+    tasks = [asyncio.create_task(_fetch_then_compress(u, q)) for u, q in candidate_items]
     for fut in asyncio.as_completed(tasks):
-        doc = await fut
+        doc, snippet = await fut
         if doc is not None:
-            new_docs.append(doc)
+            raw_docs.append(doc)
+            if snippet:
+                snippets.append(snippet)
         else:
-            fetch_failures += 1
-        if len(new_docs) >= max_docs:
+            failures += 1
+        if len(raw_docs) >= max_docs:
             break
 
-    if fetch_failures > 0:
-        print(f"    [fetch] {fetch_failures}/{len(candidate_items)} fetches failed")
+    # 取消剩余未完成任务
+    for t in tasks:
+        if not t.done():
+            t.cancel()
+    await asyncio.gather(*tasks, return_exceptions=True)
 
-    return new_docs, queries
+    if failures > 0:
+        print(f"    [pipeline] {failures}/{len(candidate_items)} failed")
+    print(f"    [pipeline] docs={len(raw_docs)}, snippets={len(snippets)}")
+
+    return raw_docs, queries, snippets
 
 
 async def _rewrite_queries_with_context(
@@ -394,14 +401,13 @@ async def _extract_structured_findings(
     flash_llm,
     question: str,
     subtask: Dict,
-    docs: List[Document],
+    snippets: List[str],
     deps_context: str = "",
 ) -> Dict:
     """
-    用 LLM 从文档中提取结构化发现：{sub_query, evidence, candidates, confidence, sources}。
-    下一跳 query 将直接使用 candidates[0] 作为锚点。
+    用 LLM 从压缩片段中提取结构化发现：{sub_query, evidence, candidates, confidence, sources}。
     """
-    if not docs:
+    if not snippets:
         return {
             "sub_query": subtask.get("title", ""),
             "evidence": [],
@@ -410,7 +416,7 @@ async def _extract_structured_findings(
             "sources": [],
         }
 
-    docs_text = _format_docs_text(docs)
+    docs_text = "\n\n".join(f"[D{i}] {s}" for i, s in enumerate(snippets, 1))
     prompt = STRUCTURED_EXTRACTION_PROMPT.format(
         question=question,
         subtask_id=subtask["id"],
@@ -531,6 +537,7 @@ async def _process_one_subtask(
 
     all_new_docs: List[Document] = []
     all_used_queries: List[str] = []
+    all_snippets: List[str] = []
     retry_queries: List[str] = []
     result: Dict = {
         "sub_query": subtask.get("title", ""),
@@ -544,7 +551,7 @@ async def _process_one_subtask(
         if attempt > 0:
             print(f"  [{st_id}] === 自查重试 第{attempt}次 ===")
 
-        # ── Phase A: Seed queries（原文直搜，不经 LLM 改写） ──
+        # ── Phase A: Seed（search → fetch → compress 流水线） ──
         seed_queries = _build_seed_queries(subtask, prev_results)
         if attempt > 0 and retry_queries:
             seed_queries = retry_queries + seed_queries
@@ -553,15 +560,15 @@ async def _process_one_subtask(
         for i, q in enumerate(seed_queries, 1):
             print(f"  [{st_id}]   seed_{i}: {q}")
 
-        seed_docs, seed_used = await _search_and_fetch(
-            seed_queries, searcher, fetcher, existing_urls, max_docs=3
+        seed_docs, seed_used, seed_snippets = await _search_fetch_compress(
+            seed_queries, searcher, fetcher, flash_llm, question, subtask,
+            existing_urls, max_docs=3,
         )
         for d in seed_docs:
             if getattr(d, "url", None):
                 existing_urls.add(d.url)
-        print(f"  [{st_id}] seed_fetched={len(seed_docs)}")
 
-        # ── Phase B: LLM 生成 Precision+Recall 查询 → optimize → 搜索 ──
+        # ── Phase B: LLM 查询 → optimize → search → fetch → compress ──
         rewritten = await _rewrite_queries_with_context(
             flash_llm, question, subtask, prev_results
         )
@@ -583,29 +590,29 @@ async def _process_one_subtask(
         for i, q in enumerate(optimized, 1):
             print(f"  [{st_id}]   opt_{i}: {q}")
 
-        # 用 optimized 查询搜索
         if optimized:
-            opt_docs, opt_used = await _search_and_fetch(
-                optimized, searcher, fetcher, existing_urls, max_docs=4
+            opt_docs, opt_used, opt_snippets = await _search_fetch_compress(
+                optimized, searcher, fetcher, flash_llm, question, subtask,
+                existing_urls, max_docs=4,
             )
         else:
-            opt_docs, opt_used = [], []
+            opt_docs, opt_used, opt_snippets = [], [], []
         for d in opt_docs:
             if getattr(d, "url", None):
                 existing_urls.add(d.url)
-        print(f"  [{st_id}] opt_fetched={len(opt_docs)}")
 
-        # ── 合并两批结果 ──
+        # ── 合并 ──
         new_docs = seed_docs + opt_docs
         used_qs = seed_used + opt_used
         all_new_docs.extend(new_docs)
         all_used_queries.extend(used_qs)
-        print(f"  [{st_id}] total_fetched={len(new_docs)}")
+        all_snippets.extend(seed_snippets + opt_snippets)
+        print(f"  [{st_id}] docs={len(new_docs)}, snippets={len(seed_snippets)+len(opt_snippets)}")
 
-        # 4) 提取结构化发现
+        # 4) 从压缩片段提取结构化发现
         deps_context = _build_deps_context(subtask, prev_results)
         result = await _extract_structured_findings(
-            flash_llm, question, subtask, all_new_docs, deps_context
+            flash_llm, question, subtask, all_snippets, deps_context
         )
         print(f"  [{st_id}] candidates: {result.get('candidates', [])}")
         print(f"  [{st_id}] confidence: {result.get('confidence', 0)}")

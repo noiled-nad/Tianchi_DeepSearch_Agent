@@ -4,7 +4,7 @@ test.ipynb
 eval
 venv/
 .venv/
-
+wikimultihop/
 # Python cache
 __pycache__/
 *.pyc
