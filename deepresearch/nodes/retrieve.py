@@ -41,10 +41,7 @@ def make_retrieve_node(searcher, fetcher, max_docs: int = 8, per_query_results: 
         if not queries:
             return {"documents": [], "messages": [AIMessage(content="[retrieve] 没有 queries，跳过抓取。")]}
 
-        # ✅ 读取调度参数
-        parallelism = int(state.get("parallelism", 3))
-        parallelism = max(1, min(10, parallelism))  # 简单保护
-        print(f"[retrieve] parallelism={parallelism}, max_docs={max_docs}, per_query_results={per_query_results}")
+        print(f"[retrieve] max_docs={max_docs}, per_query_results={per_query_results}")
 
         seen_urls: Set[str] = set(existing_urls)
         candidate_items: List[Tuple[str, str]] = []
@@ -75,20 +72,17 @@ def make_retrieve_node(searcher, fetcher, max_docs: int = 8, per_query_results: 
         for i, (u, q) in enumerate(candidate_items, start=1):
             print(f"[retrieve] candidate_{i}: {u} | from_query={q}")
 
-        # 2) 并发 fetch：受 parallelism 控制
-        sem = asyncio.Semaphore(parallelism)
-
+        # 2) 全部并发 fetch
         async def _fetch_one(url: str, query: str):
-            async with sem:
+            try:
                 try:
-                    try:
-                        doc: Document = await fetcher.fetch(url, query=query)
-                    except TypeError:
-                        # 兼容旧 fetcher（只接受 url）
-                        doc = await fetcher.fetch(url)
-                    return doc
-                except Exception:
-                    return None
+                    doc: Document = await fetcher.fetch(url, query=query)
+                except TypeError:
+                    # 兼容旧 fetcher（只接受 url）
+                    doc = await fetcher.fetch(url)
+                return doc
+            except Exception:
+                return None
 
         new_docs: List[Document] = []
         tasks = [asyncio.create_task(_fetch_one(u, q)) for (u, q) in candidate_items]

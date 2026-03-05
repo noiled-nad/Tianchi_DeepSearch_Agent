@@ -2,18 +2,24 @@
 
 OAgents 风格子任务执行器：
 按 parallel_groups 分层并行执行子任务，每个子任务内部走：
-  query_optimize (batch reflect + parallel rollout)
+  rewriter (用前序 candidates 锚点重写查询)
+  → query_optimize (一次 LLM 调用同时 reflect + expand)
   → search
   → fetch
-  → extract_findings (LLM 抽取关键发现)
+  → extract_structured (提取结构化输出: sub_q, evidence, candidates)
+  → self_check (自查反思，不达标则重试)
 
-后序子任务会注入前序子任务的 findings 作为上下文，
-实现级联推理（多跳问题的核心价值）。
+核心改进：
+1. 结构化输出：每个 subtask 输出 (sub_q, evidence, candidates)
+2. Rewriter：用前序 candidates 作为锚点替换泛化描述
+3. Self-check：每步完成后自查，不达标则用 refined_queries 重试，同时剔除不合格候选
+4. 并行执行：同组无依赖 subtask 通过 asyncio.gather 并发执行
 """
 
 from __future__ import annotations
 
 import asyncio
+import json
 import re
 from typing import Any, Callable, Dict, List, Set, Tuple
 
@@ -22,13 +28,15 @@ from langchain_core.messages import AIMessage
 from ..schemas import Document, SearchResult
 from ..prompt_loader import load_prompt
 from ..state import DeepResearchState
-from .query_optimize import _reflect_batch, _rollout_query
+from .query_optimize import _reflect_and_expand
 
 
 # ───────── Prompts ─────────
 
-FINDING_EXTRACTION_PROMPT = load_prompt("execute_subtasks.yaml", "finding_extraction_prompt")
-DEPS_QUERY_REFINE_PROMPT = load_prompt("execute_subtasks.yaml", "deps_query_refine_prompt")
+STRUCTURED_EXTRACTION_PROMPT = load_prompt("execute_subtasks.yaml", "structured_extraction_prompt")
+REWRITER_PROMPT = load_prompt("execute_subtasks.yaml", "rewriter_prompt")
+SELF_CHECK_PROMPT = load_prompt("execute_subtasks.yaml", "self_check_prompt")
+INITIAL_QUERY_GEN_PROMPT = load_prompt("execute_subtasks.yaml", "initial_query_gen_prompt")
 
 
 # ───────── 工具函数 ─────────
@@ -61,7 +69,119 @@ def _format_docs_text(docs: List[Document], max_chars_each: int = 1200) -> str:
     return "\n\n".join(chunks)
 
 
+def _safe_json_obj(text: str) -> Dict:
+    """从 LLM 输出中提取 JSON 对象。"""
+    t = text.strip()
+    t = re.sub(r"^```(?:json)?\s*\n?", "", t)
+    t = re.sub(r"\n?```\s*$", "", t)
+    t = t.strip()
+    if t.startswith("{") and t.endswith("}"):
+        try:
+            return json.loads(t)
+        except json.JSONDecodeError:
+            pass
+    m = re.search(r"\{[\s\S]*\}", text)
+    if not m:
+        raise ValueError("no json object found")
+    return json.loads(m.group(0))
+
+
+def _build_deps_context(subtask: Dict, prev_results: Dict[str, Dict]) -> str:
+    """构建依赖上下文字符串（用于传给提取函数），包含候选答案。"""
+    deps = subtask.get("depends_on", [])
+    if not deps or not prev_results:
+        return ""
+    parts = []
+    for dep_id in deps:
+        if dep_id in prev_results:
+            r = prev_results[dep_id]
+            if isinstance(r, dict):
+                candidates = r.get('candidates', [])
+                answer_str = candidates[0] if candidates else '(未知)'
+                if len(candidates) > 1:
+                    answer_str += f" （其他候选: {', '.join(candidates[1:])}）"
+                parts.append(f"[{dep_id}] {r.get('sub_query', '')}: {answer_str}")
+            else:
+                parts.append(f"[{dep_id}] {str(r)[:200]}")
+    if parts:
+        return "\n前序子任务结果：\n" + "\n".join(parts)
+    return ""
+
+
 # ───────── 子任务内部流程 ─────────
+
+def _build_seed_queries(
+    subtask: Dict,
+    prev_results: Dict[str, Dict],
+) -> List[str]:
+    """
+    构造 seed queries（纯机械拼接，不经 LLM）：
+    - 用 subtask title 的原文作为第一条 seed
+    - 如果有前序依赖的 candidates，用候选答案替换 title 中的 ID 或直接拼接
+    保证原文措辞零篡改，直接进搜索引擎。
+    """
+    seeds: List[str] = []
+    title = subtask.get("title", "").strip()
+    if not title:
+        return seeds
+
+    # seed 1: 优先做依赖替换；若无法替换则回退到 title 原文（去掉标点，空格分隔）
+    clean_title = re.sub(r'[，。？！、；：""''（）\[\]【】]', ' ', title).strip()
+    clean_title = re.sub(r'\s+', ' ', clean_title)
+    if not clean_title:
+        return seeds
+
+    deps = subtask.get("depends_on", [])
+    _invalid_answers = {"未找到相关文档。", "提取失败。", "未执行。", "未生成有效查询。"}
+
+    # 先尝试用依赖任务最佳候选(candidates[0])替换占位符，作为 seed_1
+    seed_1 = clean_title
+    replaced_any = False
+    if deps and prev_results:
+        for dep_id in deps:
+            r = prev_results.get(dep_id)
+            if not isinstance(r, dict):
+                continue
+            candidates = r.get("candidates", [])
+            best = str(candidates[0]).strip() if candidates else ""
+            if not best or best in _invalid_answers:
+                continue
+            pattern = rf'\[?{dep_id}\]?|[（\(]?{dep_id}[）\)]?'
+            if re.search(pattern, seed_1, re.IGNORECASE):
+                seed_1 = re.sub(pattern, best, seed_1, flags=re.IGNORECASE)
+                replaced_any = True
+
+    seeds.append(seed_1.strip() if replaced_any else clean_title)
+
+    # seed 2: 如果有前序依赖，用 candidates 替换 title 里的 ID 或拼接
+    if deps and prev_results:
+        for dep_id in deps:
+            r = prev_results.get(dep_id)
+            if isinstance(r, dict):
+                # 收集所有候选答案
+                candidates = r.get("candidates", [])
+                if not candidates:
+                    continue
+                # 为每个候选生成 seed
+                for cand in candidates[:3]:  # 最多取前3个候选
+                    cand = str(cand).strip()
+                    if not cand or cand in _invalid_answers:
+                        continue
+                    
+                    # 尝试替换标题中引用的 ID (如 ST3, [ST3])
+                    pattern = rf'\[?{dep_id}\]?|[（\(]?{dep_id}[）\)]?'
+                    if re.search(pattern, clean_title, re.IGNORECASE):
+                        replaced = re.sub(pattern, cand, clean_title, flags=re.IGNORECASE)
+                        seeds.append(replaced.strip())
+                    else:
+                        # 兜底：直接拼接
+                        seeds.append(f"{cand} {clean_title}")
+                    
+                    if len(cand) > 2 and cand not in seeds:
+                        seeds.append(cand)
+
+    return seeds
+
 
 async def _optimize_queries_for_subtask(
     flash_llm,
@@ -69,64 +189,31 @@ async def _optimize_queries_for_subtask(
     subtask: Dict,
     key_entities: List[str],
     query_history: List[str],
-    deps_findings: str = "",
 ) -> List[str]:
     """
-    为单个子任务优化查询：
-    1) 如果有前序 findings，先用 LLM 基于 findings 细化查询
-    2) batch reflect
-    3) parallel rollout
-    4) 去重
+    为单个子任务优化查询（一次 LLM 调用同时完成反思 + 扩展）。
+    依赖上下文注入由上层 Rewriter 负责，此函数仅做查询质量优化。
     """
     raw_queries = subtask.get("queries", [])
     if not raw_queries:
         return []
 
-    # ── 构建子任务聚焦上下文（不传完整问题，避免 reflect/rollout 跑偏到其他子任务） ──
+    # 构建子任务聚焦上下文
     st_title = subtask.get("title", "")
     st_reason = subtask.get("reason", "")
     subtask_context = f"{st_title}。{st_reason}" if st_reason else st_title
 
-    # 如果有依赖的前序发现，先用 LLM 细化查询
-    if deps_findings:
-        try:
-            prompt = DEPS_QUERY_REFINE_PROMPT.format(
-                question=question,
-                subtask_title=st_title,
-                original_queries="\n".join(f"- {q}" for q in raw_queries),
-                deps_findings=deps_findings,
-            )
-            resp = await flash_llm.ainvoke(prompt)
-            refined = [ln.strip().lstrip("- ·•0123456789.)") for ln in str(resp.content).split("\n") if ln.strip()]
-            refined = [q for q in refined if len(q) > 3]
-            if refined:
-                # 合并：细化查询 + 原始查询
-                raw_queries = refined + raw_queries
-                print(f"  [{subtask['id']}] deps_refine: +{len(refined)} queries from findings")
-        except Exception as e:
-            print(f"  [{subtask['id']}] deps_refine failed: {e}")
+    # 一次 LLM 调用：反思 + 扩展
+    expanded = await _reflect_and_expand(
+        flash_llm, subtask_context, raw_queries, key_entities, query_history
+    )
 
-    # Batch reflect（传子任务上下文而非完整问题）
-    reflect_results = await _reflect_batch(flash_llm, subtask_context, raw_queries)
-    reflected = [aug for (_, aug) in reflect_results]
-
-    # Parallel rollout（同样传子任务上下文）
-    rollout_n = max(2, min(3, 8 // max(1, len(reflected))))
-
-    async def _do_rollout(q: str) -> List[str]:
-        return await _rollout_query(flash_llm, subtask_context, q, key_entities, query_history, rollout_n)
-
-    rollout_results = await asyncio.gather(*[_do_rollout(q) for q in reflected])
-
-    # 重要：保留原始查询，避免优化阶段发生语义漂移（如“近距离作战武器”被误改成“近战武器”）
-    all_queries = list(raw_queries) + list(reflected)
-    for variants in rollout_results:
-        all_queries.extend(variants)
+    # 保留原始查询作为兜底，避免语义漂移
+    all_queries = list(raw_queries) + expanded
 
     # 去重
     deduped = _dedup_queries(all_queries, {q.lower() for q in query_history})
-    return deduped[:10]  # 每个子任务最多 10 条优化查询
-
+    return deduped[:10]
 
 async def _search_and_fetch(
     queries: List[str],
@@ -135,7 +222,6 @@ async def _search_and_fetch(
     existing_urls: Set[str],
     max_docs: int = 6,
     per_query_results: int = 3,
-    parallelism: int = 3,
 ) -> Tuple[List[Document], List[str]]:
     """
     搜索 + 抓取，返回 (new_docs, searched_queries)。
@@ -145,13 +231,20 @@ async def _search_and_fetch(
     candidate_items: List[Tuple[str, str]] = []  # (url, query)
 
     # Search
+    search_errors = 0
+    total_search_results = 0
     for query in queries:
         if len(candidate_items) >= max_docs:
             break
         try:
             results: List[SearchResult] = await searcher.search(query)
-        except Exception:
+        except Exception as e:
+            search_errors += 1
+            print(f"    [search] FAILED query='{query[:60]}': {type(e).__name__}: {e}")
             continue
+        total_search_results += len(results)
+        if not results:
+            print(f"    [search] 0 results for query='{query[:60]}'")
         for r in results[:per_query_results]:
             if len(candidate_items) >= max_docs:
                 break
@@ -160,61 +253,260 @@ async def _search_and_fetch(
             seen_urls.add(r.url)
             candidate_items.append((r.url, query))
 
+    print(f"    [search] queries={len(queries)}, search_results={total_search_results}, "
+          f"candidate_urls={len(candidate_items)}, errors={search_errors}, "
+          f"existing_urls_skipped={total_search_results - len(candidate_items) - search_errors}")
+
     if not candidate_items:
         return [], queries
 
-    # Fetch（并发）
-    sem = asyncio.Semaphore(parallelism)
+    # Fetch（全部并发）
+    fetch_hard_timeout_s = 45.0
 
     async def _fetch_one(url: str, query: str):
-        async with sem:
-            try:
+        try:
+            async def _call_fetch():
                 try:
                     return await fetcher.fetch(url, query=query)
                 except TypeError:
                     return await fetcher.fetch(url)
-            except Exception:
+
+            try:
+                return await asyncio.wait_for(_call_fetch(), timeout=fetch_hard_timeout_s)
+            except asyncio.TimeoutError:
+                print(f"    [fetch] TIMEOUT({fetch_hard_timeout_s}s) url='{url[:80]}'")
                 return None
+        except Exception as e:
+            print(f"    [fetch] FAILED url='{url[:80]}': {type(e).__name__}: {e}")
+            return None
 
     new_docs: List[Document] = []
+    fetch_failures = 0
     tasks = [asyncio.create_task(_fetch_one(u, q)) for (u, q) in candidate_items]
     for fut in asyncio.as_completed(tasks):
         doc = await fut
         if doc is not None:
             new_docs.append(doc)
+        else:
+            fetch_failures += 1
         if len(new_docs) >= max_docs:
             break
+
+    if fetch_failures > 0:
+        print(f"    [fetch] {fetch_failures}/{len(candidate_items)} fetches failed")
 
     return new_docs, queries
 
 
-async def _extract_findings(
+async def _rewrite_queries_with_context(
+    flash_llm,
+    question: str,
+    subtask: Dict,
+    prev_results: Dict[str, Dict],
+) -> List[str]:
+    """
+    Rewriter：为子任务生成/重写搜索查询。
+    - 无前序结果时：根据 subtask title/reason + question 生成初始查询
+    - 有前序结果时：用 candidates 作为锚点重写查询
+    """
+    deps = subtask.get("depends_on", [])
+    raw_queries = subtask.get("queries", [])
+
+    # 收集前序结构化结果（无论是否有依赖，都检查所有已完成结果）
+    relevant_prev = {}
+    if deps and prev_results:
+        for dep_id in deps:
+            if dep_id in prev_results:
+                relevant_prev[dep_id] = prev_results[dep_id]
+
+    # ── 情况1: 有前序依赖结果 → 用 candidates 锚点重写 ──
+    if relevant_prev:
+        prev_parts = []
+        # 预处理 title 和 reason，替换其中的 [STx] 占位符
+        st_title = subtask.get("title", "")
+        st_reason = subtask.get("reason", "")
+        
+        for dep_id, r in relevant_prev.items():
+            if isinstance(r, dict):
+                candidates = r.get("candidates", [])
+                best = candidates[0] if candidates else ""
+                
+                # 替换标题和原因中的 ID
+                pattern = rf'\[?{dep_id}\]?|[（\(]?{dep_id}[）\)]?'
+                if best and best not in {"未找到相关文档。", "提取失败。", "未执行。"}:
+                    st_title = re.sub(pattern, best, st_title, flags=re.IGNORECASE)
+                    st_reason = re.sub(pattern, best, st_reason, flags=re.IGNORECASE)
+
+                candidates_str = ", ".join(candidates) if candidates else "(未知)"
+                prev_parts.append(
+                    f"[{dep_id}] 问题: {r.get('sub_query', '')}\n"
+                    f"  候选答案: {candidates_str}\n"
+                    f"  证据: {'; '.join(r.get('evidence', [])[:3])}"
+                )
+            else:
+                prev_parts.append(f"[{dep_id}] {str(r)[:200]}")
+
+        prompt = REWRITER_PROMPT.format(
+            question=question,
+            subtask_id=subtask["id"],
+            subtask_title=st_title, # 使用替换后的 title
+            subtask_reason=st_reason, # 使用替换后的 reason
+            original_queries="\n".join(f"- {q}" for q in raw_queries) if raw_queries else "（无原始查询，请根据前序结果和子任务目标生成）",
+            prev_results="\n".join(prev_parts),
+        )
+
+        try:
+            resp = await flash_llm.ainvoke(prompt)
+            refined = [ln.strip().lstrip("- ·•0123456789.)") for ln in str(resp.content).split("\n") if ln.strip()]
+            refined = [q for q in refined if len(q) > 3]
+            if refined:
+                print(f"  [{subtask['id']}] rewriter: {len(refined)} queries anchored by candidates")
+                return refined + raw_queries
+        except Exception as e:
+            print(f"  [{subtask['id']}] rewriter failed: {e}")
+
+        return raw_queries if raw_queries else [subtask.get("title", question[:60])]
+
+    # ── 情况2: 无前序结果 → 生成初始查询 ──
+    if not raw_queries:
+        prompt = INITIAL_QUERY_GEN_PROMPT.format(
+            question=question,
+            subtask_id=subtask["id"],
+            subtask_title=subtask.get("title", ""),
+            subtask_reason=subtask.get("reason", ""),
+        )
+        try:
+            resp = await flash_llm.ainvoke(prompt)
+            generated = [ln.strip().lstrip("- ·•0123456789.)") for ln in str(resp.content).split("\n") if ln.strip()]
+            generated = [q for q in generated if len(q) > 3]
+            if generated:
+                print(f"  [{subtask['id']}] initial_query_gen: {len(generated)} queries generated")
+                return generated
+        except Exception as e:
+            print(f"  [{subtask['id']}] initial_query_gen failed: {e}")
+        # 兜底：用 title 作为查询
+        return [subtask.get("title", question[:60])]
+
+    return raw_queries
+
+
+async def _extract_structured_findings(
     flash_llm,
     question: str,
     subtask: Dict,
     docs: List[Document],
     deps_context: str = "",
-) -> str:
-    """用 LLM 从文档中提取与子任务相关的发现。"""
+) -> Dict:
+    """
+    用 LLM 从文档中提取结构化发现：{sub_query, evidence, candidates, confidence, sources}。
+    下一跳 query 将直接使用 candidates[0] 作为锚点。
+    """
     if not docs:
-        return "未找到相关文档。"
+        return {
+            "sub_query": subtask.get("title", ""),
+            "evidence": [],
+            "candidates": [],
+            "confidence": 0.0,
+            "sources": [],
+        }
 
     docs_text = _format_docs_text(docs)
-    prompt = FINDING_EXTRACTION_PROMPT.format(
+    prompt = STRUCTURED_EXTRACTION_PROMPT.format(
         question=question,
         subtask_id=subtask["id"],
         subtask_title=subtask.get("title", ""),
+        subtask_reason=subtask.get("reason", ""),
         deps_context=deps_context,
         docs_text=docs_text,
     )
 
     try:
         resp = await flash_llm.ainvoke(prompt)
-        findings = str(resp.content).strip()
-        return findings if findings else "提取失败。"
+        raw = str(resp.content).strip()
+        obj = _safe_json_obj(raw)
+        candidates = [str(c).strip() for c in obj.get("candidates", []) if str(c).strip()]
+        # 兼容：如果 LLM 还是输出了 sub_answer，将其插入 candidates 开头
+        legacy_answer = str(obj.get("sub_answer", "")).strip()
+        if legacy_answer and legacy_answer not in candidates:
+            candidates.insert(0, legacy_answer)
+        return {
+            "sub_query": str(obj.get("sub_query", subtask.get("title", ""))).strip(),
+            "evidence": [str(e).strip() for e in obj.get("evidence", []) if str(e).strip()],
+            "candidates": candidates,
+            "confidence": min(1.0, max(0.0, float(obj.get("confidence", 0.0)))),
+            "sources": [str(s).strip() for s in obj.get("sources", []) if str(s).strip()],
+        }
     except Exception as e:
-        print(f"  [{subtask['id']}] extract_findings failed: {e}")
-        return "提取失败。"
+        print(f"  [{subtask['id']}] extract_structured failed: {e}")
+        return {
+            "sub_query": subtask.get("title", ""),
+            "evidence": [],
+            "candidates": [],
+            "confidence": 0.0,
+            "sources": [],
+        }
+
+
+async def _self_check_subtask(
+    flash_llm,
+    question: str,
+    subtask: Dict,
+    result: Dict,
+) -> tuple:
+    """
+    自查子任务结果是否达标。
+    会从 result 中原地剔除被拒绝的 candidates。
+    Returns: (passed: bool, refined_queries: List[str])
+    """
+    evidence_text = "\n".join(f"- {e}" for e in result.get("evidence", [])) or "（无证据）"
+    candidates = result.get("candidates", [])
+    candidates_text = ", ".join(candidates) if candidates else "（无候选）"
+    prompt = SELF_CHECK_PROMPT.format(
+        question=question,
+        subtask_id=subtask["id"],
+        subtask_title=subtask.get("title", ""),
+        subtask_reason=subtask.get("reason", ""),
+        sub_query=result.get("sub_query", ""),
+        evidence=evidence_text,
+        candidates=candidates_text,
+        confidence=result.get("confidence", 0),
+    )
+
+    try:
+        resp = await flash_llm.ainvoke(prompt)
+        raw = str(resp.content).strip()
+        obj = _safe_json_obj(raw)
+        passed = bool(obj.get("passed", True))
+        refined_queries = [str(q).strip() for q in obj.get("refined_queries", []) if str(q).strip()]
+        rejected = [str(r).strip() for r in obj.get("rejected_candidates", []) if str(r).strip()]
+        reason = str(obj.get("reason", "")).strip()
+
+        # ── 从 candidates 中剔除被拒绝的 ──
+        if rejected and candidates:
+            rejected_set = set(rejected)
+            before_count = len(candidates)
+            pruned = [c for c in candidates if c not in rejected_set]
+            if pruned:
+                result["candidates"] = pruned
+                print(f"  [{subtask['id']}] self_check: 剔除 {before_count - len(pruned)} 个候选 {rejected}，剩余 {len(pruned)} 个")
+                # 剔除后还有候选 → 视为通过
+                passed = True
+            else:
+                # 全部被剔除 → 不通过
+                print(f"  [{subtask['id']}] self_check: 所有候选均被剔除")
+                passed = False
+
+        if not passed:
+            print(f"  [{subtask['id']}] self_check FAILED: {reason}")
+            if refined_queries:
+                print(f"  [{subtask['id']}] refined_queries: {refined_queries}")
+        else:
+            print(f"  [{subtask['id']}] self_check PASSED: {reason}")
+
+        return passed, refined_queries
+    except Exception as e:
+        print(f"  [{subtask['id']}] self_check error: {e}")
+        return True, []  # 出错时默认通过，避免死循环
 
 
 async def _process_one_subtask(
@@ -222,47 +514,113 @@ async def _process_one_subtask(
     question: str,
     key_entities: List[str],
     query_history: List[str],
-    deps_findings: str,
+    prev_results: Dict[str, Dict],
     flash_llm,
     searcher,
     fetcher,
     existing_urls: Set[str],
-) -> Tuple[str, List[Document], List[str], str]:
+    max_retries: int = 1,
+) -> Tuple[str, List[Document], List[str], Dict]:
     """
-    处理单个子任务完整流程：optimize → search → fetch → extract。
-    返回 (subtask_id, new_docs, used_queries, findings_text)。
+    处理单个子任务完整流程（含 Rewriter + 自查重试）：
+    rewrite → optimize → search → fetch → extract_structured → self_check → (retry)
+    返回 (subtask_id, new_docs, used_queries, structured_result)。
     """
     st_id = subtask["id"]
     print(f"\n  ── 执行子任务 [{st_id}] {subtask.get('title', '')} ──")
 
-    # 1) 优化查询
-    deps_context = ""
-    if deps_findings:
-        deps_context = f"\n前序子任务发现：\n{deps_findings}"
+    all_new_docs: List[Document] = []
+    all_used_queries: List[str] = []
+    retry_queries: List[str] = []
+    result: Dict = {
+        "sub_query": subtask.get("title", ""),
+        "evidence": [],
+        "candidates": [],
+        "confidence": 0.0,
+        "sources": [],
+    }
 
-    optimized = await _optimize_queries_for_subtask(
-        flash_llm, question, subtask, key_entities, query_history, deps_findings
-    )
-    print(f"  [{st_id}] optimized_queries={len(optimized)}")
-    for i, q in enumerate(optimized, 1):
-        print(f"  [{st_id}]   q{i}: {q}")
+    for attempt in range(max_retries + 1):
+        if attempt > 0:
+            print(f"  [{st_id}] === 自查重试 第{attempt}次 ===")
 
-    if not optimized:
-        return st_id, [], [], "未生成有效查询。"
+        # ── Phase A: Seed queries（原文直搜，不经 LLM 改写） ──
+        seed_queries = _build_seed_queries(subtask, prev_results)
+        if attempt > 0 and retry_queries:
+            seed_queries = retry_queries + seed_queries
+        seed_queries = _dedup_queries(seed_queries, {q.lower() for q in query_history})
+        print(f"  [{st_id}] seed_queries={len(seed_queries)}")
+        for i, q in enumerate(seed_queries, 1):
+            print(f"  [{st_id}]   seed_{i}: {q}")
 
-    # 2) 搜索 + 抓取
-    new_docs, used_queries = await _search_and_fetch(
-        optimized, searcher, fetcher, existing_urls
-    )
-    print(f"  [{st_id}] fetched_docs={len(new_docs)}")
+        seed_docs, seed_used = await _search_and_fetch(
+            seed_queries, searcher, fetcher, existing_urls, max_docs=3
+        )
+        for d in seed_docs:
+            if getattr(d, "url", None):
+                existing_urls.add(d.url)
+        print(f"  [{st_id}] seed_fetched={len(seed_docs)}")
 
-    # 3) 抽取发现
-    findings = await _extract_findings(
-        flash_llm, question, subtask, new_docs, deps_context
-    )
-    print(f"  [{st_id}] findings: {findings[:120]}...")
+        # ── Phase B: LLM 生成 Precision+Recall 查询 → optimize → 搜索 ──
+        rewritten = await _rewrite_queries_with_context(
+            flash_llm, question, subtask, prev_results
+        )
+        # 解析 P/R 标签（如果有的话），去掉标签前缀
+        cleaned_rewritten = []
+        for q in rewritten:
+            q_clean = re.sub(r'^[PR][：:]\s*', '', q).strip()
+            if q_clean:
+                cleaned_rewritten.append(q_clean)
+        rewritten = cleaned_rewritten if cleaned_rewritten else rewritten
+        print(f"  [{st_id}] llm_queries={len(rewritten)}")
 
-    return st_id, new_docs, used_queries, findings
+        # Optimize (reflect + rollout)
+        temp_subtask = {**subtask, "queries": rewritten}
+        optimized = await _optimize_queries_for_subtask(
+            flash_llm, question, temp_subtask, key_entities, query_history
+        )
+        print(f"  [{st_id}] optimized_queries={len(optimized)}")
+        for i, q in enumerate(optimized, 1):
+            print(f"  [{st_id}]   opt_{i}: {q}")
+
+        # 用 optimized 查询搜索
+        if optimized:
+            opt_docs, opt_used = await _search_and_fetch(
+                optimized, searcher, fetcher, existing_urls, max_docs=4
+            )
+        else:
+            opt_docs, opt_used = [], []
+        for d in opt_docs:
+            if getattr(d, "url", None):
+                existing_urls.add(d.url)
+        print(f"  [{st_id}] opt_fetched={len(opt_docs)}")
+
+        # ── 合并两批结果 ──
+        new_docs = seed_docs + opt_docs
+        used_qs = seed_used + opt_used
+        all_new_docs.extend(new_docs)
+        all_used_queries.extend(used_qs)
+        print(f"  [{st_id}] total_fetched={len(new_docs)}")
+
+        # 4) 提取结构化发现
+        deps_context = _build_deps_context(subtask, prev_results)
+        result = await _extract_structured_findings(
+            flash_llm, question, subtask, all_new_docs, deps_context
+        )
+        print(f"  [{st_id}] candidates: {result.get('candidates', [])}")
+        print(f"  [{st_id}] confidence: {result.get('confidence', 0)}")
+
+        # 5) 自查：如果未达标且还有重试机会，则重试
+        if attempt < max_retries:
+            passed, retry_queries = await _self_check_subtask(
+                flash_llm, question, subtask, result
+            )
+            if passed:
+                break
+            # 未通过 → 下一轮重试
+        # 最后一次尝试 → 接受结果
+
+    return st_id, all_new_docs, all_used_queries, result
 
 
 # ───────── Graph Node ─────────
@@ -291,7 +649,7 @@ def make_execute_subtasks_node(
         query_history: List[str] = list(state.get("query_history", []) or [])
         existing_docs: List[Document] = list(state.get("documents", []) or [])
         existing_urls: Set[str] = {d.url for d in existing_docs if getattr(d, "url", None)}
-        subtask_findings: Dict[str, str] = dict(state.get("subtask_findings", {}) or {})
+        subtask_findings: Dict[str, Any] = dict(state.get("subtask_findings", {}) or {})
 
         # ── 获取子任务列表 ──
         subtasks: List[Dict] = state.get("subtasks", []) or []
@@ -330,34 +688,27 @@ def make_execute_subtasks_node(
         for gi, group in enumerate(parallel_groups):
             print(f"\n══ 执行并行组 {gi} / {len(parallel_groups)-1}: {group} ══")
 
-            # 构建当前组中每个子任务的上下文（前序 findings）
+            # 构建子任务执行闭包
             async def _run_subtask(st_id: str):
                 st = subtask_map.get(st_id)
                 if not st:
-                    return st_id, [], [], "子任务未找到。"
+                    return st_id, [], [], {
+                        "sub_query": "", "evidence": [],
+                        "candidates": [], 
+                        "confidence": 0.0, "sources": [],
+                    }
 
-                # 如果已有 findings，跳过
+                # 如果已有结果，跳过
                 if subtask_findings.get(st_id):
-                    print(f"  [{st_id}] 已有 findings，跳过。")
+                    print(f"  [{st_id}] 已有结果，跳过。")
                     return st_id, [], [], subtask_findings[st_id]
-
-                # 汇总前序依赖的 findings
-                deps = st.get("depends_on", [])
-                deps_text = ""
-                if deps:
-                    dep_parts = []
-                    for dep_id in deps:
-                        if dep_id in subtask_findings:
-                            dep_parts.append(f"[{dep_id}] {subtask_findings[dep_id]}")
-                    if dep_parts:
-                        deps_text = "\n".join(dep_parts)
 
                 return await _process_one_subtask(
                     subtask=st,
                     question=question,
                     key_entities=key_entities,
                     query_history=query_history,
-                    deps_findings=deps_text,
+                    prev_results=subtask_findings,
                     flash_llm=_flash,
                     searcher=searcher,
                     fetcher=fetcher,
@@ -367,8 +718,8 @@ def make_execute_subtasks_node(
             # 组内并行
             results = await asyncio.gather(*[_run_subtask(st_id) for st_id in group])
 
-            for st_id, new_docs, used_qs, findings in results:
-                subtask_findings[st_id] = findings
+            for st_id, new_docs, used_qs, result in results:
+                subtask_findings[st_id] = result
                 all_new_docs.extend(new_docs)
                 all_used_queries.extend(used_qs)
                 # 更新 existing_urls 供后续组使用
@@ -385,8 +736,13 @@ def make_execute_subtasks_node(
         # 打印汇总
         print(f"\n[execute_subtasks] 完成！new_docs={len(all_new_docs)}, total_docs={len(merged_docs)}")
         print(f"[execute_subtasks] subtask_findings:")
-        for st_id, findings in subtask_findings.items():
-            print(f"  [{st_id}] {findings[:100]}...")
+        for st_id, result in subtask_findings.items():
+            if isinstance(result, dict):
+                cands = result.get('candidates', [])
+                best = cands[0] if cands else '(无答案)'
+                print(f"  [{st_id}] best={best[:80]} cands={cands} conf={result.get('confidence', 0)}")
+            else:
+                print(f"  [{st_id}] {str(result)[:100]}...")
 
         msg = AIMessage(
             content=(

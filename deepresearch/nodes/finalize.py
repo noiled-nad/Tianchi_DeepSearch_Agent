@@ -63,8 +63,8 @@ def _safe_json_obj(text: str) -> Dict:
     return json.loads(m.group(0))
 
 
-def _format_subtask_findings(subtask_findings: Dict[str, str], subtasks: List[Dict]) -> str:
-    """将子任务发现格式化为结构化文本。"""
+def _format_subtask_findings(subtask_findings: Dict[str, any], subtasks: List[Dict]) -> str:
+    """将子任务结构化发现格式化为文本，支持 (sub_q, evidence, candidates) 结构。"""
     if not subtask_findings:
         return ""
     lines = ["## 子任务调查结果"]
@@ -73,7 +73,30 @@ def _format_subtask_findings(subtask_findings: Dict[str, str], subtasks: List[Di
         st = st_map.get(st_id, {})
         title = st.get("title", st_id)
         lines.append(f"\n### [{st_id}] {title}")
-        lines.append(findings)
+        if isinstance(findings, dict):
+            # 结构化输出：(sub_q, evidence, candidates)
+            sub_q = findings.get("sub_query", "")
+            candidates = findings.get("candidates", [])
+            evidence = findings.get("evidence", [])
+            confidence = findings.get("confidence", 0)
+            sources = findings.get("sources", [])
+            lines.append(f"**核心问题**: {sub_q}")
+            if len(candidates) > 1:
+                lines.append(f"**最佳答案**: {candidates[0]} (置信度: {confidence})")
+                lines.append(f"**候选答案**: {', '.join(candidates)}")
+            elif candidates:
+                lines.append(f"**答案**: {candidates[0]} (置信度: {confidence})")
+            else:
+                lines.append(f"**答案**: (未找到) (置信度: {confidence})")
+            if evidence:
+                lines.append("**证据**:")
+                for e in evidence:
+                    lines.append(f"  - {e}")
+            if sources:
+                lines.append("**来源**: " + ", ".join(sources[:3]))
+        else:
+            # 兼容旧格式（纯字符串）
+            lines.append(str(findings))
     return "\n".join(lines)
 
 
@@ -111,7 +134,7 @@ def make_finalize_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
         )
 
         print(f"[finalize] prompt_len={len(prompt)} chars")
-        resp = await llm.ainvoke(prompt, max_tokens=2048)
+        resp = await llm.ainvoke(prompt)
         raw = str(resp.content)
         print(f"[finalize] raw_len={len(raw)}")
 

@@ -176,10 +176,9 @@ def make_parse_claims_node(llm) -> Callable[[DeepResearchState], DeepResearchSta
             print(f"[parse_claims] LLM parse failed: {e}")
             obj = {}
 
-        # ── 解析子任务 ──
+        # ── 解析子任务（不含 queries，查询在执行阶段生成） ──
         raw_subtasks = obj.get("subtasks", [])
         subtasks: List[Dict] = []
-        all_queries: List[str] = []
 
         for st in raw_subtasks:
             if not isinstance(st, dict):
@@ -187,32 +186,25 @@ def make_parse_claims_node(llm) -> Callable[[DeepResearchState], DeepResearchSta
             st_id = str(st.get("id", f"ST{len(subtasks)+1}")).strip()
             title = str(st.get("title", "")).strip()
             reason = str(st.get("reason", "")).strip()
-            queries = [str(q).strip() for q in st.get("queries", []) if str(q).strip()]
             depends_on = [str(d).strip() for d in st.get("depends_on", []) if str(d).strip()]
-
-            if not queries and title:
-                queries = [title]  # 兜底：用标题做查询
 
             subtasks.append({
                 "id": st_id,
                 "title": title,
                 "reason": reason,
-                "queries": queries,
+                "queries": [],  # 查询延迟到执行阶段生成
                 "depends_on": depends_on,
             })
-            all_queries.extend(queries)
 
         # 兜底：如果没解析出子任务，创建单一子任务
         if not subtasks:
-            fallback_queries = _fallback_queries(question)
             subtasks = [{
                 "id": "ST1",
                 "title": question[:80],
                 "reason": "直接搜索回答",
-                "queries": fallback_queries,
+                "queries": [],
                 "depends_on": [],
             }]
-            all_queries = fallback_queries
 
         # 计算并行组
         parallel_groups = _compute_parallel_groups(subtasks)
@@ -230,14 +222,13 @@ def make_parse_claims_node(llm) -> Callable[[DeepResearchState], DeepResearchSta
         print(f"[parse_claims] subtasks={len(subtasks)}, parallel_groups={parallel_groups}")
         for st in subtasks:
             deps = st['depends_on']
-            print(f"  [{st['id']}] {st['title']}  (queries={len(st['queries'])}, deps={deps})")
-            for q in st['queries']:
-                print(f"       -> {q}")
+            print(f"  [{st['id']}] {st['title']}  (deps={deps})")
+            print(f"       reason: {st['reason']}")
 
         progress_msg = AIMessage(
             content=f"[plan] 拆解为 {len(subtasks)} 个子任务，"
-                    f"并行组 {len(parallel_groups)} 层，"
-                    f"总计 {len(all_queries)} 条初始查询。"
+                    f"并行组 {len(parallel_groups)} 层。"
+                    f"查询将在执行阶段根据上下文动态生成。"
         )
 
         return {
@@ -246,8 +237,8 @@ def make_parse_claims_node(llm) -> Callable[[DeepResearchState], DeepResearchSta
             "subtasks": subtasks,
             "parallel_groups": parallel_groups,
             "subtask_findings": {},
-            "queries": all_queries,
-            "query_history": all_queries[:],
+            "queries": [],
+            "query_history": [],
             "research_gaps": [],
             "needs_followup": True,
             "iteration": int(state.get("iteration", 0)),

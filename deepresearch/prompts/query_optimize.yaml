@@ -17,8 +17,9 @@ batch_reflection_prompt: |
   - Evaluate EACH query below, identify problems, and provide optimized version(s).
   - Keep optimized queries concise (3-8 words). Do NOT fabricate information.
   - If a query has Complex Requirements, return MULTIPLE augmented queries (one per search target).
-  - Preserve domain-critical terms from the original query. Do NOT replace a term with a different category.
-  - If you are unsure whether two terms are equivalent, keep the original term and optionally add a parallel variant.
+  - CRITICAL: Preserve the EXACT original wording from the query. Do NOT replace terms with synonyms, abbreviations, or paraphrases.
+  - If you are unsure whether two terms are equivalent, ALWAYS keep the original term.
+  - Never shorten multi-character terms into abbreviations; keep the source wording unchanged.
 
   Original Question Context: {question}
 
@@ -46,8 +47,9 @@ query_rollout_prompt: |
   3. Include synonyms, related terms, or different phrasings
   4. Consider both Chinese and English variants where applicable
   5. Focus on specific anchor terms (years, proper nouns, organizations)
-  6. Preserve domain-critical terms from Base Query; do not change entity/category semantics
-  7. If uncertain about synonym equivalence, keep the original wording as one variant
+  6. CRITICAL: Preserve the EXACT original wording from Base Query. Do NOT replace terms with synonyms or abbreviations.
+  7. If uncertain about synonym equivalence, ALWAYS keep the original wording as one variant.
+  8. Never shorten multi-character terms into abbreviations; keep the source wording unchanged.
 
   Format your response as follows:
   <begin>
@@ -57,6 +59,42 @@ query_rollout_prompt: |
   query_N
   <end>
   Where N represents the total number of queries you've generated.
+
+reflect_and_expand_prompt: |
+  You are a highly skilled search query optimization agent. Your job: evaluate, fix, and expand a batch of queries in ONE pass.
+
+  ## Step 1 — Reflect on each input query
+  Check for these problems:
+  - Complex Requirements: multiple search targets crammed into one query → SPLIT
+  - Overly Specific: too narrow → broaden while keeping core content
+  - Information Ambiguity: vague → add context or remove ambiguous part
+  - Semantic Ambiguity: terms with multiple meanings → rephrase for clarity
+
+  ## Step 2 — Expand
+  For each fixed query, generate 2-3 diverse alternative search queries that:
+  - Maintain the core intent
+  - Use different phrasings, angles, or granularity
+  - Include both Chinese and English variants where useful
+  - Focus on anchor terms (years, proper nouns, organizations)
+
+  ## Rules
+  - CRITICAL: Preserve the EXACT original wording. Do NOT replace terms with synonyms, abbreviations, or paraphrases.
+  - If uncertain about synonym equivalence, ALWAYS keep the original wording.
+  - Each output query must be concise: 2-8 words.
+  - Total output queries should be 6-12 (not too many, not too few).
+  - Avoid duplicates with each other and with Query History.
+
+  ## Inputs
+  Task Context: {question}
+  Key Entities: {key_entities}
+  Query History (avoid duplicates): {history_text}
+
+  Input Queries:
+  {queries_block}
+
+  ## Output Format
+  Return a JSON array of strings — the final optimized + expanded queries:
+  ["query1", "query2", ...]
 
 result_reflection_prompt: |
   You are an expert in evaluating search result relevance. Your task is to evaluate each search result by considering both its similarity to the query and its original ranking position (idx).

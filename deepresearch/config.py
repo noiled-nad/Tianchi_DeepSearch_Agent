@@ -127,7 +127,7 @@ def create_flash_llm():
     from langchain_openai import ChatOpenAI
 
     return ChatOpenAI(
-        model=_getenv("FLASH_MODEL", default="qwen3.5-flash"),
+        model=_getenv("FLASH_MODEL", default="qwen-flash"),
         api_key=_getenv("DASHSCOPE_API_KEY", required=True),
         base_url=_getenv(
             "DEEPRESEARCH_BASE_URL",

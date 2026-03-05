@@ -1,12 +1,10 @@
 """deepresearch/nodes/query_optimize.py
 
-两阶段流水线：
-1) Query Reflection  — 逐条识别查询的 4 类问题并重写
-   - 信息歧义（Information Ambiguity）
-   - 语义歧义（Semantic Ambiguity）
-   - 复杂需求（Complex Requirements）
-   - 过度具体（Overly Specific）
-2) Query Rollout/Expansion — 基于重写结果扩展出多样化变体
+查询优化流水线：
+- reflect_and_expand: 一次 LLM 调用同时完成查询反思（识别问题并修正）+ 扩展（生成多样化变体）
+- result_reflection: 对搜索结果做相关性评分
+
+旧接口 _reflect_batch / _rollout_query 保留用于兼容，但主流程已切换为合并版本。
 """
 
 from __future__ import annotations
@@ -88,6 +86,7 @@ def _parse_rollout_queries(text: str, n_rollout: int) -> List[str]:
 BATCH_REFLECTION_PROMPT = load_prompt("query_optimize.yaml", "batch_reflection_prompt")
 QUERY_ROLLOUT_PROMPT = load_prompt("query_optimize.yaml", "query_rollout_prompt")
 RESULT_REFLECTION_PROMPT = load_prompt("query_optimize.yaml", "result_reflection_prompt")
+REFLECT_AND_EXPAND_PROMPT = load_prompt("query_optimize.yaml", "reflect_and_expand_prompt")
 
 
 # ───────── 核心函数 ─────────
@@ -143,6 +142,57 @@ async def _reflect_batch(llm, question: str, queries: List[str]) -> List[Tuple[s
     except Exception as e:
         print(f"[query_reflect_batch] failed: {e}")
         return [("", q) for q in queries]
+
+
+async def _reflect_and_expand(
+    llm,
+    question: str,
+    queries: List[str],
+    key_entities: List[str],
+    query_history: List[str],
+) -> List[str]:
+    """
+    一次 LLM 调用同时完成 反思(reflect) + 扩展(expand)，替代原来的
+    _reflect_batch + N×_rollout_query 的多次调用。
+
+    Returns:
+        去重后的优化 + 扩展查询列表（6-12 条）。
+    """
+    if not queries:
+        return []
+
+    queries_block = "\n".join(f"{i+1}. {q}" for i, q in enumerate(queries))
+    entities_text = ", ".join(key_entities) if key_entities else "(none)"
+    history_text = "\n".join(f"- {q}" for q in query_history[-20:]) if query_history else "(none)"
+
+    prompt = REFLECT_AND_EXPAND_PROMPT.format(
+        question=question,
+        queries_block=queries_block,
+        key_entities=entities_text,
+        history_text=history_text,
+    )
+
+    try:
+        resp = await llm.ainvoke(prompt)
+        raw = str(resp.content)
+
+        # 解析 JSON 数组
+        arr_match = re.search(r"\[[\s\S]*?\]", raw)
+        if arr_match:
+            arr = json.loads(arr_match.group(0))
+            result = [str(x).strip() for x in arr if str(x).strip()]
+            if result:
+                return result
+
+        # fallback: 按行分割
+        lines = [ln.strip() for ln in raw.strip().split("\n") if ln.strip()]
+        lines = [re.sub(r"^[\d]+[:\.\)]\s*", "", ln).strip() for ln in lines]
+        lines = [ln for ln in lines if ln and len(ln) > 1]
+        return lines[:12] if lines else list(queries)
+
+    except Exception as e:
+        print(f"[reflect_and_expand] failed: {e}")
+        return list(queries)
 
 
 async def reflect_search_results(
@@ -233,10 +283,9 @@ async def _rollout_query(
 
 
 async def _run_reflect_rollout(state: DeepResearchState, llm, flash_llm=None) -> Dict[str, Any]:
-    """公共逻辑：批量 reflect + 并行 rollout。flash_llm 用于轻量推理，默认退回 llm。"""
-    import asyncio
+    """公共逻辑：一次 LLM 调用完成 reflect + expand。flash_llm 用于轻量推理，默认退回 llm。"""
 
-    _llm = flash_llm or llm          # reflect/rollout 都用 flash
+    _llm = flash_llm or llm
     raw_queries: List[str] = state.get("queries", []) or []
     question: str = state.get("question", "")
     brief = state.get("research_brief", {}) or {}
@@ -250,7 +299,6 @@ async def _run_reflect_rollout(state: DeepResearchState, llm, flash_llm=None) ->
             "messages": [AIMessage(content="[query_optimize] 无查询，跳过。")],
             "_meta": {
                 "raw_queries": 0,
-                "refined_queries": 0,
                 "expanded_queries": 0,
             },
         }
@@ -259,35 +307,12 @@ async def _run_reflect_rollout(state: DeepResearchState, llm, flash_llm=None) ->
     for i, q in enumerate(raw_queries, 1):
         print(f"[query_optimize] raw_{i}: {q}")
 
-    # Step 1: Batch Reflection（一次 LLM 调用）
-    reflect_results = await _reflect_batch(_llm, question, raw_queries)
-    refined_queries: List[str] = []
-    for (analysis, augmented), orig in zip(reflect_results, raw_queries):
-        if analysis:
-            print(f"[query_optimize] reflect: '{orig[:40]}' -> '{augmented[:40]}'")
-        else:
-            print(f"[query_optimize] reflect: '{orig[:40]}' -> (unchanged)")
-        refined_queries.append(augmented)
+    # 一次 LLM 调用：reflect + expand
+    expanded = await _reflect_and_expand(_llm, question, raw_queries, key_entities, query_history)
+    print(f"[query_optimize] reflect_and_expand returned {len(expanded)} queries")
 
-    # Step 2: Parallel Rollout（asyncio.gather 并发）
-    rollout_per_query = max(2, min(4, 10 // len(refined_queries))) if refined_queries else 2
-
-    async def _do_rollout(rq: str) -> List[str]:
-        variants = await _rollout_query(_llm, question, rq, key_entities, query_history, rollout_per_query)
-        print(f"[query_optimize] rollout '{rq[:30]}' -> {len(variants)} variants")
-        return variants
-
-    # 创建并发任务列表：每个refined query独立发起一次LLM rollout调用
-    rollout_tasks = [_do_rollout(rq) for rq in refined_queries]
-    # 使用asyncio.gather并发执行所有rollout任务，提高效率
-    rollout_results = await asyncio.gather(*rollout_tasks)
-
-    expanded_queries: List[str] = []
-    for variants in rollout_results:
-        expanded_queries.extend(variants)
-
-    # Step 3: Merge + dedup
-    all_candidates = refined_queries + expanded_queries
+    # Merge + dedup (保留原始查询兜底)
+    all_candidates = list(raw_queries) + expanded
     history_set = {q.strip().lower() for q in query_history}
     final_queries: List[str] = []
     seen: set = set()
@@ -304,14 +329,6 @@ async def _run_reflect_rollout(state: DeepResearchState, llm, flash_llm=None) ->
         seen.add(q_norm)
         final_queries.append(q_clean)
 
-    if len(final_queries) < 3:
-        for q in raw_queries:
-            q_clean = q.strip()
-            q_norm = q_clean.lower()
-            if q_norm not in seen and q_clean:
-                seen.add(q_norm)
-                final_queries.append(q_clean)
-
     final_queries = final_queries[:12]
 
     print(f"[query_optimize] final_queries={len(final_queries)}")
@@ -322,8 +339,7 @@ async def _run_reflect_rollout(state: DeepResearchState, llm, flash_llm=None) ->
         "queries": final_queries,
         "_meta": {
             "raw_queries": len(raw_queries),
-            "refined_queries": len(refined_queries),
-            "expanded_queries": len(expanded_queries),
+            "expanded_queries": len(expanded),
         },
     }
 
@@ -332,13 +348,14 @@ def make_query_optimize_node_reflect_rollout(llm, flash_llm=None) -> Callable[[D
     """版本1：仅 query reflect + rollout。flash_llm 用于轻量推理（默认 qwen3.5-flash）。"""
 
     async def query_optimize(state: DeepResearchState) -> DeepResearchState:
-        print("\n============ query_optimize(v1: reflect+rollout) 阶段 ============")
+        print("\n============ query_optimize(v1: reflect+expand) 阶段 ============")
         out = await _run_reflect_rollout(state, llm, flash_llm=flash_llm)
         meta = out.pop("_meta", {})
         msg = AIMessage(
             content=(
-                f"[query_optimize:v1] 反思优化 {meta.get('raw_queries', 0)}→{meta.get('refined_queries', 0)} 条，"
-                f"扩展至 {meta.get('expanded_queries', 0)} 条，去重后最终 {len(out.get('queries', []))} 条。"
+                f"[query_optimize:v1] 输入 {meta.get('raw_queries', 0)} 条，"
+                f"reflect+expand 生成 {meta.get('expanded_queries', 0)} 条，"
+                f"去重后最终 {len(out.get('queries', []))} 条。"
             )
         )
         out["messages"] = [msg]
@@ -366,8 +383,9 @@ def make_query_optimize_node_full(llm, flash_llm=None) -> Callable[[DeepResearch
 
         msg = AIMessage(
             content=(
-                f"[query_optimize:v2] 反思优化 {meta.get('raw_queries', 0)}→{meta.get('refined_queries', 0)} 条，"
-                f"扩展至 {meta.get('expanded_queries', 0)} 条，去重后最终 {len(out.get('queries', []))} 条，"
+                f"[query_optimize:v2] 输入 {meta.get('raw_queries', 0)} 条，"
+                f"reflect+expand 生成 {meta.get('expanded_queries', 0)} 条，"
+                f"去重后最终 {len(out.get('queries', []))} 条，"
                 f"result_reflection 处理 {len(reranked_by_query)} 个查询。"
             )
         )
