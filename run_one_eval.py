@@ -37,7 +37,7 @@ async def main():
     config = {"configurable": {"thread_id": f"test-{TEST['id']}"}}
 
     # 3) 跑图
-    result_state = await graph.ainvoke({"messages": msgs, "max_iterations": 6}, config=config)
+    result_state = await graph.ainvoke({"messages": msgs, "question": question, "max_iterations": 6}, config=config)
 
     # 4) 打印每一步产物
     print("\n====== [parse_claims 输出] subtasks ======")

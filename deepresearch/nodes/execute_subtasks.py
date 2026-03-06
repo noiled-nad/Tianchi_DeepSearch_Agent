@@ -669,6 +669,9 @@ def make_execute_subtasks_node(
         subtask_findings: Dict[str, Any] = dict(state.get("subtask_findings", {}) or {})
 
         # ── 获取子任务列表 ──
+        subtasks: List[Dict] = list(state.get("subtasks", []) or [])
+        parallel_groups: List[List[str]] = list(state.get("parallel_groups", []) or [])
+
         # ── 处理验证 agent 生成的 queries ──
         # 如果有来自验证 agent 的 queries，创建新的 gap 子任务
         validator_queries = state.get("queries", [])
@@ -686,9 +689,6 @@ def make_execute_subtasks_node(
                 })
                 parallel_groups.append([gap_id])
                 print(f"[execute_subtasks] 新增验证 gap 子任务: [{gap_id}] queries={len(validator_queries)}")
-
-        subtasks: List[Dict] = state.get("subtasks", []) or []
-        parallel_groups: List[List[str]] = state.get("parallel_groups", []) or []
 
         # 兜底：如果没有子任务但有 queries（followup 场景），构造单一子任务
         if not subtasks and state.get("queries"):

@@ -160,6 +160,12 @@ def make_finalize_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
         need_followup = model_need_followup and has_room and bool(next_queries)
 
         new_gaps = [str(x).strip() for x in obj.get("research_gaps", []) if str(x).strip()]
+
+        # 提取 reasoning_chain
+        reasoning_chain = obj.get("reasoning_chain", []) or []
+        if reasoning_chain:
+            print(f"[finalize] reasoning_chain: {len(reasoning_chain)} steps")
+
         progress = AIMessage(
             content=(
                 f"[finalize] 置信度={obj.get('confidence', 0)}，"
