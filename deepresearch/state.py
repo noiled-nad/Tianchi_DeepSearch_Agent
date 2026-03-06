@@ -39,6 +39,9 @@ class DeepResearchState(TypedDict, total=False):
     documents: List[Document]
     final_answer: str
 
+    # ── 推理链（与答案相关） ──
+    reasoning_chain: List[Dict[str, Any]]
+
     # ── 验证结果 ──
     validation_result: str
     validation_passed: bool

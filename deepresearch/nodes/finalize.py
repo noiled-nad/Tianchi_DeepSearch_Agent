@@ -169,6 +169,7 @@ def make_finalize_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
 
         result = {
             "final_answer": answer_text,
+            "reasoning_chain": reasoning_chain,
             "needs_followup": need_followup,
             "research_gaps": new_gaps,
             "queries": next_queries if need_followup else [],

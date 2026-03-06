@@ -1,7 +1,44 @@
 finalize_prompt: |
   基于子任务调查结果和证据，输出 JSON（不要 markdown code fence）：
-  {{"reasoning":string,"final_answer":string,"confidence":number,"needs_followup":boolean,"research_gaps":[string],"followup_queries":[string]}}
-  规则：reasoning 简洁串联推理链；final_answer 直接可交付，用[S1]引用来源；证据不足时 needs_followup=true 给3~6条followup_queries。
+
+  ## 输出格式
+  {{
+    "reasoning": "整体推理过程（简洁）",
+    "final_answer": "最终答案",
+    "confidence": 0.0-1.0,
+    "needs_followup": true/false,
+    "research_gaps": ["缺口1", "缺口2"],
+    "followup_queries": ["查询1", "查询2"],
+    "reasoning_chain": [
+      {{
+        "step": 1,
+        "subtask_id": "ST1",
+        "conclusion": "这一步得出的结论",
+        "evidence": "支持结论的关键证据原文（含来源标注[D1]）",
+        "confidence": 0.0-1.0
+      }}
+    ]
+  }}
+
+  ## reasoning_chain 规则（极重要！）
+
+  1. **只包含与最终答案相关的子任务**：不相关的子任务不要放入推理链
+  2. **按推理顺序排列**：从锚点实体开始，逐步推导到最终答案
+  3. **每个步骤必须包含**：
+     - step: 步骤编号
+     - subtask_id: 子任务ID
+     - conclusion: 这一步得出的结论
+     - evidence: 支持结论的关键证据原文（必须包含来源标注如[D1]）
+     - confidence: 这一步的置信度
+  4. **证据要求**：
+     - 必须是原文引用，不能改写
+     - 必须标注来源（如[D1]、[D2]）
+     - 只保留最关键的1-2句证据
+
+  ## 其他规则
+  - reasoning 简洁串联推理链
+  - final_answer 直接可交付
+  - 证据不足时 needs_followup=true 给3~6条followup_queries
 
   问题：{question}
   已知缺口：{gaps_json}

@@ -4,13 +4,17 @@
 
 用于验证当前答案是否满足所有约束条件。
 如果验证通过，可以提前结束迭代；否则生成 followup_queries 指导下一轮搜索。
+
+核心改进：
+- 使用 reasoning_chain（只包含与答案相关的推理过程）
+- 逐步骤验证推理链的完整性和证据充分性
 """
 
 from __future__ import annotations
 
 import json
 import re
-from typing import Callable, Dict, List, Tuple
+from typing import Callable, Dict, List
 from enum import Enum
 
 from langchain_core.messages import AIMessage
@@ -26,7 +30,7 @@ class ValidationResult(Enum):
 
 
 VALIDATION_PROMPT = """
-你是答案验证专家。请验证当前答案是否满足问题的所有约束条件。
+你是答案验证专家。请基于推理链验证当前答案是否满足所有约束条件。
 
 ## 原始问题
 {question}
@@ -34,26 +38,27 @@ VALIDATION_PROMPT = """
 ## 约束条件
 {constraints_text}
 
-## 当前答案
+## 最终答案
 {final_answer}
 
-## 子任务调查结果
-{subtask_findings}
+## 推理链（只包含与答案相关的步骤）
+{reasoning_chain_text}
 
 ## 验证要求
 
-请逐一检查每个约束条件是否被满足：
+请逐一验证：
 
-1. **实体约束检查**：答案中的实体是否满足属性要求？
-2. **关系约束检查**：实体之间的关系是否满足条件？
-3. **答案约束检查**：最终答案是否满足所有 must_satisfy 约束？
-4. **格式检查**：答案格式是否符合要求？
+### 1. 推理链完整性检查
+- 推理链是否覆盖了所有关键约束？
+- 是否有缺失的推理步骤？
 
-## 评分标准
+### 2. 每步证据充分性检查
+- 每个步骤的 evidence 是否支持 conclusion？
+- 证据来源是否可靠（有 [Dx] 引用）？
 
-- **通过 (passed=true)**：所有 must_satisfy 约束都有明确证据支持
-- **需要更多信息 (passed=false, confidence >= 0.3)**：部分约束有证据，但不够完整
-- **失败 (passed=false, confidence < 0.3)**：关键约束无证据支持，或方向错误
+### 3. 最终答案验证
+- 最终答案是否与推理链结论一致？
+- 是否满足所有 must_satisfy 约束？
 
 ## 输出格式（严格 JSON，不要 markdown）
 
@@ -61,32 +66,35 @@ VALIDATION_PROMPT = """
   "passed": true/false,
   "confidence": 0.0-1.0,
   "reasoning": "验证推理过程（简洁）",
-  "constraint_check": [
-    {{"constraint": "约束内容", "satisfied": true/false, "evidence": "证据来源或'无'", "note": "备注"}}
+  "step_validation": [
+    {{
+      "step": 1,
+      "subtask_id": "ST1",
+      "conclusion_valid": true/false,
+      "evidence_sufficient": true/false,
+      "note": "备注"
+    }}
   ],
-  "missing_constraints": ["未满足的约束1", "未满足的约束2"],
+  "missing_constraints": ["未满足的约束1"],
+  "missing_evidence_for_steps": ["ST2 缺少证据", "ST4 证据不充分"],
   "followup_queries": [
-    "针对缺失约束1的搜索词",
-    "针对缺失约束2的搜索词"
+    "针对缺失约束的搜索词1",
+    "针对缺失约束的搜索词2"
   ],
   "should_continue": true/false
 }}
 
 ## followup_queries 生成规则（极重要！）
 
-当 passed=false 时，必须为每个未满足的约束生成 1-2 条精准搜索词：
+当 passed=false 时，必须为每个缺失项生成精准搜索词：
 
-1. **精准锚点**：用已确认的实体名/数字作为搜索锚点
-2. **关系词**：加上约束中涉及的关系词
+1. **精准锚点**：用已确认的实体名作为搜索锚点
+2. **关系词**：加上缺失的关系词
 3. **短小精悍**：每条 3-6 个词
-4. **避免泛化**：不要用"相关信息"、"详细资料"等泛化词
-
-通用格式：
-- 实体 + 关系词 + 目标属性
-- 已知实体A + 关系 + 待确认实体B
+4. **避免泛化**：不要用"相关信息"、"详细资料"等
 
 注意：
-- 只有当所有 must_satisfy 约束都有明确证据时，passed 才能为 true
+- 只有当推理链完整且每步证据充分时，passed 才能为 true
 - passed=false 时，followup_queries 必须有内容
 """
 
@@ -114,25 +122,24 @@ def _safe_json_obj(text: str) -> Dict:
         return {}
 
 
-def _format_subtask_findings(subtask_findings: Dict) -> str:
-    """格式化子任务发现"""
-    if not subtask_findings:
-        return "（无子任务结果）"
+def _format_reasoning_chain(reasoning_chain: List[Dict]) -> str:
+    """格式化推理链用于验证 prompt"""
+    if not reasoning_chain:
+        return "（无推理链）"
 
     lines = []
-    for st_id, findings in subtask_findings.items():
-        if isinstance(findings, dict):
-            candidates = findings.get("candidates", [])
-            evidence = findings.get("evidence", [])
-            confidence = findings.get("confidence", 0)
+    for step in reasoning_chain:
+        step_num = step.get("step", "?")
+        subtask_id = step.get("subtask_id", "?")
+        conclusion = step.get("conclusion", "")
+        evidence = step.get("evidence", "")
+        confidence = step.get("confidence", 0)
 
-            best_answer = candidates[0] if candidates else "(未找到)"
-            lines.append(f"[{st_id}] 答案: {best_answer} (置信度: {confidence})")
-            if evidence:
-                for e in evidence[:3]:
-                    lines.append(f"    - {e}")
-        else:
-            lines.append(f"[{st_id}] {str(findings)[:150]}")
+        lines.append(f"### 步骤 {step_num} [{subtask_id}]")
+        lines.append(f"**结论**: {conclusion}")
+        lines.append(f"**证据**: {evidence}")
+        lines.append(f"**置信度**: {confidence}")
+        lines.append("")
 
     return "\n".join(lines)
 
@@ -141,7 +148,7 @@ def make_answer_validator_node(llm) -> Callable[[DeepResearchState], DeepResearc
     """
     答案验证节点。
 
-    验证当前答案是否满足所有约束条件。
+    基于 reasoning_chain 验证答案是否满足所有约束条件。
     如果验证失败，输出 followup_queries 指导下一轮搜索。
     """
 
@@ -151,11 +158,12 @@ def make_answer_validator_node(llm) -> Callable[[DeepResearchState], DeepResearc
         question = state.get("question", "")
         constraints = state.get("constraints", {}) or {}
         final_answer = state.get("final_answer", "")
-        subtask_findings = state.get("subtask_findings", {}) or {}
+        reasoning_chain = state.get("reasoning_chain", []) or []
         iteration = int(state.get("iteration", 0))
         max_iterations = int(state.get("max_iterations", 50))
 
         print(f"[validator] iteration={iteration}/{max_iterations}")
+        print(f"[validator] reasoning_chain_steps={len(reasoning_chain)}")
 
         if not final_answer:
             print("[validator] 无答案，需要继续检索")
@@ -166,15 +174,15 @@ def make_answer_validator_node(llm) -> Callable[[DeepResearchState], DeepResearc
                 "queries": [],
             }
 
-        # 格式化约束
+        # 格式化约束和推理链
         constraints_text = format_constraints_for_validation(constraints)
-        findings_text = _format_subtask_findings(subtask_findings)
+        reasoning_chain_text = _format_reasoning_chain(reasoning_chain)
 
         prompt = VALIDATION_PROMPT.format(
             question=question,
             constraints_text=constraints_text,
             final_answer=final_answer,
-            subtask_findings=findings_text,
+            reasoning_chain_text=reasoning_chain_text,
         )
 
         print(f"[validator] prompt_len={len(prompt)}")
@@ -191,8 +199,9 @@ def make_answer_validator_node(llm) -> Callable[[DeepResearchState], DeepResearc
             reasoning = str(result.get("reasoning", "")).strip()
             should_continue = bool(result.get("should_continue", True))
             missing_constraints = result.get("missing_constraints", [])
+            missing_evidence_for_steps = result.get("missing_evidence_for_steps", [])
             followup_queries = result.get("followup_queries", [])
-            constraint_check = result.get("constraint_check", [])
+            step_validation = result.get("step_validation", [])
 
             # 打印验证结果
             print(f"[validator] passed={passed}, confidence={confidence:.2f}")
@@ -201,8 +210,11 @@ def make_answer_validator_node(llm) -> Callable[[DeepResearchState], DeepResearc
             if missing_constraints:
                 print(f"[validator] missing_constraints: {missing_constraints[:3]}")
 
-            if followup_queries:
-                print(f"[validator] followup_queries: {followup_queries[:3]}")
+            if missing_evidence_for_steps:
+                print(f"[validator] missing_evidence_for_steps: {missing_evidence_for_steps[:3]}")
+
+            if step_validation:
+                print(f"[validator] step_validation: {len(step_validation)} steps checked")
 
             # 决定验证结果
             if passed and confidence >= 0.7:
@@ -238,7 +250,7 @@ def make_answer_validator_node(llm) -> Callable[[DeepResearchState], DeepResearc
                 "validation_passed": passed,
                 "validation_confidence": confidence,
                 "validation_reasoning": reasoning,
-                "missing_evidence": missing_constraints,
+                "missing_evidence": missing_constraints + missing_evidence_for_steps,
                 "validation_suggestions": followup_queries,
                 "needs_followup": needs_followup,
                 "queries": queries,
