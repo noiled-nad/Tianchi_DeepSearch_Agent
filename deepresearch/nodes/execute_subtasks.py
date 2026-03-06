@@ -669,6 +669,24 @@ def make_execute_subtasks_node(
         subtask_findings: Dict[str, Any] = dict(state.get("subtask_findings", {}) or {})
 
         # ── 获取子任务列表 ──
+        # ── 处理验证 agent 生成的 queries ──
+        # 如果有来自验证 agent 的 queries，创建新的 gap 子任务
+        validator_queries = state.get("queries", [])
+        if validator_queries:
+            iteration = int(state.get("iteration", 0))
+            gap_id = f"validator_gap_{iteration}"
+            existing_ids = {st["id"] for st in subtasks}
+            if gap_id not in existing_ids:
+                subtasks.append({
+                    "id": gap_id,
+                    "title": f"验证补查: 缺失约束",
+                    "queries": validator_queries,
+                    "depends_on": [],
+                    "reason": "验证 agent 指出的缺失约束需要补充检索",
+                })
+                parallel_groups.append([gap_id])
+                print(f"[execute_subtasks] 新增验证 gap 子任务: [{gap_id}] queries={len(validator_queries)}")
+
         subtasks: List[Dict] = state.get("subtasks", []) or []
         parallel_groups: List[List[str]] = state.get("parallel_groups", []) or []
 
