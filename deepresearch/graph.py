@@ -160,7 +160,7 @@ def build_deepresearch_graph(llm, searcher, fetcher, flash_llm=None, max_iterati
     g.add_node("constraint_extract", make_constraint_extractor_node(_flash))
     g.add_node("parse_claims", make_parse_claims_node(llm))
     g.add_node("execute_subtasks", make_execute_subtasks_node(llm, flash_llm, searcher, fetcher))
-    g.add_node("finalize", make_finalize_node(llm))
+    g.add_node("finalize", make_finalize_node(_flash))
     g.add_node("answer_validator", make_answer_validator_node(_flash))
 
     # ── 定义边 ──
