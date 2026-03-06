@@ -153,13 +153,15 @@ def build_deepresearch_graph(llm, searcher, fetcher, flash_llm=None, max_iterati
     构建深度研究图。
     """
     g = StateGraph(DeepResearchState)
+    # 模型选择：约束提取和验证用 flash 模型
+    _flash = flash_llm or llm
 
     # ── 添加节点 ──
-    g.add_node("constraint_extract", make_constraint_extractor_node(llm))
+    g.add_node("constraint_extract", make_constraint_extractor_node(_flash))
     g.add_node("parse_claims", make_parse_claims_node(llm))
     g.add_node("execute_subtasks", make_execute_subtasks_node(llm, flash_llm, searcher, fetcher))
     g.add_node("finalize", make_finalize_node(llm))
-    g.add_node("answer_validator", make_answer_validator_node(llm))
+    g.add_node("answer_validator", make_answer_validator_node(_flash))
 
     # ── 定义边 ──
     g.add_edge(START, "constraint_extract")
