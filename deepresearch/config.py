@@ -121,7 +121,7 @@ def create_llm():
 
 def create_flash_llm():
     """
-    创建 qwen-flash 模型实例 —— 用于 query_optimize 等轻量推理节点。
+    创建 qwen3.5-flash 模型实例 —— 用于 query_optimize 等轻量推理节点。
     快、便宜、适合 reflect/rollout 这种不需要深度推理的场景。
     """
     from langchain_openai import ChatOpenAI

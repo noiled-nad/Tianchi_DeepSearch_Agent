@@ -26,16 +26,8 @@ class DeepResearchState(TypedDict, total=False):
     subtasks: List[Dict[str, Any]]
     # 按依赖层级分组：[["ST1","ST2"], ["ST3"]]，同组可并行
     parallel_groups: List[List[str]]
-    # 每个子任务的执行结果：{"ST1": SubtaskResult.to_dict(), ...}
-    subtask_findings: Dict[str, Any]  # SubtaskResult.to_dict()
-
-    # ── 反思机制（方向二） ──
-    # 每轮迭代的反思结果列表
-    reflections: List[Dict[str, Any]]
-
-    # ── Memory 体系（方向三） ──
-    # ResearchMemory.to_dict() - 结构化执行轨迹
-    memory: Dict[str, Any]
+    # 每个子任务的结构化发现：{"ST1": {sub_query, evidence, candidates, confidence, sources}, ...}
+    subtask_findings: Dict[str, Any]
 
     # 搜索内容（保留兼容）
     queries: List[str]
@@ -47,11 +39,6 @@ class DeepResearchState(TypedDict, total=False):
     documents: List[Document]
 
     final_answer: str
-    # 调度参数
-    difficulty: Literal["low", "mid", "high"]
-    batch_size: int
-    parallelism: int
-
     # 循环控制
     iteration: int
     max_iterations: int
