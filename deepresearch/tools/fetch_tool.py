@@ -10,11 +10,30 @@ import asyncio
 import os
 import re
 from typing import List, Optional
+from urllib.parse import urlparse
 
 import httpx
 from bs4 import BeautifulSoup
 
 from ..schemas import Document
+
+
+DEFAULT_BROWSER_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/123.0.0.0 Safari/537.36"
+    ),
+    "Accept": (
+        "text/html,application/xhtml+xml,application/xml;q=0.9,"
+        "image/avif,image/webp,*/*;q=0.8"
+    ),
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+    "DNT": "1",
+    "Upgrade-Insecure-Requests": "1",
+}
 
 
 def _clean_text(text: str) -> str:
@@ -78,6 +97,19 @@ def _extract_query_passages(
     return _clean_text(merged)
 
 
+def _build_headers(url: str, user_agent: Optional[str] = None) -> dict:
+    headers = dict(DEFAULT_BROWSER_HEADERS)
+    if user_agent:
+        headers["User-Agent"] = user_agent
+
+    parsed = urlparse(url)
+    if parsed.scheme and parsed.netloc:
+        origin = f"{parsed.scheme}://{parsed.netloc}"
+        headers["Referer"] = origin
+        headers["Origin"] = origin
+    return headers
+
+
 class SimpleFetcher:
     """
     简易网页抓取工具，支持 HTML 和 PDF。
@@ -90,6 +122,7 @@ class SimpleFetcher:
     def __init__(self, timeout_s: float = 20.0, max_chars: int = 12000):
         self.timeout_s = timeout_s
         self.max_chars = max_chars
+        self.max_retries = max(1, int(os.getenv("FETCH_RETRIES", "2")))
 
     async def fetch(self, url: str, query: Optional[str] = None) -> Document:
         """
@@ -108,9 +141,34 @@ class SimpleFetcher:
             httpx.HTTPStatusError: 如果 HTTP 请求返回 4xx/5xx 错误。
             httpx.RequestError: 如果网络请求发生错误（如超时、连接失败）。
         """
-        async with httpx.AsyncClient(timeout=self.timeout_s, follow_redirects=True) as client:
-            resp = await client.get(url, headers={"User-Agent": "deepresearch-bot/0.1"})
-            resp.raise_for_status()
+        timeout = httpx.Timeout(connect=min(10.0, self.timeout_s), read=self.timeout_s, write=self.timeout_s, pool=self.timeout_s)
+        headers = _build_headers(url)
+
+        last_exc: Optional[Exception] = None
+        resp = None
+        async with httpx.AsyncClient(timeout=timeout, follow_redirects=True, http2=True) as client:
+            for attempt in range(1, self.max_retries + 1):
+                try:
+                    resp = await client.get(url, headers=headers)
+                    resp.raise_for_status()
+                    break
+                except httpx.HTTPStatusError as exc:
+                    last_exc = exc
+                    if exc.response is not None and exc.response.status_code in {403, 429} and attempt < self.max_retries:
+                        await asyncio.sleep(0.8 * attempt)
+                        continue
+                    raise
+                except httpx.RequestError as exc:
+                    last_exc = exc
+                    if attempt < self.max_retries:
+                        await asyncio.sleep(0.8 * attempt)
+                        continue
+                    raise
+
+            if resp is None:
+                if last_exc is not None:
+                    raise last_exc
+                raise RuntimeError(f"fetch failed without response: {url}")
 
             content_type = (resp.headers.get("content-type") or "").lower()
 
@@ -212,7 +270,11 @@ class JinaReaderFetcher:
 
         reader_url = f"{self.base_url}{tail}"
         headers = {
-            "User-Agent": "deepresearch-jina-reader/0.1",
+            **_build_headers(url, user_agent=(
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/123.0.0.0 Safari/537.36"
+            )),
             "X-Engine": self.engine,
             "X-Return-Format": self.return_format,
             "X-Timeout": str(int(self.timeout_s)),
@@ -266,7 +328,7 @@ class HybridFetcher:
 
 def build_fetcher():
     """
-    工厂方法：默认使用 SimpleFetcher。
+    工厂方法：默认使用更稳的 HybridFetcher。
 
     切换到 Jina Reader：
     - FETCH_READER=jina  或
@@ -279,7 +341,7 @@ def build_fetcher():
     max_chars = int(os.getenv("FETCH_MAX_CHARS", "12000"))
 
     mode = os.getenv("FETCH_READER", "").strip().lower()
-    fetch_mode = os.getenv("FETCH_MODE", "simple").strip().lower()  # simple | jina | hybrid
+    fetch_mode = os.getenv("FETCH_MODE", "hybrid").strip().lower()  # simple | jina | hybrid
     use_jina = os.getenv("USE_JINA_READER", "0").strip().lower() in {"1", "true", "yes"}
 
     base_url = os.getenv("JINA_READER_BASE_URL", "https://r.jina.ai/http://").strip()
@@ -295,6 +357,9 @@ def build_fetcher():
             return_format=os.getenv("JINA_RETURN_FORMAT", "text").strip() or "text",
             token_budget=int(os.getenv("JINA_TOKEN_BUDGET", "50000")),
         )
+
+    if fetch_mode == "simple" or mode == "simple":
+        return SimpleFetcher(timeout_s=timeout_s, max_chars=max_chars)
 
     if fetch_mode == "hybrid":
         simple = SimpleFetcher(timeout_s=timeout_s, max_chars=max_chars)
@@ -318,7 +383,27 @@ def build_fetcher():
         )
         return HybridFetcher([simple, jina_direct, jina_browser])
 
-    return SimpleFetcher(timeout_s=timeout_s, max_chars=max_chars)
+    return HybridFetcher([
+        SimpleFetcher(timeout_s=timeout_s, max_chars=max_chars),
+        JinaReaderFetcher(
+            timeout_s=max(timeout_s, 20.0),
+            max_chars=max_chars,
+            base_url=base_url,
+            api_key=api_key,
+            engine="direct",
+            return_format="text",
+            token_budget=int(os.getenv("JINA_TOKEN_BUDGET", "50000")),
+        ),
+        JinaReaderFetcher(
+            timeout_s=max(timeout_s, 20.0),
+            max_chars=max_chars,
+            base_url=base_url,
+            api_key=api_key,
+            engine="browser",
+            return_format="text",
+            token_budget=int(os.getenv("JINA_BROWSER_TOKEN_BUDGET", "80000")),
+        ),
+    ])
 
 
 class _BytesIO:

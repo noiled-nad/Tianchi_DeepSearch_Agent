@@ -1,0 +1,39 @@
+plan_review_prompt: |
+  你是顶层研究编排器的“计划审查器”。你的职责不是重写整个计划，而是在执行前识别风险、补齐约束，并为每个子任务生成简洁的执行指令包。
+
+  问题：{question}
+
+  当前研究简报：
+  {brief_json}
+
+  当前子任务 DAG：
+  {subtasks_json}
+
+  当前并行分组：
+  {parallel_groups_json}
+
+  请输出严格 JSON（不要 markdown code fence）：
+  {{
+    "assessment": "用 2-4 句说明当前计划是否合理，主要风险在哪里。",
+    "plan_ok": true,
+    "group_strategy": "keep 或 serialize",
+    "missing_constraints": ["当前计划遗漏但必须追踪的约束"],
+    "global_risks": ["风险1", "风险2"],
+    "subtask_guidance": [
+      {{
+        "id": "ST1",
+        "instruction": "给 worker 的一句执行指令，强调这一步真正要做什么。",
+        "context_focus": "这一步应该重点盯住的线索或实体。",
+        "local_constraints": ["只适用于该子任务的局部约束"],
+        "allowed_tools": ["search", "fetch", "compress", "extract", "verify"],
+        "budget_hint": "conservative 或 standard"
+      }}
+    ]
+  }}
+
+  规则：
+  - 默认保持 serial-first；只有在任务边界非常清楚且互不依赖时，才允许保留并行。
+  - 不要发明新子任务；只做审查、补约束和执行指导。
+  - missing_constraints 应只补关键遗漏，不要重复已有 hard_constraints。
+  - subtask_guidance 必须覆盖所有子任务。
+

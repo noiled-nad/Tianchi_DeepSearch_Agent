@@ -1,3 +1,7 @@
+--index-url https://pypi.tuna.tsinghua.edu.cn/simple
+--extra-index-url https://pypi.mirrors.ustc.edu.cn/simple
+--extra-index-url https://mirrors.aliyun.com/pypi/simple/
+--extra-index-url https://pypi.douban.com/simple/
 a2a==0.44
 a2a-sdk==0.3.22
 ag-ui-protocol==0.1.10

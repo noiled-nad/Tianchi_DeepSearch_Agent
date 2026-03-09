@@ -20,6 +20,7 @@ class DeepResearchState(TypedDict, total=False):
 
     # 研究简报
     research_brief: Dict[str, Any]
+    plan_review: Dict[str, Any]
 
     # ── 子任务拆解（OAgents 风格） ──
     # 每个 subtask: {id, title, queries, depends_on, reason}
@@ -28,6 +29,14 @@ class DeepResearchState(TypedDict, total=False):
     parallel_groups: List[List[str]]
     # 每个子任务的结构化发现：{"ST1": {sub_query, evidence, candidates, confidence, sources}, ...}
     subtask_findings: Dict[str, Any]
+
+    # ── 执行记忆 ──
+    # ExecutionMemory 的序列化字典，跨迭代持久化
+    execution_memory: Dict[str, Any]
+    # 调度时为每个子任务构造的压缩上下文包
+    task_packets: Dict[str, Any]
+    # worker 返回的 artifact 摘要，供调试和后续决策使用
+    worker_artifacts: Dict[str, Any]
 
     # 搜索内容（保留兼容）
     queries: List[str]

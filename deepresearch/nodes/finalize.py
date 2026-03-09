@@ -17,9 +17,20 @@ from langchain_core.messages import AIMessage
 from ..prompt_loader import load_prompt
 from ..schemas import Document
 from ..state import DeepResearchState
+from ..memory import ExecutionMemory
 
 
 FINALIZE_PROMPT = load_prompt("finalize.yaml", "finalize_prompt")
+
+
+def _preview_block(text: str, max_chars: int = 1200) -> str:
+    """压缩调试输出，避免日志过长。"""
+    normalized = (text or "").strip()
+    if not normalized:
+        return "（空）"
+    if len(normalized) <= max_chars:
+        return normalized
+    return normalized[:max_chars] + "\n...[截断]"
 
 
 def _format_sources_full(docs: List[Document], max_chars_each: int = 1200) -> str:
@@ -117,6 +128,17 @@ def make_finalize_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
 
         # 构建证据：子任务发现 + 原始文档
         findings_text = _format_subtask_findings(subtask_findings, subtasks)
+
+        # ── 执行记忆：推理链上下文 ──
+        memory_context = ""
+        raw_mem = state.get("execution_memory") or {}
+        if raw_mem:
+            memory = ExecutionMemory.from_dict(raw_mem)
+            memory_context = memory.to_context_for_finalize()
+            if memory_context:
+                findings_text = memory_context + "\n\n" + findings_text
+                print(f"[finalize] 已注入执行记忆上下文 ({len(memory_context)} chars)")
+
         # 有 subtask_findings 时只附轻量索引，否则灌全文
         if subtask_findings:
             sources_text = _format_sources_index(docs)
@@ -124,6 +146,12 @@ def make_finalize_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
         else:
             sources_text = _format_sources_full(docs)
             sources_label = "原始证据包"
+
+        print(f"[finalize] findings_text_len={len(findings_text)}, sources_text_len={len(sources_text)}")
+        print(f"[finalize] findings_text_preview:\n{_preview_block(findings_text)}")
+        print(f"[finalize] {sources_label}_preview:\n{_preview_block(sources_text)}")
+        if gaps:
+            print(f"[finalize] known_gaps: {gaps}")
 
         prompt = FINALIZE_PROMPT.format(
             question=question,
@@ -167,7 +195,7 @@ def make_finalize_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
             )
         )
 
-        result = {
+        return {
             "final_answer": answer_text,
             "needs_followup": need_followup,
             "research_gaps": new_gaps,
@@ -175,60 +203,5 @@ def make_finalize_node(llm) -> Callable[[DeepResearchState], DeepResearchState]:
             "iteration": iteration + 1,
             "messages": [progress, AIMessage(content=answer_text)],
         }
-
-        # ── followup 策略：保留原子任务 + 为 gaps 新增定向子任务 ──
-        if need_followup:
-            # 复用原 subtask 结构
-            updated_subtasks = list(subtasks) if subtasks else []
-            updated_findings = dict(subtask_findings)
-            existing_ids = {st["id"] for st in updated_subtasks}
-
-            # 分析 LLM 指出的 research_gaps，生成针对性 gap 子任务
-            for gi, gap in enumerate(new_gaps):
-                gap_id = f"gap_{iteration}_{gi}"
-                if gap_id not in existing_ids:
-                    # 为每个 gap 分配相关的 followup_queries（均匀分配）
-                    q_per_gap = max(1, len(next_queries) // max(1, len(new_gaps)))
-                    start_idx = gi * q_per_gap
-                    gap_queries = next_queries[start_idx:start_idx + q_per_gap]
-                    if not gap_queries:
-                        gap_queries = next_queries[:2] if next_queries else []
-
-                    updated_subtasks.append({
-                        "id": gap_id,
-                        "title": f"补查: {gap[:60]}",
-                        "reason": gap,
-                        "queries": gap_queries,
-                        "depends_on": [],  # gap 子任务可独立执行
-                    })
-                    existing_ids.add(gap_id)
-                    print(f"[finalize] 新增 gap 子任务: [{gap_id}] {gap[:60]}")
-
-            # 如果没有 gaps 但有 followup_queries，创建一个通用补查子任务
-            if not new_gaps and next_queries:
-                fallback_id = f"followup_{iteration}"
-                if fallback_id not in existing_ids:
-                    updated_subtasks.append({
-                        "id": fallback_id,
-                        "title": "Follow-up 补充检索",
-                        "reason": "finalize 认为需要补充检索",
-                        "queries": next_queries,
-                        "depends_on": [],
-                    })
-                    print(f"[finalize] 新增 fallback 子任务: [{fallback_id}]")
-
-            # 重算 parallel_groups：已完成的子任务会被 execute_subtasks 自动跳过
-            from .parse_claims import _compute_parallel_groups
-            new_groups = _compute_parallel_groups(updated_subtasks)
-
-            result["subtasks"] = updated_subtasks
-            result["parallel_groups"] = new_groups
-            result["subtask_findings"] = updated_findings
-
-            print(f"[finalize] followup: total_subtasks={len(updated_subtasks)}, "
-                  f"completed={len(updated_findings)}, "
-                  f"new_gaps={len(new_gaps)}, groups={len(new_groups)}")
-
-        return result
 
     return finalize

@@ -53,7 +53,11 @@ async def main():
 
     print("\n====== [subtask_findings 输出] ======")
     for st_id, findings in (result_state.get("subtask_findings", {}) or {}).items():
-        print(f"  [{st_id}] {findings[:200]}")
+        if isinstance(findings, dict):
+            preview = json.dumps(findings, ensure_ascii=False)[:400]
+        else:
+            preview = str(findings)[:400]
+        print(f"  [{st_id}] {preview}")
 
     print("\n====== [retrieve 输出] documents URLs ======")
     docs = result_state.get("documents", [])

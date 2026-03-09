@@ -194,6 +194,7 @@ def make_parse_claims_node(llm) -> Callable[[DeepResearchState], DeepResearchSta
                 "reason": reason,
                 "queries": [],  # 查询延迟到执行阶段生成
                 "depends_on": depends_on,
+                "guess_answer": str(st.get("guess_answer", "")).strip(),
             })
 
         # 兜底：如果没解析出子任务，创建单一子任务
@@ -213,6 +214,7 @@ def make_parse_claims_node(llm) -> Callable[[DeepResearchState], DeepResearchSta
         brief = {
             "objective": str(obj.get("objective", "根据证据回答用户问题")).strip(),
             "answer_format": str(obj.get("answer_format", "简洁文本答案")).strip(),
+            "problem_type": str(obj.get("problem_type", "entity_chain")).strip(),
             "hard_constraints": [str(x).strip() for x in obj.get("hard_constraints", []) if str(x).strip()],
             "key_entities": [str(x).strip() for x in obj.get("key_entities", []) if str(x).strip()],
             "done_criteria": [str(x).strip() for x in obj.get("done_criteria", []) if str(x).strip()],
@@ -220,10 +222,15 @@ def make_parse_claims_node(llm) -> Callable[[DeepResearchState], DeepResearchSta
 
         # 打印规划结果
         print(f"[parse_claims] subtasks={len(subtasks)}, parallel_groups={parallel_groups}")
+        print(f"[parse_claims] problem_type={brief.get('problem_type', 'unknown')}, answer_format={brief.get('answer_format', '')}")
+        print(f"[parse_claims] hard_constraints={brief.get('hard_constraints', [])}")
         for st in subtasks:
             deps = st['depends_on']
+            guess = st.get('guess_answer', '')
             print(f"  [{st['id']}] {st['title']}  (deps={deps})")
             print(f"       reason: {st['reason']}")
+            if guess:
+                print(f"       🔮 guess: {guess}")
 
         progress_msg = AIMessage(
             content=f"[plan] 拆解为 {len(subtasks)} 个子任务，"
@@ -234,14 +241,20 @@ def make_parse_claims_node(llm) -> Callable[[DeepResearchState], DeepResearchSta
         return {
             "question": question,
             "research_brief": brief,
+            "plan_review": {},
             "subtasks": subtasks,
             "parallel_groups": parallel_groups,
             "subtask_findings": {},
+            "documents": [],
+            "execution_memory": {},
+            "task_packets": {},
+            "worker_artifacts": {},
             "queries": [],
             "query_history": [],
             "research_gaps": [],
+            "final_answer": "",
             "needs_followup": True,
-            "iteration": int(state.get("iteration", 0)),
+            "iteration": 0,
             "max_iterations": int(state.get("max_iterations", 4)),
             "messages": [progress_msg],
         }

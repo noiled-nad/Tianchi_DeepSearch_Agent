@@ -1,65 +1,3 @@
-batch_reflection_prompt: |
-  You are a highly skilled query evaluation and augmentation agent.
-
-  Problem Identification:
-  - Information Ambiguity: The query is ambiguous or lacks information.
-  - Semantic Ambiguity: Terms with multiple meanings, leading to misunderstandings.
-  - Complex Requirements: Multiple search targets crammed into one query (MUST split into separate queries).
-  - Overly Specific: Too narrow, potentially excluding relevant results.
-
-  Available Solution:
-  - Information Ambiguity: Query expansion or removing the ambiguous part.
-  - Semantic Ambiguity: Resolve ambiguity via context or rephrasing.
-  - Complex Requirements: SPLIT into multiple short single-target queries. One query = one entity/concept.
-  - Overly Specific: Use less specific query while retaining core content.
-
-  Objective:
-  - Evaluate EACH query below, identify problems, and provide optimized version(s).
-  - Keep optimized queries concise (3-8 words). Do NOT fabricate information.
-  - If a query has Complex Requirements, return MULTIPLE augmented queries (one per search target).
-  - CRITICAL: Preserve the EXACT original wording from the query. Do NOT replace terms with synonyms, abbreviations, or paraphrases.
-  - If you are unsure whether two terms are equivalent, ALWAYS keep the original term.
-  - Never shorten multi-character terms into abbreviations; keep the source wording unchanged.
-
-  Original Question Context: {question}
-
-  Queries to evaluate:
-  {queries_block}
-
-  Output Format — return a JSON array, one object per query, in the SAME order:
-  [
-    {{"original": "...", "analysis": "brief analysis", "augmented": "optimized query OR pipe-separated if split: query1|query2"}},
-    ...
-  ]
-  Note: Use | to separate multiple queries when splitting a complex query. Example: "product A features list|product B features list"
-
-query_rollout_prompt: |
-  Your task is to receive a search query, analyze the user's intent, break down the search task, and generate N new search queries to improve search quality.
-
-  Original Question: {question}
-  Key Entities: {key_entities}
-  Base Query: {query}
-  Query History (avoid duplicates): {history_text}
-
-  Generate {roll_out} alternative versions of this query. Each query should:
-  1. Be distinct and maintain the core intent of the original
-  2. Broaden its scope for more comprehensive search results
-  3. Include synonyms, related terms, or different phrasings
-  4. Consider both Chinese and English variants where applicable
-  5. Focus on specific anchor terms (years, proper nouns, organizations)
-  6. CRITICAL: Preserve the EXACT original wording from Base Query. Do NOT replace terms with synonyms or abbreviations.
-  7. If uncertain about synonym equivalence, ALWAYS keep the original wording as one variant.
-  8. Never shorten multi-character terms into abbreviations; keep the source wording unchanged.
-
-  Format your response as follows:
-  <begin>
-  query_1
-  query_2
-  ...
-  query_N
-  <end>
-  Where N represents the total number of queries you've generated.
-
 reflect_and_expand_prompt: |
   You are a highly skilled search query optimization agent. Your job: evaluate, fix, and expand a batch of queries in ONE pass.
 
@@ -74,8 +12,15 @@ reflect_and_expand_prompt: |
   For each fixed query, generate 2-3 diverse alternative search queries that:
   - Maintain the core intent
   - Use different phrasings, angles, or granularity
-  - Include both Chinese and English variants where useful
+  - Use the language that best matches the search target's native information environment
   - Focus on anchor terms (years, proper nouns, organizations)
+
+  ## Language Preference Strategy
+  - First infer whether the search target is primarily Chinese-context or foreign-context.
+  - If the target is Chinese (person, organization, place, work, event), output mostly Chinese queries; add only a small number of English variants if they may help recall.
+  - If the target is foreign, output mostly English queries; add only a small number of Chinese variants if they may help recall.
+  - Do NOT mechanically mirror every query in both languages.
+  - Choose the dominant language based on where higher-quality sources are most likely to exist.
 
   ## Rules
   - CRITICAL: Preserve the EXACT original wording. Do NOT replace terms with synonyms, abbreviations, or paraphrases.

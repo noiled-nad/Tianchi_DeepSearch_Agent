@@ -1,7 +1,14 @@
 finalize_prompt: |
   基于子任务调查结果和证据，输出 JSON（不要 markdown code fence）：
   {{"reasoning":string,"final_answer":string,"confidence":number,"needs_followup":boolean,"research_gaps":[string],"followup_queries":[string]}}
-  规则：reasoning 简洁串联推理链；final_answer 直接可交付，用[S1]引用来源；证据不足时 needs_followup=true 给3~6条followup_queries。
+  规则：
+  - reasoning 首先必须进行批判性自我反思：审视目前收集到的证据是否有效解答了原问题？思路是否偏离或陷入了提供错误信息的死胡同？如果现有结果矛盾、偏题或无解，说明之前的检索方向错误，必须在反思后提出破局的新思路。之后再串联有效推理或指出错误。
+  - final_answer 需要直接可交付，使用 [S1] 对来源进行引用。
+  - 如果现有证据不足以支撑可靠回答，或者发现当前方向错误需要重新找线索（needs_followup=true），请提供 1~5 条能实质解决问题的 followup_queries。
+  - 【极其重要】：followup_queries 必须符合搜索引擎语法（短小精悍，2~4个词）。**绝不包含多跳逻辑、绝不缝合多个实体、绝不使用疑问句或长自然语言句**。
+    ❌错例："实体A某属性 同名 实体B某类别 角色" （包含多实体与逻辑，搜不到任何东西）
+    ✅对例："实体A 属性列表" （缩减为单源原子查询）
+    ✅对例："实体B 最新角色" （通过独立查询拆分问题）
 
   问题：{question}
   已知缺口：{gaps_json}

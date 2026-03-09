@@ -46,7 +46,7 @@ def load_llm_config() -> LLMConfig:
         ),
         temperature=float(_getenv("DEEPRESEARCH_TEMPERATURE", default="0.2")),
         enable_thinking=_getenv("ENABLE_THINKING", default="false").lower() in ("true", "1", "yes"),
-        max_tokens=int(_getenv("MAX_TOKENS", default="2000")),
+        # max_tokens=int(_getenv("MAX_TOKENS", default="2000")),
     )
 
 
@@ -133,8 +133,12 @@ def create_flash_llm():
             "DEEPRESEARCH_BASE_URL",
             default="https://dashscope.aliyuncs.com/compatible-mode/v1",
         ),
-        temperature=float(_getenv("FLASH_TEMPERATURE", default="0.3")),
+        # extra_body={"enable_thinking": True},
+        temperature=float(_getenv("FLASH_TEMPERATURE", default="0.2")),
     )
+
+
+
 
 
 def enable_langsmith_tracing_from_env() -> None:

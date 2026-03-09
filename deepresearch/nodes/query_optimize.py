@@ -32,19 +32,6 @@ except ImportError:
 
 # ───────── 工具函数 ─────────
 
-def _safe_json_obj(text: str) -> Dict:
-    """从 LLM 输出中提取 JSON 对象。"""
-    t = text.strip()
-    if t.startswith("{") and t.endswith("}"):
-        try:
-            return json.loads(t)
-        except json.JSONDecodeError:
-            pass
-    m = re.search(r"\{[\s\S]*?\}", text)
-    if not m:
-        raise ValueError("no json object found")
-    return json.loads(m.group(0))
-
 
 def _parse_rollout_queries(text: str, n_rollout: int) -> List[str]:
     """
@@ -82,9 +69,6 @@ def _parse_rollout_queries(text: str, n_rollout: int) -> List[str]:
 
 
 # ───────── Prompt 模板（参考 OAgents search_prompts.yaml） ─────────
-
-BATCH_REFLECTION_PROMPT = load_prompt("query_optimize.yaml", "batch_reflection_prompt")
-QUERY_ROLLOUT_PROMPT = load_prompt("query_optimize.yaml", "query_rollout_prompt")
 RESULT_REFLECTION_PROMPT = load_prompt("query_optimize.yaml", "result_reflection_prompt")
 REFLECT_AND_EXPAND_PROMPT = load_prompt("query_optimize.yaml", "reflect_and_expand_prompt")
 
@@ -121,27 +105,6 @@ def _parse_batch_reflection(text: str, raw_queries: List[str]) -> List[Tuple[str
     # fallback：原样返回
     return [("", q) for q in raw_queries]
 
-
-async def _reflect_batch(llm, question: str, queries: List[str]) -> List[Tuple[str, str]]:
-    """
-    批量反思所有 queries（一次 LLM 调用搞定），返回 [(analysis, augmented_query), ...]。
-    注意：结果数量可能 >= 输入数量（因为 Complex Requirements 会拆分为多条）。
-    """
-    if not queries:
-        return []
-
-    queries_block = "\n".join(f"{i+1}. {q}" for i, q in enumerate(queries))
-    prompt = BATCH_REFLECTION_PROMPT.format(question=question, queries_block=queries_block)
-
-    try:
-        resp = await llm.ainvoke(prompt)
-        results = _parse_batch_reflection(str(resp.content), queries)
-        if not results:
-            return [("", q) for q in queries]
-        return results
-    except Exception as e:
-        print(f"[query_reflect_batch] failed: {e}")
-        return [("", q) for q in queries]
 
 
 async def _reflect_and_expand(
@@ -252,34 +215,6 @@ async def reflect_search_results(
     # 失败时返回原结果
     return results
 
-
-async def _rollout_query(
-    llm, question: str, query: str, key_entities: List[str], history: List[str], n_rollout: int
-) -> List[str]:
-    """
-    基于单条 query 扩展出多条变体（参考 OAgents SearchReflector.query_rollout）。
-    """
-    history_text = "\n".join(f"- {q}" for q in history[-20:]) if history else "(none)"
-    entities_text = ", ".join(key_entities) if key_entities else "(not specified)"
-
-    prompt = QUERY_ROLLOUT_PROMPT.format(
-        question=question,
-        query=query,
-        key_entities=entities_text,
-        history_text=history_text,
-        roll_out=n_rollout,
-    )
-
-    try:
-        resp = await llm.ainvoke(prompt)
-        queries = _parse_rollout_queries(str(resp.content), n_rollout)
-        # 始终把原始 query 加到末尾作为兜底
-        if query not in queries:
-            queries.append(query)
-        return queries
-    except Exception as e:
-        print(f"[query_rollout] failed: {e}")
-        return [query]
 
 
 async def _run_reflect_rollout(state: DeepResearchState, llm, flash_llm=None) -> Dict[str, Any]:
